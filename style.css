@@ -16,7 +16,7 @@ body {
     background-color: var(--bg);
     color: var(--text-main);
     font-family: 'Space Mono', monospace;
-    line-height: 2.2;
+    line-height: 2;
     font-size: 0.85rem;
     overflow-x: hidden;
 }
@@ -76,7 +76,7 @@ h1, h2, h3, h4, .nav-btn, .section-title, .mini-download-btn, .loading-text, .jo
     position: relative;
     z-index: 10;
     max-width: 800px;
-    margin: 140px auto 100px;
+    margin: 80px auto 20px;
     padding: 0 40px;
 }
 
@@ -88,48 +88,55 @@ h1, h2, h3, h4, .nav-btn, .section-title, .mini-download-btn, .loading-text, .jo
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* PROFILE ARCHITECTURE */
-#tab-profile header { text-align: center; display: flex; flex-direction: column; align-items: center; }
+/* COMPRESSED PROFILE ARCHITECTURE */
+#tab-profile header { 
+    text-align: center; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center;
+    height: calc(100vh - 100px);
+}
 
 .avatar-wrapper {
-    width: 130px; height: 130px;
+    width: 90px; height: 90px;
     border-radius: 50%;
     border: 1px solid #333;
-    padding: 5px;
-    margin-bottom: 25px;
+    padding: 4px;
+    margin-bottom: 15px;
 }
 .avatar { width: 100%; height: 100%; border-radius: 50%; filter: grayscale(100%); }
 
-.glitch-name { font-size: 3.2rem; margin-bottom: 20px; }
+.glitch-name { font-size: 2.5rem; margin-bottom: 10px; }
 
-.contact-info { margin-bottom: 20px; color: var(--text-muted); font-size: 0.75rem; }
-.contact-info p { margin-bottom: 5px; }
+.contact-info { margin-bottom: 10px; color: var(--text-muted); font-size: 0.7rem; }
+.contact-info p { margin-bottom: 2px; }
 
-.linkedin-link.prominent { display: block; width: 28px; height: 28px; color: var(--text-main); margin-bottom: 30px; transition: 0.3s; }
+.linkedin-link.prominent { display: block; width: 22px; height: 22px; color: var(--text-main); margin-bottom: 15px; transition: 0.3s; }
 .linkedin-link.prominent:hover { color: var(--accent-cyan); }
 
-.divider { border: none; border-top: 1px solid #222; width: 100%; max-width: 400px; margin: 30px auto; }
+.divider { border: none; border-top: 1px solid #222; width: 100%; max-width: 300px; margin: 15px auto; }
 
-.bio { color: var(--text-muted); max-width: 700px; margin-bottom: 60px; text-transform: uppercase; font-size: 0.8rem; line-height: 2.2; }
+.bio { color: var(--text-muted); max-width: 700px; margin-bottom: 25px; text-transform: uppercase; font-size: 0.75rem; line-height: 1.8; }
 
-.profile-summary-grid { display: flex; justify-content: space-between; width: 100%; margin-bottom: 40px; }
-.summary-card h4 { color: var(--accent-cyan); font-size: 0.75rem; margin-bottom: 15px; }
-.summary-card p { color: var(--text-muted); font-size: 0.7rem; margin-bottom: 5px; }
+.profile-summary-grid { display: flex; justify-content: space-between; width: 100%; margin-bottom: 20px; }
+.summary-card h4 { color: var(--accent-cyan); font-size: 0.7rem; margin-bottom: 10px; }
+.summary-card p { color: var(--text-muted); font-size: 0.65rem; margin-bottom: 3px; }
 
-.profile-download-box { margin-top: 40px; }
+.profile-download-box { margin-top: 15px; }
 .mini-download-btn {
     display: inline-block;
     border: 1px solid #333;
-    padding: 10px 24px;
+    padding: 8px 20px;
     color: var(--text-muted);
     text-decoration: none;
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     transition: 0.3s;
 }
 .mini-download-btn:hover { border-color: var(--accent-cyan); color: var(--text-main); }
 
 /* DATA TAB ARCHITECTURE */
-#tab-experience, #tab-skills, #tab-education { text-align: left; }
+#tab-experience, #tab-skills, #tab-education { text-align: left; padding-top: 40px; }
 
 .section-title { font-size: 1.5rem; border-bottom: 1px dashed #333; padding-bottom: 15px; margin-bottom: 50px; }
 
@@ -151,60 +158,24 @@ h1, h2, h3, h4, .nav-btn, .section-title, .mini-download-btn, .loading-text, .jo
 
 .system-log { position: fixed; bottom: 30px; left: 40px; font-size: 0.75rem; color: var(--accent-cyan); font-family: 'Doto', sans-serif; }
 
+/* MOBILE COMPATIBILITY */
 @media screen and (max-width: 768px) {
-    .top-nav {
-        padding: 15px 0;
-    }
-
-    .nav-container {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 8px;
-        padding: 0 10px;
-    }
-
-    .nav-btn {
-        padding: 8px 12px;
-        font-size: 0.65rem;
-    }
-
-    .container {
-        margin-top: 130px;
-        padding: 0 20px;
-    }
-
-    .avatar-wrapper {
-        width: 100px;
-        height: 100px;
-        margin-bottom: 20px;
-    }
-
-    .glitch-name {
-        font-size: 2.2rem;
-    }
-
-    .bio {
-        font-size: 0.75rem;
-    }
-
-    .profile-summary-grid {
-        flex-direction: column;
-        align-items: center;
-        gap: 30px;
-    }
-
-    .summary-card {
-        width: 100%;
-        text-align: center;
-    }
-
-    .job-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 5px;
-    }
-
-    .system-log {
-        display: none;
-    }
+    .top-nav { padding: 15px 0; position: absolute; }
+    .nav-container { flex-wrap: wrap; justify-content: center; gap: 8px; padding: 0 10px; }
+    .nav-btn { padding: 8px 12px; font-size: 0.65rem; }
+    
+    .container { margin-top: 100px; padding: 0 20px; }
+    
+    #tab-profile header { height: auto; min-height: calc(100vh - 100px); padding-bottom: 40px; }
+    
+    .avatar-wrapper { width: 80px; height: 80px; margin-bottom: 15px; }
+    .glitch-name { font-size: 1.8rem; }
+    .bio { font-size: 0.7rem; }
+    
+    .profile-summary-grid { flex-direction: column; align-items: center; gap: 20px; }
+    .summary-card { width: 100%; text-align: center; }
+    
+    .job-header { flex-direction: column; align-items: flex-start; gap: 5px; }
+    
+    .system-log { display: none; }
 }
