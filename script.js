@@ -44,6 +44,8 @@ window.addEventListener('mousemove', (e) => {
     drawGrid();
 });
 
+window.addEventListener('resize', initGrid);
+
 function drawGrid() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     const spacing = 40;
@@ -68,7 +70,10 @@ function drawGrid() {
 function switchTab(tabId) {
     document.querySelectorAll('.content-tab').forEach(tab => tab.classList.remove('active'));
     document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+    
     document.getElementById('tab-' + tabId).classList.add('active');
-    document.getElementById('nav-' + tabId).classList.add('active');
+    const activeBtn = document.getElementById('nav-' + tabId);
+    if (activeBtn) activeBtn.classList.add('active');
+    
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }

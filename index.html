@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Suvam Mondal | AI Agents and Data Analysis</title>
+    <title>Suvam Mondal | Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Doto:wght@100..900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -17,16 +17,14 @@
     </div>
 
     <canvas id="gridCanvas"></canvas>
-    
-    <nav class="top-nav">
-        <div class="nav-container">
-            <button onclick="switchTab('profile')" id="nav-profile" class="nav-btn active">PROFILE</button>
-            <button onclick="switchTab('experience')" id="nav-experience" class="nav-btn">EXPERIENCE</button>
-            <button onclick="switchTab('skills')" id="nav-skills" class="nav-btn">SKILLS</button>
-            <button onclick="switchTab('education')" id="nav-education" class="nav-btn">EDUCATION</button>
-        </div>
-    </nav>
 
+    <nav class="right-nav">
+        <button onclick="switchTab('profile')" id="nav-profile" class="nav-btn active">PROFILE</button>
+        <button onclick="switchTab('experience')" id="nav-experience" class="nav-btn">EXPERIENCE</button>
+        <button onclick="switchTab('skills')" id="nav-skills" class="nav-btn">SKILLS</button>
+        <button onclick="switchTab('education')" id="nav-education" class="nav-btn">EDUCATION</button>
+    </nav>
+    
     <main class="container">
         <section id="tab-profile" class="content-tab active">
             <header class="hero-section">
@@ -38,7 +36,6 @@
                 <div class="contact-info">
                     <p>mondal.suvam3@gmail.com</p>
                     <p>+91-8759429327</p>
-                    <p>KR Puram, Bengaluru</p>
                 </div>
 
                 <a href="https://www.linkedin.com/in/suvam-mondal/" target="_blank" class="linkedin-link prominent">
@@ -50,25 +47,6 @@
                 <p class="bio">
                     I OPERATE AT THE INTERSECTION OF BUSINESS INTELLIGENCE AND PROCESS OPTIMIZATION. OUTSIDE OF BUILDING SCALABLE MARKET ACCESS DATABASES, I'M LIKELY EXECUTING ROOT CAUSE ANALYSIS OR STREAMLINING WORKFLOWS. FOCUSED ON EFFICIENT DATA PIPELINES AND DETERMINISTIC GROWTH.
                 </p>
-                
-                <div class="profile-summary-grid">
-                    <div class="summary-card" onclick="switchTab('experience')">
-                        <h4>/ EXPERIENCE</h4>
-                        <p>Clarivate Analytics</p>
-                        <p>Goldman Sachs</p>
-                        <p>Capgemini</p>
-                    </div>
-                    <div class="summary-card" onclick="switchTab('skills')">
-                        <h4>/ SKILLS</h4>
-                        <p>SQL, Python, Power BI</p>
-                        <p>Data Governance</p>
-                    </div>
-                    <div class="summary-card" onclick="switchTab('education')">
-                        <h4>/ EDUCATION</h4>
-                        <p>PG Data Science</p>
-                        <p>B.Tech (ECE)</p>
-                    </div>
-                </div>
 
                 <div class="profile-download-box">
                     <a href="Suvam_resume.pdf" download="Suvam_Mondal_Resume.pdf" class="mini-download-btn">DOWNLOAD_RESUME</a>
@@ -77,89 +55,78 @@
         </section>
 
         <section id="tab-experience" class="content-tab">
-    <h3 class="section-title">WORK_HISTORY</h3>
-    
-    <div class="job">
-        <div class="job-header">
-            <span class="job-company">Clarivate Analytics (USA Healthcare)</span>
-            <span class="job-date">Aug 22 - Oct '24</span>
-        </div>
-        <p class="job-role">Data Analyst | Bengaluru</p>
-        <ul class="job-details">
-            <li>Engineered end-to-end process automations and built 5+ scalable Market Access databases using SQL and Python.</li>
-            <li>Integrated MMIT, IQVIA, LAAD and SHA datasets designing 5+ Python workflows.</li>
-            <li>Collaborated with 8+ client stakeholders to define analytical goals.</li>
-        </ul>
-    </div>
-
-    <div class="job">
-        <div class="job-header">
-            <span class="job-company">Collabera (Goldman Sachs)</span>
-            <span class="job-date">Jul '20 - Jul '21</span>
-        </div>
-        <p class="job-role">Senior IT Engineer | Bengaluru</p>
-        <ul class="job-details">
-            <li>Enhanced reporting accuracy and readability using Power BI.</li>
-            <li>Conducted root cause analyses resolving 17+ complex data issues.</li>
-            <li>Monitored team performance metrics improving operational efficiency by 32%.</li>
-        </ul>
-    </div>
-
-    <div class="job">
-        <div class="job-header">
-            <span class="job-company">Capgemini</span>
-            <span class="job-date">Aug '17 - Dec '19</span>
-        </div>
-        <p class="job-role">Senior Analyst | Kolkata</p>
-        <ul class="job-details">
-            <li>Led a 28-member Service Desk Team managing performance and SLA-driven delivery.</li>
-            <li>Executed SQL-based assessments to identify service bottlenecks and optimize workflows.</li>
-            <li>Represented the team onsite in Gothenburg, Sweden, managing transition activities.</li>
-        </ul>
-    </div>
-</section>
+            <h3 class="section-title">WORK_HISTORY</h3>
+            <div class="job glass-panel">
+                <div class="job-header">
+                    <span class="job-company">Clarivate Analytics (USA Healthcare)</span>
+                    <span class="job-date">Aug 22 - Oct '24</span>
+                </div>
+                <p class="job-role">Data Analyst | Bengaluru</p>
+                <ul class="job-details">
+                    <li>Engineered end-to-end process automations and built 5+ scalable Market Access databases using SQL and Python.</li>
+                    <li>Integrated MMIT, IQVIA, LAAD and SHA datasets designing 5+ Python workflows.</li>
+                    <li>Collaborated with 8+ client stakeholders to define analytical goals.</li>
+                </ul>
+            </div>
+            <div class="job glass-panel">
+                <div class="job-header">
+                    <span class="job-company">Collabera (Goldman Sachs)</span>
+                    <span class="job-date">Jul '20 - Jul '21</span>
+                </div>
+                <p class="job-role">Senior IT Engineer | Bengaluru</p>
+                <ul class="job-details">
+                    <li>Enhanced reporting accuracy and readability using Power BI.</li>
+                    <li>Conducted root cause analyses resolving 17+ complex data issues.</li>
+                    <li>Monitored team performance metrics improving operational efficiency by 32%.</li>
+                </ul>
+            </div>
+            <div class="job glass-panel">
+                <div class="job-header">
+                    <span class="job-company">Capgemini</span>
+                    <span class="job-date">Aug '17 - Dec '19</span>
+                </div>
+                <p class="job-role">Senior Analyst | Kolkata</p>
+                <ul class="job-details">
+                    <li>Led a 28-member Service Desk Team managing performance and SLA-driven delivery.</li>
+                    <li>Executed SQL-based assessments to identify service bottlenecks and optimize workflows.</li>
+                    <li>Represented the team onsite in Gothenburg, Sweden, managing transition activities.</li>
+                </ul>
+            </div>
+        </section>
 
         <section id="tab-skills" class="content-tab">
             <h3 class="section-title">TECHNICAL_MATRIX</h3>
-            <div class="skills-list">
-                <span>Data Governance</span>
-                <span>Business Intelligence</span>
-                <span>Healthcare Analytics</span>
-                <span>Process Optimization</span>
-                <span>SQL & Python</span>
+            <div class="glass-panel">
+                <div class="skills-list">
+                    <span>Data Governance</span>
+                    <span>Business Intelligence</span>
+                    <span>Healthcare Analytics</span>
+                    <span>Process Optimization</span>
+                    <span>SQL & Python</span>
+                </div>
             </div>
             <h3 class="section-title" style="margin-top: 60px;">SOFT_SKILLS</h3>
-            <div class="skills-list">
-                <span>Collaborator</span>
-                <span>Problem-solving</span>
-                <span>Critical Thinking</span>
+            <div class="glass-panel">
+                <div class="skills-list">
+                    <span>Collaborator</span>
+                    <span>Problem-solving</span>
+                    <span>Critical Thinking</span>
+                </div>
             </div>
         </section>
 
         <section id="tab-education" class="content-tab">
-            <h3 class="section-title">ACADEMIC_HISTORY</h3>
-            <div class="edu-item">
-                <p class="edu-degree">// PG Programme in Data Science</p>
+            <h3 class="section-title">ACADEMIC_REGISTRY</h3>
+            <div class="edu-item glass-panel">
+                <p class="edu-degree">PG Programme in Data Science</p>
                 <p class="edu-school">Praxis Business School | 2021-2022</p>
             </div>
-            <br>
-            <div class="edu-item">
+            <div class="edu-item glass-panel">
                 <p class="edu-degree">B.Tech. (Electronics & Communication)</p>
                 <p class="edu-school">West Bengal University of Technology | 2013-2017</p>
             </div>
-            <hr class="divider" style="margin: 40px auto;">
-          <!--  <div class="personal-details">
-                <h3 class="section-title">USER_META</h3>
-                <p>DOB: 10.10.1994</p>
-                <p>Location: Bengaluru, India</p>
-            </div> -->
         </section>
     </main>
-
-    <footer class="system-log">
-        <span class="cursor-blink">></span>
-       <!-- <div id="log-text">SYSTEM_READY</div> -->
-    </footer>
 
     <script src="script.js"></script>
 </body>
