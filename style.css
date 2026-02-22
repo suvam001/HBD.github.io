@@ -113,4 +113,5 @@ body {
 .skills-list { display: flex; flex-wrap: wrap; gap: 12px; }
 .skills-list span { border: 1px solid #222; padding: 10px 18px; font-size: 0.8rem; color: #777; border-radius: 4px; background: rgba(255,255,255,0.01); }
 
-.linkedin-link
+.linkedin-link { display: block; width: 30px; height: 30px; color: #fff; margin-bottom: 40px; }
+.system-log { position: fixed; bottom: 30px; left: 40px; font-size: 0.8rem; color: var(--neon-cyan); }
