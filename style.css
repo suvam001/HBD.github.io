@@ -37,7 +37,7 @@ body {
     background: var(--glass-bg); backdrop-filter: blur(40px);
     border: 1px solid rgba(255, 255, 255, 0.1); color: #555;
     font-family: 'Doto', sans-serif; padding: 10px 24px; border-radius: 8px;
-    transition: 0.3s; font-size: 0.75rem; letter-spacing: 2px;
+    transition: 0.3s; font-size: 0.85rem; letter-spacing: 2px;
 }
 .nav-btn.active { border-color: var(--neon-cyan); color: #fff; box-shadow: 0 0 15px rgba(0, 242, 255, 0.2); }
 
@@ -49,14 +49,14 @@ body {
 /* AVATAR & GLITCH */
 .avatar-wrapper { width: 150px; height: 150px; border-radius: 50%; border: 1px solid #333; padding: 6px; margin-bottom: 40px; }
 .avatar { width: 100%; height: 100%; border-radius: 50%; filter: grayscale(1); }
-.glitch-name { font-family: 'Doto', sans-serif; font-size: 3.5rem; margin-bottom: 25px; letter-spacing: 0.15em; font-variation-settings: "wght" 800; }
+.glitch-name { font-family: 'Doto', sans-serif; font-size: 4.5rem; margin-bottom: 25px; letter-spacing: 0.15em; font-variation-settings: "wght" 800; }
 
 .contact-info p { font-size: 0.75rem; color: #888; margin-bottom: 5px; }
 .linkedin-link.prominent { display: block; width: 35px; height: 35px; color: #fff; margin: 20px auto 40px; transition: 0.3s; }
 .linkedin-link:hover { color: var(--neon-cyan); transform: scale(1.1); }
 
 .divider { border: none; border-top: 1px solid #333; margin: 40px auto; width: 100%; max-width: 400px; }
-.bio { font-size: 0.8rem; color: #777; line-height: 2.2; max-width: 750px; text-transform: uppercase; }
+.bio { font-size: 1rem; color: #777; line-height: 2.2; max-width: 750px; text-transform: uppercase; }
 
 /* SUMMARY GRID */
 .profile-summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; width: 100%; margin-top: 50px; }
