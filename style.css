@@ -1,169 +1,210 @@
-/* 1. GLOBAL VARIABLES & SYSTEM SETTINGS */
 :root {
-    --neon-cyan: #00f2ff;
-    --neon-red: #ff0000;
-    --glass-bg: rgba(15, 15, 15, 0.95);
-    --text-dim: #777777;
-    --text-bright: #ffffff;
+    --bg: #030303;
+    --text-main: #ffffff;
+    --text-muted: #888888;
+    --accent-cyan: #00f2ff;
+    --glass-bg: rgba(20, 20, 20, 0.85);
 }
 
 * {
-    margin: 0; padding: 0; box-sizing: border-box;
-    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path d="M8 4l12 12-4.5 1 4 7-3 1.5-4-7-4.5 4.5z" fill="white" stroke="black" stroke-width="1"/><path d="M9 5l12 12-4.5 1 4 7-3 1.5-4-7-4.5 4.5z" fill="none" stroke="%23ff0000" stroke-width="1" opacity="0.6"/><path d="M7 3l12 12-4.5 1 4 7-3 1.5-4-7-4.5 4.5z" fill="none" stroke="%2300f2ff" stroke-width="1" opacity="0.6"/></svg>') 0 0, auto !important;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    background-color: #030303;
-    color: var(--text-bright);
+    background-color: var(--bg);
+    color: var(--text-main);
     font-family: 'Space Mono', monospace;
+    line-height: 2.2;
+    font-size: 0.85rem;
     overflow-x: hidden;
-    line-height: 2.2; /* Spaciousness control */
-    font-size: 0.9rem; /* Global font size */
 }
 
-/* 2. PIXEL FONT APPLICATION (THE FIX) */
-/* Apply Doto font to all technical headers and labels across all tabs */
-.glitch-name, 
-.nav-btn, 
-.section-title, 
-.job-company, 
-.job-date,
-.edu-degree,
-.loading-text,
-.summary-card h4 {
+h1, h2, h3, h4, .nav-btn, .section-title, .mini-download-btn, .loading-text, .job-company, .job-date, .edu-degree {
     font-family: 'Doto', sans-serif;
-    font-variation-settings: "wght" 700;
     text-transform: uppercase;
+    font-variation-settings: "wght" 700;
     letter-spacing: 2px;
 }
 
-/* 3. SYSTEM UI (LOADER & CANVAS) */
-#loader {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: #ffffff; color: #000000;
-    z-index: 9999; display: flex; align-items: center; justify-content: center;
-}
+/* SYSTEM INITIALIZATION */
+#loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; display: flex; align-items: center; justify-content: center; }
+.loader-content { text-align: center; }
+.load-bar-container { height: 1px; width: 200px; background: #333; margin: 10px auto; }
+#load-progress { height: 100%; width: 0%; background: #fff; transition: width 0.1s; }
+#gridCanvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; }
 
-.loader-content { width: 300px; text-align: center; }
-.load-bar-container { height: 2px; width: 100%; background: #eeeeee; margin-top: 10px; }
-#load-progress { height: 100%; width: 0%; background: #000000; transition: width 0.1s; }
-
-#gridCanvas {
-    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    z-index: -1; pointer-events: none;
-}
-
-/* 4. TOP NAVIGATION (FIXED HORIZONTAL) */
+/* HORIZONTAL ISOLATED NAVIGATION */
 .top-nav {
-    position: fixed; top: 0; left: 0; width: 100%;
-    z-index: 1000; padding: 35px 0;
-    display: flex; justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 25px 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(to bottom, rgba(3,3,3,1) 0%, rgba(3,3,3,0) 100%);
 }
 
-.nav-container { display: flex; gap: 15px; }
+.nav-container {
+    display: flex;
+    gap: 15px;
+}
 
 .nav-btn {
     background: var(--glass-bg);
-    backdrop-filter: blur(40px);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    color: #555;
-    padding: 10px 22px;
-    border-radius: 6px;
-    transition: 0.3s ease;
+    color: var(--text-muted);
+    padding: 10px 20px;
     font-size: 0.75rem;
+    border-radius: 4px;
+    transition: 0.3s;
 }
 
-.nav-btn.active {
-    border-color: var(--neon-cyan);
-    color: var(--text-bright);
-    box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
+.nav-btn.active, .nav-btn:hover {
+    color: var(--text-main);
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 10px rgba(0, 242, 255, 0.1);
 }
 
-.nav-btn:hover { border-color: var(--neon-cyan); color: var(--text-bright); }
-
-/* 5. MAIN CONTAINER & SECTION ALIGNMENT */
+/* LAYOUT CONSTRAINTS */
 .container {
     position: relative;
     z-index: 10;
-    max-width: 1000px;
-    margin: 180px auto 100px;
-    padding: 0 60px;
+    max-width: 800px;
+    margin: 140px auto 100px;
+    padding: 0 40px;
 }
 
-/* Tab logic */
 .content-tab { display: none; }
-.content-tab.active { display: block; animation: fadeIn 0.5s forwards; }
+.content-tab.active { display: block; animation: fadeIn 0.4s forwards; }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(15px); }
+    from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Profile Alignment (Centered) */
+/* PROFILE ARCHITECTURE */
 #tab-profile header { text-align: center; display: flex; flex-direction: column; align-items: center; }
 
-/* Other Sections Alignment (Left) */
-#tab-experience, #tab-skills, #tab-education { text-align: left; }
-
-/* 6. COMPONENT STYLING */
 .avatar-wrapper {
-    width: 140px; height: 140px;
-    border-radius: 50%; border: 1px solid #333;
-    padding: 6px; margin-bottom: 35px;
+    width: 130px; height: 130px;
+    border-radius: 50%;
+    border: 1px solid #333;
+    padding: 5px;
+    margin-bottom: 25px;
 }
 .avatar { width: 100%; height: 100%; border-radius: 50%; filter: grayscale(100%); }
 
-.glitch-name { font-size: 3.5rem; margin-bottom: 20px; }
+.glitch-name { font-size: 3.2rem; margin-bottom: 20px; }
 
-.contact-info { margin-bottom: 25px; }
-.contact-info p { font-size: 0.8rem; color: var(--text-dim); }
+.contact-info { margin-bottom: 20px; color: var(--text-muted); font-size: 0.75rem; }
+.contact-info p { margin-bottom: 5px; }
 
-.linkedin-link.prominent {
-    display: block; width: 32px; height: 32px;
-    color: var(--text-bright); margin-bottom: 40px;
+.linkedin-link.prominent { display: block; width: 28px; height: 28px; color: var(--text-main); margin-bottom: 30px; transition: 0.3s; }
+.linkedin-link.prominent:hover { color: var(--accent-cyan); }
+
+.divider { border: none; border-top: 1px solid #222; width: 100%; max-width: 400px; margin: 30px auto; }
+
+.bio { color: var(--text-muted); max-width: 700px; margin-bottom: 60px; text-transform: uppercase; font-size: 0.8rem; line-height: 2.2; }
+
+.profile-summary-grid { display: flex; justify-content: space-between; width: 100%; margin-bottom: 40px; }
+.summary-card h4 { color: var(--accent-cyan); font-size: 0.75rem; margin-bottom: 15px; }
+.summary-card p { color: var(--text-muted); font-size: 0.7rem; margin-bottom: 5px; }
+
+.profile-download-box { margin-top: 40px; }
+.mini-download-btn {
+    display: inline-block;
+    border: 1px solid #333;
+    padding: 10px 24px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.7rem;
     transition: 0.3s;
 }
-.linkedin-link:hover { color: var(--neon-cyan); transform: scale(1.1); }
+.mini-download-btn:hover { border-color: var(--accent-cyan); color: var(--text-main); }
 
-.divider { border: none; border-top: 1px solid #222; margin: 40px auto; width: 100%; max-width: 400px; }
+/* DATA TAB ARCHITECTURE */
+#tab-experience, #tab-skills, #tab-education { text-align: left; }
 
-.bio {
-    font-size: 0.8rem; color: #777;
-    max-width: 750px; margin-bottom: 60px;
-    text-transform: uppercase;
+.section-title { font-size: 1.5rem; border-bottom: 1px dashed #333; padding-bottom: 15px; margin-bottom: 50px; }
+
+.job { margin-bottom: 60px; }
+.job-header { display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 10px; }
+.job-role { color: var(--accent-cyan); font-size: 0.85rem; margin-bottom: 20px; }
+
+.job-details li { color: var(--text-muted); margin-bottom: 15px; position: relative; padding-left: 20px; list-style: none; font-size: 0.8rem; }
+.job-details li::before { content: '>'; position: absolute; left: 0; color: var(--accent-cyan); }
+
+.skills-list { display: flex; flex-wrap: wrap; gap: 15px; }
+.skills-list span { border: 1px solid #222; padding: 10px 20px; font-size: 0.75rem; color: var(--text-muted); border-radius: 4px; }
+
+.edu-item { margin-bottom: 30px; }
+.edu-degree { font-size: 1rem; color: var(--text-main); margin-bottom: 5px; }
+.edu-school { color: var(--text-muted); font-size: 0.8rem; }
+
+.personal-details p { color: var(--text-muted); font-size: 0.8rem; margin-bottom: 10px; }
+
+.system-log { position: fixed; bottom: 30px; left: 40px; font-size: 0.75rem; color: var(--accent-cyan); font-family: 'Doto', sans-serif; }
+
+@media screen and (max-width: 768px) {
+    .top-nav {
+        padding: 15px 0;
+    }
+
+    .nav-container {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+        padding: 0 10px;
+    }
+
+    .nav-btn {
+        padding: 8px 12px;
+        font-size: 0.65rem;
+    }
+
+    .container {
+        margin-top: 130px;
+        padding: 0 20px;
+    }
+
+    .avatar-wrapper {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 20px;
+    }
+
+    .glitch-name {
+        font-size: 2.2rem;
+    }
+
+    .bio {
+        font-size: 0.75rem;
+    }
+
+    .profile-summary-grid {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+    }
+
+    .summary-card {
+        width: 100%;
+        text-align: center;
+    }
+
+    .job-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .system-log {
+        display: none;
+    }
 }
-
-/* 7. EXPERIENCE & DATA LISTS */
-.section-title {
-    font-size: 1.4rem; border-bottom: 1px dashed #333;
-    padding-bottom: 15px; margin-bottom: 50px;
-}
-
-.job { margin-bottom: 70px; }
-.job-header { display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 5px; }
-.job-role { color: var(--neon-cyan); font-size: 0.85rem; margin-bottom: 20px; }
-
-.job-details li {
-    font-size: 0.8rem; color: #888;
-    margin-bottom: 12px; list-style: none;
-    position: relative; padding-left: 25px;
-}
-.job-details li::before {
-    content: '>'; position: absolute; left: 0; color: var(--neon-red);
-}
-
-.skills-list { display: flex; flex-wrap: wrap; gap: 12px; }
-.skills-list span {
-    border: 1px solid #222; padding: 8px 18px;
-    font-size: 0.75rem; color: #666; border-radius: 4px;
-}
-
-.mini-download-btn {
-    display: inline-block; margin-top: 50px;
-    padding: 10px 22px; border: 1px solid #333;
-    color: #444; text-decoration: none;
-    font-family: 'Doto', sans-serif; font-size: 0.7rem;
-}
-.mini-download-btn:hover { border-color: var(--neon-cyan); color: #fff; }
-
-.system-log { position: fixed; bottom: 30px; left: 40px; font-size: 0.7rem; color: var(--neon-cyan); }
