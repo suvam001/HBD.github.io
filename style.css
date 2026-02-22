@@ -1,7 +1,7 @@
 :root {
     --neon-cyan: #00f2ff;
     --neon-red: #ff0000;
-    --glass-bg: rgba(15, 15, 15, 0.92);
+    --glass-bg: rgba(20, 20, 20, 0.9);
 }
 
 * {
@@ -17,6 +17,7 @@ body {
     line-height: 1.6;
 }
 
+/* Loader */
 #loader {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: #ffffff; color: #000000;
@@ -25,48 +26,51 @@ body {
 .loader-content { width: 300px; text-align: center; }
 .loading-text { font-family: 'DotGothic16', sans-serif; font-size: 1rem; margin-bottom: 15px; }
 .load-bar-container { height: 2px; width: 100%; background: #eeeeee; }
-#load-progress { height: 100%; width: 0%; background: #000000; }
+#load-progress { height: 100%; width: 0%; background: #000000; transition: width 0.1s; }
 #load-status { margin-top: 10px; font-size: 0.8rem; font-weight: bold; }
 
+/* Background */
 #gridCanvas {
     position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
     z-index: -1; pointer-events: none;
 }
 
-.side-nav {
-    position: fixed; top: 50%; right: 25px; 
-    transform: translateY(-50%); z-index: 1000;
+/* TOP HORIZONTAL NAVIGATION */
+.top-nav {
+    position: fixed; top: 0; left: 0; width: 100%;
+    z-index: 1000; padding: 20px 0;
+    display: flex; justify-content: center;
 }
 
-.glass-box {
-    background: var(--glass-bg); 
-    backdrop-filter: blur(60px);
-    -webkit-backdrop-filter: blur(60px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    padding: 25px 8px; 
-    border-radius: 15px;
-    display: flex; flex-direction: column; gap: 12px;
+.nav-container {
+    display: flex; gap: 15px;
 }
 
 .nav-btn {
-    background: transparent; border: none;
-    color: #444; font-family: 'DotGothic16', sans-serif;
-    padding: 10px 5px; border-radius: 4px;
-    transition: 0.4s; 
-    font-size: 0.65rem; 
+    background: var(--glass-bg);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #555;
+    font-family: 'DotGothic16', sans-serif;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: 0.3s;
+    font-size: 0.8rem;
     letter-spacing: 2px;
-    writing-mode: vertical-rl; text-orientation: mixed;
-    height: 110px; width: 32px;
 }
 
 .nav-btn.active {
-    color: #fff; text-shadow: 0 0 10px var(--neon-cyan);
-    background: rgba(255, 255, 255, 0.03);
+    border-color: var(--neon-cyan);
+    color: #fff;
+    box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
 }
 
-.nav-btn:hover { color: #888; transform: scale(1.05); }
+.nav-btn:hover { border-color: var(--neon-cyan); color: #fff; transform: translateY(-3px); }
 
-.container { position: relative; z-index: 10; max-width: 1000px; margin: 100px auto; padding: 0 120px 0 60px; }
+/* ALIGNMENT RECTIFICATION */
+.container { position: relative; z-index: 10; max-width: 1000px; margin: 150px auto 100px; padding: 0 60px; }
+
 #tab-profile header { text-align: center; display: flex; flex-direction: column; align-items: center; }
 #tab-experience, #tab-skills, #tab-education { text-align: left; }
 
@@ -77,7 +81,7 @@ body {
 .avatar-wrapper { width: 140px; height: 140px; border-radius: 50%; border: 1px solid #333; padding: 6px; margin-bottom: 30px; }
 .avatar { width: 100%; height: 100%; border-radius: 50%; filter: grayscale(1); }
 .glitch-name { font-family: 'DotGothic16', sans-serif; font-size: 3.5rem; margin-bottom: 20px; }
-.divider { border: none; border-top: 1px solid #333; margin: 30px 0; width: 100%; max-width: 400px; }
+.divider { border: none; border-top: 1px solid #333; margin: 30px auto; width: 100%; max-width: 400px; }
 .tagline { color: #888; font-size: 0.9rem; margin-bottom: 25px; }
 .bio { font-size: 0.85rem; color: #777; line-height: 1.8; max-width: 700px; }
 
@@ -89,7 +93,6 @@ body {
 .summary-card h4 { font-family: 'DotGothic16', sans-serif; font-size: 0.7rem; color: var(--neon-red); margin-bottom: 10px; }
 .summary-card p { font-size: 0.65rem; color: #555; margin-bottom: 2px; }
 
-/* Small Profile Download Box */
 .profile-download-box { margin-top: 50px; }
 .mini-download-btn {
     display: inline-block; padding: 8px 16px;
@@ -110,5 +113,4 @@ body {
 .skills-list { display: flex; flex-wrap: wrap; gap: 12px; }
 .skills-list span { border: 1px solid #222; padding: 10px 18px; font-size: 0.8rem; color: #777; border-radius: 4px; background: rgba(255,255,255,0.01); }
 
-.linkedin-link { display: block; width: 30px; height: 30px; color: #fff; margin-bottom: 40px; }
-.system-log { position: fixed; bottom: 30px; left: 40px; font-size: 0.8rem; color: var(--neon-cyan); }
+.linkedin-link
