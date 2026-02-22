@@ -1,49 +1,74 @@
-const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%";
-let interval = null;
+window.onload = () => {
+    startLoader();
+    initGrid();
+    switchTab('profile');
+};
 
-function triggerScramble(target) {
-    let iteration = 0;
-    const originalValue = target.dataset.value;
-    
-    clearInterval(interval);
-    
-    interval = setInterval(() => {
-        target.innerText = originalValue
-            .split("")
-            .map((letter, index) => {
-                if(index < iteration || letter === " ") {
-                    return originalValue[index];
-                }
-                return letters[Math.floor(Math.random() * letters.length)];
-            })
-            .join("");
-        
-        if(iteration >= originalValue.length) {
+function startLoader() {
+    let progress = 0;
+    const bar = document.getElementById('load-progress');
+    const status = document.getElementById('load-status');
+    const loader = document.getElementById('loader');
+    const interval = setInterval(() => {
+        progress += Math.floor(Math.random() * 8) + 2;
+        if (progress >= 100) {
+            progress = 100;
             clearInterval(interval);
+            setTimeout(() => {
+                loader.style.opacity = '0';
+                setTimeout(() => loader.style.display = 'none', 500);
+            }, 500);
         }
-        
-        iteration += 1 / 3;
-    }, 30);
+        bar.style.width = progress + '%';
+        status.innerText = progress + '%';
+    }, 40);
 }
 
-function switchTab(tabId) {
-    // Update Nav Buttons
-    document.querySelectorAll('.nav-hub button').forEach(btn => btn.classList.remove('active'));
-    document.getElementById('nav-' + tabId).classList.add('active');
-    
-    // Update Content
-    document.querySelectorAll('.content-tab').forEach(tab => tab.classList.remove('active'));
-    const activeTab = document.getElementById('tab-' + tabId);
-    activeTab.classList.add('active');
-    
-    // If profile, trigger scramble
-    if(tabId === 'profile') {
-        const glitchElement = activeTab.querySelector('.glitch-text');
-        triggerScramble(glitchElement);
+const canvas = document.getElementById('gridCanvas');
+const ctx = canvas.getContext('2d');
+let mouse = { x: -100, y: -100 };
+const spacing = 40;
+
+function initGrid() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    drawGrid();
+}
+
+window.addEventListener('mousemove', (e) => {
+    const container = document.querySelector('.container');
+    if (container && !container.contains(e.target)) {
+        mouse.x = e.clientX; mouse.y = e.clientY;
+    } else {
+        mouse.x = -100; mouse.y = -100;
+    }
+    drawGrid();
+});
+
+function drawGrid() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (let x = 0; x < canvas.width; x += spacing) {
+        for (let y = 0; y < canvas.height; y += spacing) {
+            const dx = x - mouse.x;
+            const dy = y - mouse.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            ctx.beginPath();
+            if (dist < 100) {
+                ctx.fillStyle = `rgba(255, 255, 255, ${0.4 - dist/250})`;
+                ctx.arc(x, y, 1.5, 0, Math.PI * 2);
+            } else {
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
+                ctx.arc(x, y, 0.5, 0, Math.PI * 2);
+            }
+            ctx.fill();
+        }
     }
 }
 
-// Initial Run
-window.onload = () => {
-    triggerScramble(document.querySelector('.glitch-text'));
-};
+function switchTab(tabId) {
+    document.querySelectorAll('.content-tab').forEach(tab => tab.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+    document.getElementById('tab-' + tabId).classList.add('active');
+    document.getElementById('nav-' + tabId).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
