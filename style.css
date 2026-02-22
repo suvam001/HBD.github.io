@@ -37,7 +37,7 @@ h1, h2, h3, h4, .nav-btn, .section-title, .mini-download-btn, .loading-text, .jo
 
 /* HORIZONTAL ISOLATED NAVIGATION */
 .top-nav {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
