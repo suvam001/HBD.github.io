@@ -27,7 +27,6 @@ function startLoader() {
 const canvas = document.getElementById('gridCanvas');
 const ctx = canvas.getContext('2d');
 let mouse = { x: -100, y: -100 };
-const spacing = 40;
 
 function initGrid() {
     canvas.width = window.innerWidth;
@@ -47,14 +46,15 @@ window.addEventListener('mousemove', (e) => {
 
 function drawGrid() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const spacing = 40;
     for (let x = 0; x < canvas.width; x += spacing) {
         for (let y = 0; y < canvas.height; y += spacing) {
             const dx = x - mouse.x;
             const dy = y - mouse.y;
             const dist = Math.sqrt(dx * dx + dy * dy);
             ctx.beginPath();
-            if (dist < 100) {
-                ctx.fillStyle = `rgba(255, 255, 255, ${0.4 - dist/250})`;
+            if (dist < 120) {
+                ctx.fillStyle = `rgba(255, 255, 255, ${0.4 - dist/280})`;
                 ctx.arc(x, y, 1.5, 0, Math.PI * 2);
             } else {
                 ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
