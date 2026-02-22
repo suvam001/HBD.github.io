@@ -1,7 +1,10 @@
+/* 1. GLOBAL VARIABLES & SYSTEM SETTINGS */
 :root {
     --neon-cyan: #00f2ff;
     --neon-red: #ff0000;
     --glass-bg: rgba(15, 15, 15, 0.95);
+    --text-dim: #777777;
+    --text-bright: #ffffff;
 }
 
 * {
@@ -11,118 +14,156 @@
 
 body {
     background-color: #030303;
-    color: #ffffff;
+    color: var(--text-bright);
     font-family: 'Space Mono', monospace;
     overflow-x: hidden;
-    line-height: 2.2;
-    font-size: 1.1rem;
+    line-height: 2.2; /* Spaciousness control */
+    font-size: 0.9rem; /* Global font size */
 }
 
+/* 2. PIXEL FONT APPLICATION (THE FIX) */
+/* Apply Doto font to all technical headers and labels across all tabs */
+.glitch-name, 
+.nav-btn, 
+.section-title, 
+.job-company, 
+.job-date,
+.edu-degree,
+.loading-text,
+.summary-card h4 {
+    font-family: 'Doto', sans-serif;
+    font-variation-settings: "wght" 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* 3. SYSTEM UI (LOADER & CANVAS) */
 #loader {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: #ffffff; color: #000000;
     z-index: 9999; display: flex; align-items: center; justify-content: center;
 }
+
 .loader-content { width: 300px; text-align: center; }
-.loading-text { font-family: 'Doto', sans-serif; font-size: 0.9rem; margin-bottom: 20px; }
-.load-bar-container { height: 2px; width: 100%; background: #eeeeee; }
+.load-bar-container { height: 2px; width: 100%; background: #eeeeee; margin-top: 10px; }
 #load-progress { height: 100%; width: 0%; background: #000000; transition: width 0.1s; }
 
-#gridCanvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; }
-
-/* NAVIGATION: TOP SEPARATE BOXES */
-.top-nav { position: fixed; top: 30px; left: 0; width: 100%; z-index: 1000; display: flex; justify-content: center; }
-.nav-container { display: flex; gap: 15px; }
-.nav-btn {
-    background: var(--glass-bg); backdrop-filter: blur(40px);
-    border: 1px solid rgba(255, 255, 255, 0.1); color: #555;
-    font-family: 'Doto', sans-serif; padding: 10px 24px; border-radius: 8px;
-    transition: 0.3s; font-size: 0.85rem; letter-spacing: 2px;
+#gridCanvas {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    z-index: -1; pointer-events: none;
 }
-.nav-btn.active { border-color: var(--neon-cyan); color: #fff; box-shadow: 0 0 15px rgba(0, 242, 255, 0.2); }
 
-/* MAIN LAYOUT */
-.container { position: relative; z-index: 10; max-width: 1000px; margin: 180px auto 100px; padding: 0 60px; }
-#tab-profile header { text-align: center; display: flex; flex-direction: column; align-items: center; }
-#tab-experience, #tab-skills, #tab-education { text-align: left; }
+/* 4. TOP NAVIGATION (FIXED HORIZONTAL) */
+.top-nav {
+    position: fixed; top: 0; left: 0; width: 100%;
+    z-index: 1000; padding: 35px 0;
+    display: flex; justify-content: center;
+}
 
-/* AVATAR & GLITCH */
-.avatar-wrapper { width: 150px; height: 150px; border-radius: 50%; border: 1px solid #333; padding: 6px; margin-bottom: 40px; }
-.avatar { width: 100%; height: 100%; border-radius: 50%; filter: grayscale(1); }
-.glitch-name { font-family: 'Doto', sans-serif; font-size: 4.5rem; margin-bottom: 25px; letter-spacing: 0.15em; font-variation-settings: "wght" 800; }
+.nav-container { display: flex; gap: 15px; }
 
-.contact-info p { font-size: 0.75rem; color: #888; margin-bottom: 5px; }
-.linkedin-link.prominent { display: block; width: 35px; height: 35px; color: #fff; margin: 20px auto 40px; transition: 0.3s; }
-.linkedin-link:hover { color: var(--neon-cyan); transform: scale(1.1); }
+.nav-btn {
+    background: var(--glass-bg);
+    backdrop-filter: blur(40px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #555;
+    padding: 10px 22px;
+    border-radius: 6px;
+    transition: 0.3s ease;
+    font-size: 0.75rem;
+}
 
-.divider { border: none; border-top: 1px solid #333; margin: 40px auto; width: 100%; max-width: 400px; }
-.bio { font-size: 1rem; color: #777; line-height: 2.2; max-width: 750px; text-transform: uppercase; }
+.nav-btn.active {
+    border-color: var(--neon-cyan);
+    color: var(--text-bright);
+    box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
+}
 
-/* SUMMARY GRID */
-.profile-summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; width: 100%; margin-top: 50px; }
-.summary-card { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); padding: 25px; border-radius: 12px; transition: 0.3s; }
-.summary-card h4 { font-family: 'Doto', sans-serif; font-size: 0.7rem; color: var(--neon-red); margin-bottom: 12px; }
-.summary-card p { font-size: 0.6rem; color: #555; line-height: 1.6; }
+.nav-btn:hover { border-color: var(--neon-cyan); color: var(--text-bright); }
 
-/* CONTENT TABS */
+/* 5. MAIN CONTAINER & SECTION ALIGNMENT */
+.container {
+    position: relative;
+    z-index: 10;
+    max-width: 1000px;
+    margin: 180px auto 100px;
+    padding: 0 60px;
+}
+
+/* Tab logic */
 .content-tab { display: none; }
 .content-tab.active { display: block; animation: fadeIn 0.5s forwards; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-.section-title { font-family: 'Doto', sans-serif; border-bottom: 1px dashed #333; padding-bottom: 20px; margin-bottom: 50px; font-size: 1.4rem; letter-spacing: 3px; font-variation-settings: "wght" 700; }
-.job { margin-bottom: 80px; }
-.job-header { display: flex; justify-content: space-between; font-weight: 700; font-size: 1.1rem; }
-.job-role { color: var(--neon-cyan); font-size: 0.9rem; margin-bottom: 20px; }
-.job-details li { font-size: 0.8rem; color: #888; margin-bottom: 12px; position: relative; padding-left: 25px; list-style: none; }
-.job-details li::before { content: '>'; position: absolute; left: 0; color: var(--neon-red); }
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
-.mini-download-btn { margin-top: 60px; display: inline-block; padding: 10px 25px; border: 1px solid rgba(255, 255, 255, 0.1); color: #555; text-decoration: none; font-family: 'Doto', sans-serif; font-size: 0.7rem; transition: 0.3s; }
+/* Profile Alignment (Centered) */
+#tab-profile header { text-align: center; display: flex; flex-direction: column; align-items: center; }
+
+/* Other Sections Alignment (Left) */
+#tab-experience, #tab-skills, #tab-education { text-align: left; }
+
+/* 6. COMPONENT STYLING */
+.avatar-wrapper {
+    width: 140px; height: 140px;
+    border-radius: 50%; border: 1px solid #333;
+    padding: 6px; margin-bottom: 35px;
+}
+.avatar { width: 100%; height: 100%; border-radius: 50%; filter: grayscale(100%); }
+
+.glitch-name { font-size: 3.5rem; margin-bottom: 20px; }
+
+.contact-info { margin-bottom: 25px; }
+.contact-info p { font-size: 0.8rem; color: var(--text-dim); }
+
+.linkedin-link.prominent {
+    display: block; width: 32px; height: 32px;
+    color: var(--text-bright); margin-bottom: 40px;
+    transition: 0.3s;
+}
+.linkedin-link:hover { color: var(--neon-cyan); transform: scale(1.1); }
+
+.divider { border: none; border-top: 1px solid #222; margin: 40px auto; width: 100%; max-width: 400px; }
+
+.bio {
+    font-size: 0.8rem; color: #777;
+    max-width: 750px; margin-bottom: 60px;
+    text-transform: uppercase;
+}
+
+/* 7. EXPERIENCE & DATA LISTS */
+.section-title {
+    font-size: 1.4rem; border-bottom: 1px dashed #333;
+    padding-bottom: 15px; margin-bottom: 50px;
+}
+
+.job { margin-bottom: 70px; }
+.job-header { display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 5px; }
+.job-role { color: var(--neon-cyan); font-size: 0.85rem; margin-bottom: 20px; }
+
+.job-details li {
+    font-size: 0.8rem; color: #888;
+    margin-bottom: 12px; list-style: none;
+    position: relative; padding-left: 25px;
+}
+.job-details li::before {
+    content: '>'; position: absolute; left: 0; color: var(--neon-red);
+}
+
+.skills-list { display: flex; flex-wrap: wrap; gap: 12px; }
+.skills-list span {
+    border: 1px solid #222; padding: 8px 18px;
+    font-size: 0.75rem; color: #666; border-radius: 4px;
+}
+
+.mini-download-btn {
+    display: inline-block; margin-top: 50px;
+    padding: 10px 22px; border: 1px solid #333;
+    color: #444; text-decoration: none;
+    font-family: 'Doto', sans-serif; font-size: 0.7rem;
+}
 .mini-download-btn:hover { border-color: var(--neon-cyan); color: #fff; }
 
-.system-log { position: fixed; bottom: 30px; left: 40px; font-size: 0.75rem; color: var(--neon-cyan); }
-
-/* MOBILE OPTIMIZATIONS */
-@media screen and (max-width: 768px) {
-    /* 1. Adjust Font Sizes */
-    body {
-        font-size: 0.95rem; /* Slightly larger for readability on small screens */
-    }
-    
-    .glitch-name {
-        font-size: 2.2rem; /* Scale down your name so it doesn't overflow */
-    }
-
-    /* 2. Stack the Navigation */
-    .top-nav {
-        padding: 15px 0;
-    }
-
-    .nav-container {
-        flex-wrap: wrap; /* Allows buttons to wrap to a second line if needed */
-        justify-content: center;
-        gap: 8px;
-    }
-
-    .nav-btn {
-        padding: 8px 12px;
-        font-size: 0.6rem;
-    }
-
-    /* 3. Adjust Main Container */
-    .container {
-        margin-top: 140px; /* Space for the wrapped nav */
-        padding: 0 20px;   /* Reduce side padding */
-    }
-
-    /* 4. Stack Grid Cards */
-    .profile-summary-grid {
-        grid-template-columns: 1fr; /* Change from 3 columns to 1 */
-        gap: 15px;
-    }
-
-    /* 5. Experience Alignment */
-    .job-header {
-        flex-direction: column; /* Stack Company name and Date vertically */
-        gap: 5px;
-    }
-}
+.system-log { position: fixed; bottom: 30px; left: 40px; font-size: 0.7rem; color: var(--neon-cyan); }
