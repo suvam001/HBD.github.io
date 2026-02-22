@@ -80,3 +80,49 @@ body {
 .mini-download-btn:hover { border-color: var(--neon-cyan); color: #fff; }
 
 .system-log { position: fixed; bottom: 30px; left: 40px; font-size: 0.75rem; color: var(--neon-cyan); }
+
+/* MOBILE OPTIMIZATIONS */
+@media screen and (max-width: 768px) {
+    /* 1. Adjust Font Sizes */
+    body {
+        font-size: 0.95rem; /* Slightly larger for readability on small screens */
+    }
+    
+    .glitch-name {
+        font-size: 2.2rem; /* Scale down your name so it doesn't overflow */
+    }
+
+    /* 2. Stack the Navigation */
+    .top-nav {
+        padding: 15px 0;
+    }
+
+    .nav-container {
+        flex-wrap: wrap; /* Allows buttons to wrap to a second line if needed */
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .nav-btn {
+        padding: 8px 12px;
+        font-size: 0.6rem;
+    }
+
+    /* 3. Adjust Main Container */
+    .container {
+        margin-top: 140px; /* Space for the wrapped nav */
+        padding: 0 20px;   /* Reduce side padding */
+    }
+
+    /* 4. Stack Grid Cards */
+    .profile-summary-grid {
+        grid-template-columns: 1fr; /* Change from 3 columns to 1 */
+        gap: 15px;
+    }
+
+    /* 5. Experience Alignment */
+    .job-header {
+        flex-direction: column; /* Stack Company name and Date vertically */
+        gap: 5px;
+    }
+}
