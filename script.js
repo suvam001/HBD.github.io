@@ -1,43 +1,49 @@
-window.addEventListener('load', () => {
-    const nameElement = document.querySelector('.glitch-name');
-    if (nameElement) triggerHackerText(nameElement);
-});
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%";
+let interval = null;
 
-const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-let scrambleInterval = null;
-
-function triggerHackerText(element) {
+function triggerScramble(target) {
     let iteration = 0;
-    const originalText = element.dataset.value || element.innerText;
+    const originalValue = target.dataset.value;
     
-    if (!element.dataset.value) {
-        element.dataset.value = originalText;
-    }
-
-    clearInterval(scrambleInterval);
+    clearInterval(interval);
     
-    scrambleInterval = setInterval(() => {
-        element.innerText = originalText
+    interval = setInterval(() => {
+        target.innerText = originalValue
             .split("")
             .map((letter, index) => {
                 if(index < iteration || letter === " ") {
-                    return originalText[index];
+                    return originalValue[index];
                 }
-                return letters[Math.floor(Math.random() * 26)];
+                return letters[Math.floor(Math.random() * letters.length)];
             })
             .join("");
         
-        if(iteration >= originalText.length){ 
-            clearInterval(scrambleInterval);
+        if(iteration >= originalValue.length) {
+            clearInterval(interval);
         }
         
         iteration += 1 / 3;
     }, 30);
 }
 
-const nameEl = document.querySelector('.glitch-name');
-if (nameEl) {
-    nameEl.addEventListener('mouseover', function() {
-        triggerHackerText(this);
-    });
+function switchTab(tabId) {
+    // Update Nav Buttons
+    document.querySelectorAll('.nav-hub button').forEach(btn => btn.classList.remove('active'));
+    document.getElementById('nav-' + tabId).classList.add('active');
+    
+    // Update Content
+    document.querySelectorAll('.content-tab').forEach(tab => tab.classList.remove('active'));
+    const activeTab = document.getElementById('tab-' + tabId);
+    activeTab.classList.add('active');
+    
+    // If profile, trigger scramble
+    if(tabId === 'profile') {
+        const glitchElement = activeTab.querySelector('.glitch-text');
+        triggerScramble(glitchElement);
+    }
 }
+
+// Initial Run
+window.onload = () => {
+    triggerScramble(document.querySelector('.glitch-text'));
+};
