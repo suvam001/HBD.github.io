@@ -7,21 +7,19 @@ window.onload = () => {
 function startLoader() {
     let progress = 0;
     const bar = document.getElementById('load-progress');
-    const status = document.getElementById('load-status');
     const loader = document.getElementById('loader');
     const interval = setInterval(() => {
-        progress += Math.floor(Math.random() * 8) + 2;
+        progress += Math.floor(Math.random() * 10) + 5;
         if (progress >= 100) {
             progress = 100;
             clearInterval(interval);
             setTimeout(() => {
                 loader.style.opacity = '0';
                 setTimeout(() => loader.style.display = 'none', 500);
-            }, 500);
+            }, 300);
         }
-        bar.style.width = progress + '%';
-        status.innerText = progress + '%';
-    }, 40);
+        if(bar) bar.style.width = progress + '%';
+    }, 30);
 }
 
 const canvas = document.getElementById('gridCanvas');
@@ -29,6 +27,7 @@ const ctx = canvas.getContext('2d');
 let mouse = { x: -100, y: -100 };
 
 function initGrid() {
+    if(!canvas) return;
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     drawGrid();
@@ -47,6 +46,7 @@ window.addEventListener('mousemove', (e) => {
 window.addEventListener('resize', initGrid);
 
 function drawGrid() {
+    if(!ctx) return;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     const spacing = 40;
     for (let x = 0; x < canvas.width; x += spacing) {
@@ -55,12 +55,12 @@ function drawGrid() {
             const dy = y - mouse.y;
             const dist = Math.sqrt(dx * dx + dy * dy);
             ctx.beginPath();
-            if (dist < 120) {
-                ctx.fillStyle = `rgba(255, 255, 255, ${0.4 - dist/280})`;
-                ctx.arc(x, y, 1.5, 0, Math.PI * 2);
+            if (dist < 150) {
+                ctx.fillStyle = `rgba(255, 255, 255, ${0.5 - dist/300})`;
+                ctx.arc(x, y, 2, 0, Math.PI * 2);
             } else {
                 ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
-                ctx.arc(x, y, 0.5, 0, Math.PI * 2);
+                ctx.arc(x, y, 1, 0, Math.PI * 2);
             }
             ctx.fill();
         }
@@ -71,9 +71,11 @@ function switchTab(tabId) {
     document.querySelectorAll('.content-tab').forEach(tab => tab.classList.remove('active'));
     document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
     
-    document.getElementById('tab-' + tabId).classList.add('active');
-    const activeBtn = document.getElementById('nav-' + tabId);
-    if (activeBtn) activeBtn.classList.add('active');
+    const targetTab = document.getElementById('tab-' + tabId);
+    const targetBtn = document.getElementById('nav-' + tabId);
+    
+    if(targetTab) targetTab.classList.add('active');
+    if(targetBtn) targetBtn.classList.add('active');
     
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
