@@ -17,8 +17,8 @@ body {
     color: var(--text-bright);
     font-family: 'Space Mono', monospace;
     overflow-x: hidden;
-    line-height: 2.2; /* Compressed from 2.5 */
-    font-size: 1rem; /* Scaled down for viewport fit */
+    line-height: 2.2;
+    font-size: 1rem;
 }
 
 #loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 9999; display: flex; align-items: center; justify-content: center; }
@@ -29,7 +29,7 @@ body {
 
 .top-nav {
     position: fixed; top: 0; left: 0; width: 100vw;
-    z-index: 1000; padding: 25px 0; /* Compressed from 40px */
+    z-index: 1000; padding: 25px 0;
     display: flex; justify-content: center; align-items: center;
 }
 
@@ -44,18 +44,12 @@ body {
 .nav-btn.active { border-color: var(--neon-cyan); color: var(--text-bright); text-shadow: 0 0 10px var(--neon-cyan); box-shadow: 0 0 20px rgba(0, 242, 255, 0.15); }
 .nav-btn:hover { color: var(--text-bright); transform: translateY(-2px); }
 
-.container { 
-    position: relative; z-index: 10; max-width: 1200px; 
-    margin: 100px auto 50px; /* Compressed top offset to pull content up */
-    padding: 0 40px; 
-}
-
+.container { position: relative; z-index: 10; max-width: 1200px; margin: 100px auto 50px; padding: 0 40px; }
 .content-tab { display: none; width: 100%; }
 .content-tab.active { display: block; animation: fadeIn 0.4s forwards; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-/* Profile container bounded to viewport height */
-#tab-profile {
+#tab-profile.active {
     height: calc(100vh - 150px);
     display: flex;
     flex-direction: column;
@@ -67,7 +61,6 @@ body {
 .avatar-wrapper { width: 150px; height: 150px; border-radius: 50%; border: 2px solid #333; padding: 8px; margin-bottom: 20px; }
 .avatar { width: 100%; height: 100%; border-radius: 50%; filter: grayscale(1); object-fit: cover; }
 
-/* Reverted to static neon glow */
 .glitch-name {
     font-family: 'Doto', sans-serif; font-variation-settings: "wght" 900;
     font-size: 4rem; margin-bottom: 10px; color: var(--text-bright);
@@ -135,7 +128,7 @@ body {
     .glitch-name { font-size: 2.5rem; }
     .avatar-wrapper { width: 120px; height: 120px; margin-bottom: 15px; }
     .bio { font-size: 0.85rem; line-height: 1.6; }
-    #tab-profile { height: auto; min-height: calc(100vh - 120px); }
+    #tab-profile.active { height: auto; min-height: calc(100vh - 120px); }
     .job-header { flex-direction: column; align-items: flex-start; gap: 10px; }
     .job-company { font-size: 1.8rem; }
     .skill-box { font-size: 1rem; padding: 12px 20px; }
