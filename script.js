@@ -111,6 +111,8 @@ async function sendMessage(text) {
     showTyping();
 
     chatHistory.push({ role: 'user', content: text });
+    // Keep history capped to avoid unbounded growth
+    if (chatHistory.length > 20) chatHistory = chatHistory.slice(-20);
 
     try {
         const res  = await fetch(WORKER_URL, {
