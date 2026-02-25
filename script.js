@@ -27,7 +27,7 @@ function setActiveNav(name) {
     if (btn) btn.classList.add('active');
 }
 
-const INNER_PAGES = ['experience','skills','education'];
+const INNER_PAGES = ['experience','skills','resume'];
 
 function openPage(name) {
     if (name === 'home') { goHome(); return; }
@@ -54,6 +54,23 @@ function closePage(name) { goHome(); }
 
 // Set home as active on load
 setActiveNav('home');
+
+// ── AVATAR AUTO-ROTATE ──
+// Shows real photo by default, flips to emoji every 10s briefly
+const avatarContainer = document.getElementById('avatar-container');
+let showingEmoji = false;
+
+setInterval(() => {
+    showingEmoji = !showingEmoji;
+    if (showingEmoji) {
+        avatarContainer.classList.add('flipped');
+        // Flip back to real photo after 3 seconds
+        setTimeout(() => {
+            showingEmoji = false;
+            avatarContainer.classList.remove('flipped');
+        }, 3000);
+    }
+}, 10000);
 
 // ── CHAT ──
 const messagesEl    = document.getElementById('chat-messages');
