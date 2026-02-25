@@ -14,7 +14,7 @@ const WORKER_URL = 'https://suvambot.mondal-suvam3.workers.dev';
                 setTimeout(() => loader.style.display = 'none', 500);
             }, 200);
         }
-        bar.style.width = p + '%';
+        if(bar) bar.style.width = p + '%';
     }, 30);
 })();
 
@@ -28,18 +28,21 @@ function setActiveNav(name) {
 }
 
 function openPage(name) {
-    // hide all inner pages first
-    ['experience','skills','education','profile'].forEach(p => {
-        document.getElementById('page-' + p).classList.remove('active');
+    // Hide inner pages
+    ['experience','skills','education'].forEach(p => {
+        const page = document.getElementById('page-' + p);
+        if(page) page.classList.remove('active');
     });
-    document.getElementById('page-' + name).classList.add('active');
+    const target = document.getElementById('page-' + name);
+    if(target) target.classList.add('active');
     currentPage = name;
     setActiveNav(name);
 }
 
 function goHome() {
-    ['experience','skills','education','profile'].forEach(p => {
-        document.getElementById('page-' + p).classList.remove('active');
+    ['experience','skills','education'].forEach(p => {
+        const page = document.getElementById('page-' + p);
+        if(page) page.classList.remove('active');
     });
     currentPage = 'home';
     setActiveNav('home');
@@ -52,21 +55,6 @@ function closePage(name) {
 // Set home as active on load
 setActiveNav('home');
 
-// ── FACE ──
-const face = document.getElementById('face');
-let talkTimer = null;
-
-function setFace(state) {
-    face.classList.remove('talking', 'thinking', 'happy');
-    if (state) face.classList.add(state);
-}
-function startTalking(ms) {
-    setFace('talking');
-    clearTimeout(talkTimer);
-    talkTimer = setTimeout(() => setFace('happy'), ms);
-    setTimeout(() => setFace(null), ms + 1200);
-}
-
 // ── CHAT ──
 const messagesEl    = document.getElementById('chat-messages');
 const inputEl       = document.getElementById('chat-input');
@@ -75,12 +63,11 @@ const chipsEl       = document.getElementById('chips');
 let chatHistory     = [];
 let greeted         = false;
 
-// Greeting on load
+// Delayed greeting
 setTimeout(() => {
     if (!greeted) {
         greeted = true;
-        addMsg("Hey! 👋 I'm Suvam's AI — ask me anything about his experience, skills, or whether he's open to work!", 'bot');
-        startTalking(2800);
+        addMsg("Hey! 👋 Ask me anything about Suvam's experience, skills, or if he's open to work.", 'bot');
     }
 }, 800);
 
@@ -89,15 +76,18 @@ function addMsg(text, role) {
     el.className = 'msg ' + role;
     el.textContent = text;
     messagesEl.appendChild(el);
-    messagesEl.scrollTop = messagesEl.scrollHeight;
+    // Smooth scroll to bottom
+    messagesEl.scrollTo({ top: messagesEl.scrollHeight, behavior: 'smooth' });
 }
+
 function showTyping() {
     const el = document.createElement('div');
     el.className = 'msg-typing'; el.id = 'typing';
     el.innerHTML = '<span></span><span></span><span></span>';
     messagesEl.appendChild(el);
-    messagesEl.scrollTop = messagesEl.scrollHeight;
+    messagesEl.scrollTo({ top: messagesEl.scrollHeight, behavior: 'smooth' });
 }
+
 function hideTyping() {
     const t = document.getElementById('typing');
     if (t) t.remove();
@@ -107,15 +97,13 @@ async function sendMessage(text) {
     if (!text.trim()) return;
 
     if (WORKER_URL === 'YOUR_WORKER_URL') {
-        addMsg("⚙️ Almost there! Deploy the Cloudflare Worker and paste the URL into script.js.", 'bot');
-        startTalking(2000);
+        addMsg("⚙️ Cloudflare Worker URL is not configured.", 'bot');
         return;
     }
 
     addMsg(text, 'user');
-    chipsEl.style.display = 'none';
+    if(chipsEl) chipsEl.style.display = 'none';
     sendBtn.disabled = true;
-    setFace('thinking');
     showTyping();
 
     chatHistory.push({ role: 'user', content: text });
@@ -130,38 +118,42 @@ async function sendMessage(text) {
         hideTyping();
 
         if (data.error) {
-            addMsg("Something went wrong — try again!", 'bot');
-            chatHistory.pop(); setFace(null);
+            addMsg("Message failed to send. Please try again.", 'bot');
+            chatHistory.pop(); 
         } else {
             const reply = data.content[0].text;
             chatHistory.push({ role: 'assistant', content: reply });
             addMsg(reply, 'bot');
-            startTalking(Math.min(500 + reply.length * 28, 6000));
         }
     } catch {
         hideTyping();
-        addMsg("Network error — check your connection and try again.", 'bot');
-        chatHistory.pop(); setFace(null);
+        addMsg("Network error. Please check your connection.", 'bot');
+        chatHistory.pop(); 
     }
 
     sendBtn.disabled = false;
+    inputEl.focus();
 }
 
-sendBtn.addEventListener('click', () => {
-    const v = inputEl.value.trim();
-    if (!v) return;
-    inputEl.value = '';
-    sendMessage(v);
-});
-inputEl.addEventListener('keydown', e => {
-    if (e.key === 'Enter') {
-        e.preventDefault();
+if(sendBtn) {
+    sendBtn.addEventListener('click', () => {
         const v = inputEl.value.trim();
         if (!v) return;
         inputEl.value = '';
         sendMessage(v);
-    }
-});
+    });
+}
+if(inputEl) {
+    inputEl.addEventListener('keydown', e => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            const v = inputEl.value.trim();
+            if (!v) return;
+            inputEl.value = '';
+            sendMessage(v);
+        }
+    });
+}
 document.querySelectorAll('.chip').forEach(b => {
     b.addEventListener('click', () => sendMessage(b.textContent));
 });
