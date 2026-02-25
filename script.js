@@ -27,30 +27,30 @@ function setActiveNav(name) {
     if (btn) btn.classList.add('active');
 }
 
+const INNER_PAGES = ['experience','skills','education'];
+
 function openPage(name) {
-    // Hide inner pages
-    ['experience','skills','education'].forEach(p => {
+    if (name === 'home') { goHome(); return; }
+    INNER_PAGES.forEach(p => {
         const page = document.getElementById('page-' + p);
-        if(page) page.classList.remove('active');
+        if (page) page.classList.remove('active');
     });
     const target = document.getElementById('page-' + name);
-    if(target) target.classList.add('active');
+    if (target) target.classList.add('active');
     currentPage = name;
     setActiveNav(name);
 }
 
 function goHome() {
-    ['experience','skills','education'].forEach(p => {
+    INNER_PAGES.forEach(p => {
         const page = document.getElementById('page-' + p);
-        if(page) page.classList.remove('active');
+        if (page) page.classList.remove('active');
     });
     currentPage = 'home';
     setActiveNav('home');
 }
 
-function closePage(name) {
-    goHome();
-}
+function closePage(name) { goHome(); }
 
 // Set home as active on load
 setActiveNav('home');
@@ -63,13 +63,17 @@ const chipsEl       = document.getElementById('chips');
 let chatHistory     = [];
 let greeted         = false;
 
-// Delayed greeting
+// Delayed greeting with typing indicator
 setTimeout(() => {
     if (!greeted) {
         greeted = true;
-        addMsg("Hey! 👋 Ask me anything about Suvam's experience, skills, or if he's open to work.", 'bot');
+        showTyping();
+        setTimeout(() => {
+            hideTyping();
+            addMsg("Hey! 👋 Ask me anything about Suvam's experience, skills, or if he's open to work.", 'bot');
+        }, 1000);
     }
-}, 800);
+}, 600);
 
 function addMsg(text, role) {
     const el = document.createElement('div');

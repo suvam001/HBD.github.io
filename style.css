@@ -71,17 +71,19 @@ body {
 
 /* Hover Avatar */
 .avatar-hover-container {
-    width: 80px; height: 80px;
+    width: 100px; height: 100px;
     border-radius: 50%;
     margin: 0 auto;
     position: relative;
     overflow: hidden;
     cursor: pointer;
     background: #f0f0f5;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
 }
 .avatar-front, .avatar-back {
     width: 100%; height: 100%;
     object-fit: cover;
+    object-position: center 10%;
     position: absolute;
     top: 0; left: 0;
     transition: opacity 0.4s ease-in-out;
@@ -210,7 +212,7 @@ body {
 /* ── INNER PAGES (Experience, Skills, Education) ── */
 .inner-page {
     display: flex; flex-direction: column;
-    height: 100dvh; overflow: hidden;
+    overflow: hidden;
 }
 .inner-header {
     display: flex; align-items: center; gap: 12px;
