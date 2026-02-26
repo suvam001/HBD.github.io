@@ -1,14 +1,29 @@
 :root {
-    --accent:      #7c6ff7;
+    --accent:      #007aff;
     --accent-pink: #f28bbd;
     --accent-sage: #6dbfa0;
     --accent-peach:#f5a986;
     --text-dark:   #1a1a2e;
     --text-body:   #4a4a6a;
     --text-dim:    #9898b8;
-    --bg:          #ffffff; /* Changed to white for iMessage cleanliness */
+    --bg:          #ffffff;
     --bg-card:     #ffffff;
     --border:      #e5e5ea;
+    --nav-bg:      rgba(255,255,255,0.9);
+    --msg-bot-bg:  #e9e9eb;
+    --msg-bot-color: #000;
+}
+
+body.dark {
+    --text-dark:   #f0f0f5;
+    --text-body:   #a0a0b8;
+    --text-dim:    #666688;
+    --bg:          #0f0f13;
+    --bg-card:     #1a1a22;
+    --border:      #2a2a38;
+    --nav-bg:      rgba(15,15,19,0.92);
+    --msg-bot-bg:  #2a2a38;
+    --msg-bot-color: #f0f0f5;
 }
 
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -123,18 +138,18 @@ body {
 
 .msg.bot {
     align-self: flex-start;
-    background: #e9e9eb; color: #000;
+    background: var(--msg-bot-bg); color: var(--msg-bot-color);
     border-radius: 18px 18px 18px 4px;
 }
 
 .msg.user {
     align-self: flex-end;
-    background: #007aff; color: #fff;
+    background: var(--accent); color: #fff;
     border-radius: 18px 18px 4px 18px;
 }
 
 .msg-typing {
-    align-self: flex-start; background: #e9e9eb;
+    align-self: flex-start; background: var(--msg-bot-bg);
     border-radius: 18px 18px 18px 4px;
     padding: 12px 16px; display: flex; gap: 4px; align-items: center;
 }
@@ -172,18 +187,19 @@ body {
 }
 .home-input-box {
     display: flex; align-items: center; gap: 10px;
-    background: #fff;
-    border: 1px solid #c8c8cc;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
     border-radius: 24px;
     padding: 4px 6px 4px 16px;
+    transition: background 0.3s, border-color 0.2s;
 }
-.home-input-box:focus-within { border-color: #8e8e93; }
+.home-input-box:focus-within { border-color: var(--accent); }
 .home-input-box input {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    font-size: 1rem; /* Must be 16px+ to prevent iOS Safari zoom on focus */
-    flex: 1; border: none; outline: none; background: transparent; color: #000;
+    font-size: 1rem;
+    flex: 1; border: none; outline: none; background: transparent; color: var(--text-dark);
 }
-.home-input-box input::placeholder { color: #8e8e93; }
+.home-input-box input::placeholder { color: var(--text-dim); }
 .home-send-btn {
     width: 30px; height: 30px; border-radius: 50%;
     background: #007aff; border: none;
@@ -193,16 +209,32 @@ body {
 .home-send-btn:hover { opacity: 0.8; }
 .home-send-btn:disabled { background: #c8c8cc; cursor: not-allowed; }
 
+/* ── DARK MODE TOGGLE BUTTON ── */
+#theme-toggle {
+    position: fixed; top: 16px; right: 16px;
+    z-index: 3000;
+    width: 38px; height: 38px; border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text-dark);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    transition: background 0.3s, border-color 0.3s, transform 0.2s;
+}
+#theme-toggle:hover { transform: scale(1.1); }
+
 /* ── BOTTOM NAV ── */
 .bottom-nav {
     position: fixed; bottom: 0; left: 0; right: 0;
     display: flex; justify-content: space-around; align-items: center;
     padding: 10px 8px 20px;
-    background: rgba(255, 255, 255, 0.9);
+    background: var(--nav-bg);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-top: 1px solid var(--border);
     z-index: 2000;
+    transition: background 0.3s;
 }
 .nav-item {
     display: flex; flex-direction: column; align-items: center; gap: 4px;
@@ -251,15 +283,129 @@ body {
 .job-details li::before { content: '›'; position: absolute; left: 0; color: #007aff; font-size: 1.1rem; line-height: 1.4; }
 .job-divider { border: none; border-top: 1px solid var(--border); margin: 0 0 40px; }
 
-/* Skills */
-.skills-grid { display: flex; flex-wrap: wrap; gap: 12px; }
-.skill-tag {
-    padding: 10px 20px; border-radius: 10px;
-    background: var(--bg-card); border: 1px solid var(--border);
-    font-family: 'Doto', sans-serif; font-size: 0.9rem; letter-spacing: 1px;
-    color: var(--text-body); transition: all 0.25s;
+/* ── CUSTOM CURSOR ── */
+*, *::before, *::after { cursor: none !important; }
+
+#cursor {
+    position: fixed;
+    width: 10px; height: 10px;
+    background: #007aff;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99999;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s, background 0.2s, opacity 0.2s;
+    mix-blend-mode: multiply;
 }
-.skill-tag:hover { transform: translateY(-2px); border-color: #007aff; color: #007aff; }
+#cursor-ring {
+    position: fixed;
+    width: 32px; height: 32px;
+    border: 1.5px solid rgba(0,122,255,0.5);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99998;
+    transform: translate(-50%, -50%);
+    transition: width 0.35s cubic-bezier(0.16,1,0.3,1),
+                height 0.35s cubic-bezier(0.16,1,0.3,1),
+                border-color 0.2s, opacity 0.2s;
+}
+/* Hover state — cursor expands on interactive elements */
+body.cursor-hover #cursor { width: 6px; height: 6px; background: #007aff; }
+body.cursor-hover #cursor-ring { width: 44px; height: 44px; border-color: rgba(0,122,255,0.35); }
+/* Click state */
+body.cursor-click #cursor { width: 14px; height: 14px; background: var(--accent); }
+body.cursor-click #cursor-ring { width: 24px; height: 24px; border-color: var(--accent); }
+
+/* Hide custom cursor on touch devices */
+@media (hover: none) {
+    #cursor, #cursor-ring { display: none; }
+    *, *::before, *::after { cursor: auto !important; }
+}
+
+/* ── SKILLS PAGE ── */
+.skills-section { }
+
+.skills-section-header {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 16px;
+    font-family: 'Doto', sans-serif; font-size: 0.85rem;
+    letter-spacing: 2px; color: var(--text-dim);
+}
+.skills-section-icon {
+    width: 30px; height: 30px; border-radius: 8px;
+    background: rgba(124,111,247,0.1); color: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+}
+
+/* Tech skill cards with progress bars */
+.tech-skills-grid {
+    display: flex; flex-direction: column; gap: 10px;
+}
+.tech-skill-card {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 16px;
+    background: #fff; border: 1px solid var(--border);
+    border-radius: 14px;
+    animation: slideIn 0.3s cubic-bezier(0.16,1,0.3,1) both;
+    animation-delay: calc(var(--i) * 0.07s);
+    transition: box-shadow 0.2s, transform 0.2s;
+}
+.tech-skill-card:hover { transform: translateX(4px); box-shadow: 0 4px 16px rgba(0,122,255,0.08); }
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(-10px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+.tech-skill-icon { font-size: 1.2rem; width: 28px; text-align: center; flex-shrink: 0; }
+.tech-skill-name { font-weight: 700; font-size: 0.88rem; color: var(--text-dark); width: 64px; flex-shrink: 0; }
+.tech-skill-bar {
+    flex: 1; height: 5px; background: #f0f0f5; border-radius: 10px; overflow: hidden;
+}
+.tech-skill-fill {
+    height: 100%; width: 0%; border-radius: 10px;
+    background: linear-gradient(90deg, #007aff, var(--accent));
+    animation: fillBar 0.8s cubic-bezier(0.16,1,0.3,1) forwards;
+    animation-delay: calc(0.3s + var(--i, 0) * 0.07s);
+}
+@keyframes fillBar { to { width: var(--w); } }
+.tech-skill-level {
+    font-size: 0.68rem; color: var(--text-dim);
+    font-family: 'Space Mono', monospace;
+    width: 58px; text-align: right; flex-shrink: 0;
+}
+
+/* Soft skill pills */
+.soft-skills-grid {
+    display: flex; flex-wrap: wrap; gap: 8px;
+}
+.soft-skill-pill {
+    display: flex; align-items: center; gap: 7px;
+    padding: 8px 14px; border-radius: 20px;
+    background: var(--c); color: var(--cc);
+    font-size: 0.82rem; font-weight: 600;
+    border: 1px solid var(--c);
+    animation: popIn 0.3s cubic-bezier(0.16,1,0.3,1) both;
+    animation-delay: calc(var(--i) * 0.06s);
+    transition: transform 0.2s;
+}
+.soft-skill-pill:hover { transform: translateY(-2px); }
+@keyframes popIn {
+    from { opacity: 0; transform: scale(0.88); }
+    to   { opacity: 1; transform: scale(1); }
+}
+.soft-skill-dot {
+    width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+}
+
+/* Domain tags */
+.domain-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.domain-tag {
+    padding: 6px 14px; border-radius: 8px;
+    background: #f7f7fb; border: 1px solid var(--border);
+    font-size: 0.78rem; color: var(--text-body); font-weight: 500;
+    transition: all 0.2s;
+}
+.domain-tag:hover { border-color: var(--accent-sage); color: var(--accent-sage); background: rgba(109,191,160,0.06); }
 
 /* Education */
 .edu-item { margin-bottom: 32px; padding-left: 20px; border-left: 2px solid #007aff; position: relative; }

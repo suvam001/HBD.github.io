@@ -1,5 +1,56 @@
 const WORKER_URL = 'https://suvambot.mondal-suvam3.workers.dev';
 
+// ── DARK MODE ──
+const themeToggle = document.getElementById('theme-toggle');
+const iconMoon    = document.getElementById('icon-moon');
+const iconSun     = document.getElementById('icon-sun');
+
+// Restore saved preference
+if (localStorage.getItem('theme') === 'dark') {
+    document.body.classList.add('dark');
+    iconMoon.style.display = 'none';
+    iconSun.style.display  = 'block';
+}
+
+themeToggle.addEventListener('click', () => {
+    const isDark = document.body.classList.toggle('dark');
+    iconMoon.style.display = isDark ? 'none'  : 'block';
+    iconSun.style.display  = isDark ? 'block' : 'none';
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+});
+
+// ── CUSTOM CURSOR ──
+const cursor     = document.getElementById('cursor');
+const cursorRing = document.getElementById('cursor-ring');
+
+let mouseX = 0, mouseY = 0;
+let ringX  = 0, ringY  = 0;
+
+document.addEventListener('mousemove', e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    cursor.style.left = mouseX + 'px';
+    cursor.style.top  = mouseY + 'px';
+});
+
+// Ring follows with lag
+(function animateRing() {
+    ringX += (mouseX - ringX) * 0.12;
+    ringY += (mouseY - ringY) * 0.12;
+    cursorRing.style.left = ringX + 'px';
+    cursorRing.style.top  = ringY + 'px';
+    requestAnimationFrame(animateRing);
+})();
+
+// Hover state on interactive elements
+document.querySelectorAll('a, button, input, .chip, .nav-item, .avatar-hover-container, .tech-skill-card, .soft-skill-pill, .domain-tag').forEach(el => {
+    el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+    el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+});
+
+document.addEventListener('mousedown', () => document.body.classList.add('cursor-click'));
+document.addEventListener('mouseup',   () => document.body.classList.remove('cursor-click'));
+
 // ── LOADER ──
 (function() {
     let p = 0;
@@ -27,50 +78,33 @@ function setActiveNav(name) {
     if (btn) btn.classList.add('active');
 }
 
-const INNER_PAGES = ['experience','skills','resume'];
-
 function openPage(name) {
-    if (name === 'home') { goHome(); return; }
-    INNER_PAGES.forEach(p => {
+    // Hide inner pages
+    ['experience','skills','education'].forEach(p => {
         const page = document.getElementById('page-' + p);
-        if (page) page.classList.remove('active');
+        if(page) page.classList.remove('active');
     });
     const target = document.getElementById('page-' + name);
-    if (target) target.classList.add('active');
+    if(target) target.classList.add('active');
     currentPage = name;
     setActiveNav(name);
 }
 
 function goHome() {
-    INNER_PAGES.forEach(p => {
+    ['experience','skills','education'].forEach(p => {
         const page = document.getElementById('page-' + p);
-        if (page) page.classList.remove('active');
+        if(page) page.classList.remove('active');
     });
     currentPage = 'home';
     setActiveNav('home');
 }
 
-function closePage(name) { goHome(); }
+function closePage(name) {
+    goHome();
+}
 
 // Set home as active on load
 setActiveNav('home');
-
-// ── AVATAR AUTO-ROTATE ──
-// Shows real photo by default, flips to emoji every 10s briefly
-const avatarContainer = document.getElementById('avatar-container');
-let showingEmoji = false;
-
-setInterval(() => {
-    showingEmoji = !showingEmoji;
-    if (showingEmoji) {
-        avatarContainer.classList.add('flipped');
-        // Flip back to real photo after 3 seconds
-        setTimeout(() => {
-            showingEmoji = false;
-            avatarContainer.classList.remove('flipped');
-        }, 3000);
-    }
-}, 10000);
 
 // ── CHAT ──
 const messagesEl    = document.getElementById('chat-messages');
@@ -80,24 +114,23 @@ const chipsEl       = document.getElementById('chips');
 let chatHistory     = [];
 let greeted         = false;
 
-// Delayed greeting with typing indicator
+// Delayed greeting
 setTimeout(() => {
     if (!greeted) {
         greeted = true;
-        showTyping();
-        setTimeout(() => {
-            hideTyping();
-            addMsg("Hey! 👋 Ask me anything about Suvam's experience, skills, or if he's open to work.", 'bot');
-        }, 1000);
+        addMsg("Hey! 👋 Ask me anything about Suvam's experience, skills, or if he's open to work.", 'bot');
     }
-}, 600);
+}, 800);
 
 function addMsg(text, role) {
     const el = document.createElement('div');
     el.className = 'msg ' + role;
-    el.textContent = text;
+    if (role === 'bot') {
+        el.innerHTML = text.replace(/\n/g, '<br>');
+    } else {
+        el.textContent = text;
+    }
     messagesEl.appendChild(el);
-    // Smooth scroll to bottom
     messagesEl.scrollTo({ top: messagesEl.scrollHeight, behavior: 'smooth' });
 }
 
@@ -128,8 +161,6 @@ async function sendMessage(text) {
     showTyping();
 
     chatHistory.push({ role: 'user', content: text });
-    // Keep history capped to avoid unbounded growth
-    if (chatHistory.length > 20) chatHistory = chatHistory.slice(-20);
 
     try {
         const res  = await fetch(WORKER_URL, {

@@ -5,9 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Suvam Mondal | AI Agent</title>
     <link href="https://fonts.googleapis.com/css2?family=Doto:wght@100..900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
+    <link rel="apple-touch-icon" href="favicon.png">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div id="cursor"></div>
+    <div id="cursor-ring"></div>
+
+    <!-- Dark mode toggle -->
+    <button id="theme-toggle" aria-label="Toggle dark mode">
+        <svg id="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg id="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    </button>
 
     <div id="loader">
         <div class="loader-inner">
@@ -19,7 +30,7 @@
     <div id="page-home" class="page active">
         <div class="home-top">
             <h1 class="hero-title">Suvam Mondal</h1>
-            <div class="hero-subtitle">Data Analyst & AI Agents</div>
+            <div class="hero-subtitle">Data Analyst & AI Agent</div>
             
             <div class="avatar-hover-container" id="avatar-container">
                 <img src="Photo_self.jpg" class="avatar-front" alt="Suvam Mondal">
@@ -37,7 +48,7 @@
 
         <div class="home-input-wrap">
             <div class="home-input-box">
-                <input id="chat-input" type="text" placeholder="Type here..." autocomplete="off" maxlength="600">
+                <input id="chat-input" type="text" placeholder="iMessage" autocomplete="off" maxlength="600">
                 <button id="chat-send" class="home-send-btn">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="12" y1="19" x2="12" y2="5"></line>
@@ -63,11 +74,9 @@
                 </div>
                 <p class="job-role">Data Analyst | USA Healthcare | Bengaluru</p>
                 <ul class="job-details">
-                    <li>Engineered end-to-end process automations and built 5+ scalable Market Access databases using SQL and Python for clients such as Genentech, AZ, Sun Pharma and Optinose, improving overall processing efficiency by 88%.</li>
-                    <li>Integrated MMIT, IQVIA, LAAD and SHA datasets by designing 5+ Python workflow, accelerating data bridging, validation and reporting efforts by 88%.</li>
-                    <li>Developed 2+ SQL stored procedures to simplify client-specific data manipulation and enhance query performance.</li>
-                    <li>Collaborated with 8+ client stakeholders to define analytical goals, delivering impactful insights that significantly strengthened engagement and satisfaction levels.</li>
-                    <li>Supported senior leadership by identifying new analytical opportunities and contributing to strategic decision-making using data-driven recommendations, leading to improved team efficiency.</li>
+                    <li>Engineered end-to-end process automations and built <strong>5+ scalable Market Access databases</strong> using SQL and Python.</li>
+                    <li>Integrated MMIT, IQVIA, LAAD and SHA datasets designing 5+ Python workflows.</li>
+                    <li>Collaborated with 8+ client stakeholders to define analytical goals.</li>
                 </ul>
             </div>
             <hr class="job-divider">
@@ -78,12 +87,9 @@
                 </div>
                 <p class="job-role">Senior IT Engineer | Goldman Sachs | Bengaluru</p>
                 <ul class="job-details">
-                    <li>Supported and guided junior team members, enabling smoother issue resolution and stakeholder coordination.</li>
-                    <li>Enhanced reporting accuracy and readability by using Power BI and applying best practices in visualization, increasing report clarity.</li>
-                    <li>Worked closely with users and stakeholders to analyze data sources and align reporting with business requirements, ensuring strong alignment with business objectives.</li>
-                    <li>Monitored key team performance metrics and provided insights that improved operational efficiency by 32%.</li>
-                    <li>Conducted detailed root cause analyses to resolve 17+ complex data issues, reducing recurring issues by 64%.</li>
-                    <li>Led the design and implementation of multiple dashboards, improving data consumption and accelerating decision-making speed.</li>
+                    <li>Enhanced reporting accuracy and readability using Power BI.</li>
+                    <li>Conducted root cause analyses resolving <strong>17+</strong> complex data issues.</li>
+                    <li>Monitored team performance metrics improving operational efficiency by 32%.</li>
                 </ul>
             </div>
             <hr class="job-divider">
@@ -94,13 +100,9 @@
                 </div>
                 <p class="job-role">Senior Analyst | Kolkata</p>
                 <ul class="job-details">
-                    <li>Led a 28-member Service Desk Team, managing performance, escalations, and SLA-driven service delivery.</li>
-                    <li>Executed multiple SQL-based assessments to identify service bottlenecks and streamline request workflow, greatly improving turnaround efficiency.</li>
-                    <li>Performed in-depth analyses on various datasets to discover improvement opportunities and optimize data-driven processes, resulting in notable enhancements in operational performance.</li>
-                    <li>Compiled structured client reports and recommended actions that meaningfully strengthened overall service delivery.</li>
-                    <li>Addressed key data quality gaps and initiated 15+ continuous improvement projects, significantly reducing recurring issues within the team.</li>
-                    <li>Conducted 10+ training sessions for new team members and facilitated knowledge transfer, leading to a more effective and smoother onboarding experience.</li>
-                    <li>Represented the team onsite in Gothenburg, Sweden, managing 1 transition activity and maintaining strong alignment with client expectations.</li>
+                    <li>Led a <strong>28-member Service Desk Team</strong> managing performance and SLA-driven delivery.</li>
+                    <li>Executed SQL-based assessments to identify service bottlenecks.</li>
+                    <li>Represented the team onsite in Gothenburg, Sweden, managing transition activities.</li>
                 </ul>
             </div>
         </div>
@@ -114,16 +116,102 @@
             <div class="inner-title">SKILLS</div>
         </div>
         <div class="inner-content">
-            <div class="skills-grid">
-                <div class="skill-tag">SQL</div>
-                <div class="skill-tag">Python</div>
-                <div class="skill-tag">Power BI</div>
-                <div class="skill-tag">Data Governance</div>
-                <div class="skill-tag">Business Intelligence</div>
-                <div class="skill-tag">Healthcare Analytics</div>
-              <div class="skill-tag">Non-Profit Analytics</div>
-                <div class="skill-tag">Process Optimization</div>
+
+            <div class="skills-section">
+                <div class="skills-section-header">
+                    <div class="skills-section-icon">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                    </div>
+                    <span>Technical Skills</span>
+                </div>
+                <div class="tech-skills-grid">
+                    <div class="tech-skill-card" style="--i:0">
+                        <div class="tech-skill-icon">🗄️</div>
+                        <div class="tech-skill-name">SQL</div>
+                        <div class="tech-skill-bar"><div class="tech-skill-fill" style="--w:95%"></div></div>
+                        <div class="tech-skill-level">Expert</div>
+                    </div>
+                    <div class="tech-skill-card" style="--i:1">
+                        <div class="tech-skill-icon">🐍</div>
+                        <div class="tech-skill-name">Python</div>
+                        <div class="tech-skill-bar"><div class="tech-skill-fill" style="--w:85%"></div></div>
+                        <div class="tech-skill-level">Advanced</div>
+                    </div>
+                    <div class="tech-skill-card" style="--i:2">
+                        <div class="tech-skill-icon">📊</div>
+                        <div class="tech-skill-name">Power BI</div>
+                        <div class="tech-skill-bar"><div class="tech-skill-fill" style="--w:90%"></div></div>
+                        <div class="tech-skill-level">Expert</div>
+                    </div>
+                    <div class="tech-skill-card" style="--i:3">
+                        <div class="tech-skill-icon">📈</div>
+                        <div class="tech-skill-name">Tableau</div>
+                        <div class="tech-skill-bar"><div class="tech-skill-fill" style="--w:75%"></div></div>
+                        <div class="tech-skill-level">Proficient</div>
+                    </div>
+                    <div class="tech-skill-card" style="--i:4">
+                        <div class="tech-skill-icon">📋</div>
+                        <div class="tech-skill-name">Excel</div>
+                        <div class="tech-skill-bar"><div class="tech-skill-fill" style="--w:88%"></div></div>
+                        <div class="tech-skill-level">Advanced</div>
+                    </div>
+                </div>
             </div>
+
+            <div class="skills-section" style="margin-top: 28px;">
+                <div class="skills-section-header">
+                    <div class="skills-section-icon" style="background: rgba(242,139,189,0.12); color: var(--accent-pink);">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <span>Soft Skills</span>
+                </div>
+                <div class="soft-skills-grid">
+                    <div class="soft-skill-pill" style="--i:0; --c: rgba(124,111,247,0.1); --cc: var(--accent)">
+                        <span class="soft-skill-dot" style="background: var(--accent)"></span>
+                        Critical Thinking
+                    </div>
+                    <div class="soft-skill-pill" style="--i:1; --c: rgba(242,139,189,0.12); --cc: var(--accent-pink)">
+                        <span class="soft-skill-dot" style="background: var(--accent-pink)"></span>
+                        Problem Solving
+                    </div>
+                    <div class="soft-skill-pill" style="--i:2; --c: rgba(109,191,160,0.12); --cc: var(--accent-sage)">
+                        <span class="soft-skill-dot" style="background: var(--accent-sage)"></span>
+                        Stakeholder Management
+                    </div>
+                    <div class="soft-skill-pill" style="--i:3; --c: rgba(245,169,134,0.15); --cc: var(--accent-peach)">
+                        <span class="soft-skill-dot" style="background: var(--accent-peach)"></span>
+                        Cross-functional Collaboration
+                    </div>
+                    <div class="soft-skill-pill" style="--i:4; --c: rgba(124,111,247,0.1); --cc: var(--accent)">
+                        <span class="soft-skill-dot" style="background: var(--accent)"></span>
+                        Client Relationship Management
+                    </div>
+                    <div class="soft-skill-pill" style="--i:5; --c: rgba(242,139,189,0.12); --cc: var(--accent-pink)">
+                        <span class="soft-skill-dot" style="background: var(--accent-pink)"></span>
+                        Leadership & Team Management
+                    </div>
+                </div>
+            </div>
+
+            <div class="skills-section" style="margin-top: 28px;">
+                <div class="skills-section-header">
+                    <div class="skills-section-icon" style="background: rgba(109,191,160,0.12); color: var(--accent-sage);">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                    </div>
+                    <span>Domain Expertise</span>
+                </div>
+                <div class="domain-tags">
+                    <span class="domain-tag">Healthcare Analytics</span>
+                    <span class="domain-tag">Market Access</span>
+                    <span class="domain-tag">Data Governance</span>
+                    <span class="domain-tag">Business Intelligence</span>
+                    <span class="domain-tag">Process Optimization</span>
+                    <span class="domain-tag">Non-Profit Analytics</span>
+                    <span class="domain-tag">Financial Services</span>
+                    <span class="domain-tag">Data Integration</span>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -170,7 +258,7 @@
             <span>RESUME</span>
         </button>
     </nav>
-<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "727baad033624887a58ceaddf6d0d44a"}'></script><!-- End Cloudflare Web Analytics -->
+
     <script src="script.js"></script>
 </body>
 </html>
