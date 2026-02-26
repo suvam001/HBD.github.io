@@ -233,7 +233,7 @@ body {
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-top: 1px solid var(--border);
-    z-index: 2000;
+    z-index: 9999;
     transition: background 0.3s;
 }
 .nav-item {
@@ -442,20 +442,25 @@ body {
     .avatar-hover-container:hover .avatar-back  { opacity: 1; }
 }
 /* ── RESUME PAGE ── */
+#page-resume {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
 .resume-preview {
     flex: 1;
     overflow: hidden;
     background: #f0f0f5;
-    /* Ensure iframe never overlaps the nav */
-    position: relative;
+    /* Give iframe a fixed calc height - never touches the nav */
+    height: calc(100dvh - 140px); /* 60px header + 80px nav */
 }
 .resume-preview iframe {
-    position: absolute;
-    inset: 0;
     width: 100%;
     height: 100%;
     border: none;
     display: block;
+    /* Critical: stop iframe from capturing pointer events outside itself */
+    pointer-events: auto;
 }
 
 /* Download button in header */
