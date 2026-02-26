@@ -442,36 +442,49 @@ body {
     .avatar-hover-container:hover .avatar-back  { opacity: 1; }
 }
 /* ── RESUME PAGE ── */
-#page-resume {
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-}
-.resume-preview {
-    flex: 1;
-    overflow: hidden;
-    background: #f0f0f5;
-    /* Give iframe a fixed calc height - never touches the nav */
-    height: calc(100dvh - 140px); /* 60px header + 80px nav */
-}
-.resume-preview iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-    display: block;
-    /* Critical: stop iframe from capturing pointer events outside itself */
-    pointer-events: auto;
-}
+#page-resume { overflow: hidden; }
+.resume-inner { display: flex; flex-direction: column; gap: 24px; }
 
-/* Download button in header */
-.download-btn {
-    margin-left: auto;
-    display: flex; align-items: center; gap: 6px;
-    padding: 8px 16px; border-radius: 20px;
-    background: #007aff; color: #fff;
-    font-size: 0.78rem; font-weight: 600;
-    text-decoration: none;
-    transition: opacity 0.2s;
-    flex-shrink: 0;
+.resume-actions { display: flex; flex-direction: column; gap: 12px; }
+
+.resume-action-btn {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 16px 24px; border-radius: 14px;
+    font-size: 0.95rem; font-weight: 700;
+    text-decoration: none; transition: all 0.2s;
+    border: none; cursor: pointer;
 }
-.download-btn:hover { opacity: 0.85; }
+.resume-action-btn.primary {
+    background: var(--accent); color: #fff;
+    box-shadow: 0 4px 16px rgba(0,122,255,0.25);
+}
+.resume-action-btn.primary:hover { opacity: 0.88; transform: translateY(-1px); }
+.resume-action-btn.secondary {
+    background: var(--bg-card); color: var(--text-dark);
+    border: 1.5px solid var(--border);
+}
+.resume-action-btn.secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+.resume-info {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+}
+.resume-info-row {
+    display: flex; align-items: center;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border);
+    gap: 12px;
+}
+.resume-info-row:last-child { border-bottom: none; }
+.resume-info-label {
+    font-size: 0.75rem; font-family: 'Space Mono', monospace;
+    color: var(--text-dim); width: 80px; flex-shrink: 0;
+}
+.resume-info-value { font-size: 0.88rem; font-weight: 600; color: var(--text-dark); }
+.resume-info-link {
+    font-size: 0.88rem; font-weight: 600;
+    color: var(--accent); text-decoration: none;
+}
+.resume-info-link:hover { text-decoration: underline; }
