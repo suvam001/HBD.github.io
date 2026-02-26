@@ -180,7 +180,7 @@ body {
 .home-input-box:focus-within { border-color: #8e8e93; }
 .home-input-box input {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    font-size: 0.95rem;
+    font-size: 1rem; /* Must be 16px+ to prevent iOS Safari zoom on focus */
     flex: 1; border: none; outline: none; background: transparent; color: #000;
 }
 .home-input-box input::placeholder { color: #8e8e93; }
@@ -267,9 +267,69 @@ body {
 .edu-school { font-size: 0.82rem; color: var(--text-dim); font-family: 'Space Mono', monospace; }
 
 @media (max-width: 480px) {
+    /* Home */
     .hero-title { font-size: 1.4rem; }
-    .nav-item { padding: 8px 10px; }
-    .nav-item span { font-size: 0.62rem; }
+    .hero-subtitle { font-size: 0.75rem; margin-bottom: 10px; }
+    .home-top { padding: 14px 16px 8px; }
+    .avatar-hover-container { width: 88px; height: 88px; }
+
+    /* Chips — scroll horizontally instead of wrapping messily */
+    .home-chips {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+        padding: 8px 16px 12px;
+        gap: 6px;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+    }
+    .home-chips::-webkit-scrollbar { display: none; }
+    .chip { font-size: 0.73rem; padding: 5px 12px; flex-shrink: 0; }
+
+    /* Input */
+    .home-input-wrap { padding: 0 12px 12px; }
+    .home-input-box input { font-size: 1rem; } /* Prevents iOS auto-zoom on focus */
+
+    /* Messages */
+    .chat-messages-overlay { padding: 8px 12px; gap: 6px; }
+    .msg { font-size: 0.88rem; padding: 8px 12px; max-width: 88%; }
+
+    /* Nav */
+    .nav-item { padding: 6px 8px; gap: 3px; }
+    .nav-item svg { width: 20px; height: 20px; }
+    .nav-item span { font-size: 0.58rem; }
+
+    /* Inner pages */
+    .inner-header { padding: 14px 16px 12px; }
+    .inner-title { font-size: 1.1rem; letter-spacing: 2px; }
+    .inner-content { padding: 20px 16px 24px; }
+    .job-company { font-size: 1.1rem; }
+    .job-details li { font-size: 0.82rem; }
+    .skill-tag { font-size: 0.8rem; padding: 8px 14px; }
+
+    /* Resume download button — shorter label on small screens */
+    .download-btn { padding: 7px 12px; font-size: 0.72rem; }
+
+    /* Bottom nav safe area for iPhone home bar */
+    .bottom-nav { padding-bottom: max(20px, env(safe-area-inset-bottom)); }
+    .page { bottom: calc(60px + max(20px, env(safe-area-inset-bottom))); }
+}
+
+/* Tablet — make better use of wider screen */
+@media (min-width: 481px) and (max-width: 768px) {
+    .hero-title { font-size: 1.8rem; }
+    .avatar-hover-container { width: 110px; height: 110px; }
+    .msg { font-size: 0.9rem; }
+}
+
+/* Desktop — centre content, cap width */
+@media (min-width: 769px) {
+    body { max-width: 480px; margin: 0 auto; border-left: 1px solid var(--border); border-right: 1px solid var(--border); }
+    .bottom-nav { max-width: 480px; left: 50%; transform: translateX(-50%); }
+    .hero-title { font-size: 1.8rem; }
+    .avatar-hover-container { width: 120px; height: 120px; }
+    .avatar-hover-container:hover .avatar-front { opacity: 0; }
+    .avatar-hover-container:hover .avatar-back  { opacity: 1; }
 }
 /* ── RESUME PAGE ── */
 .resume-preview {
