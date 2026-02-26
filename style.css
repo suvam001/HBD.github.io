@@ -283,42 +283,6 @@ body {
 .job-details li::before { content: '›'; position: absolute; left: 0; color: #007aff; font-size: 1.1rem; line-height: 1.4; }
 .job-divider { border: none; border-top: 1px solid var(--border); margin: 0 0 40px; }
 
-/* ── CUSTOM CURSOR ── */
-*, *::before, *::after { cursor: none !important; }
-
-#cursor {
-    position: fixed;
-    width: 10px; height: 10px;
-    background: #007aff;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 99999;
-    transform: translate(-50%, -50%);
-    transition: width 0.2s, height 0.2s, background 0.2s, opacity 0.2s;
-    mix-blend-mode: multiply;
-}
-#cursor-ring {
-    position: fixed;
-    width: 32px; height: 32px;
-    border: 1.5px solid rgba(0,122,255,0.5);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 99998;
-    transform: translate(-50%, -50%);
-    transition: width 0.35s cubic-bezier(0.16,1,0.3,1),
-                height 0.35s cubic-bezier(0.16,1,0.3,1),
-                border-color 0.2s, opacity 0.2s;
-}
-/* Hover state — cursor expands on interactive elements */
-body.cursor-hover #cursor { width: 6px; height: 6px; background: #007aff; }
-body.cursor-hover #cursor-ring { width: 44px; height: 44px; border-color: rgba(0,122,255,0.35); }
-/* Click state */
-body.cursor-click #cursor { width: 14px; height: 14px; background: var(--accent); }
-body.cursor-click #cursor-ring { width: 24px; height: 24px; border-color: var(--accent); }
-
-/* Hide custom cursor on touch devices */
-@media (hover: none) {
-    #cursor, #cursor-ring { display: none; }
     *, *::before, *::after { cursor: auto !important; }
 }
 
@@ -482,8 +446,12 @@ body.cursor-click #cursor-ring { width: 24px; height: 24px; border-color: var(--
     flex: 1;
     overflow: hidden;
     background: #f0f0f5;
+    /* Ensure iframe never overlaps the nav */
+    position: relative;
 }
 .resume-preview iframe {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     border: none;
