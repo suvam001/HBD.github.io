@@ -48,7 +48,7 @@ function setActiveNav(name) {
 
 function openPage(name) {
     // Hide inner pages
-    ['experience','skills','education'].forEach(p => {
+    ['experience','skills'].forEach(p => {
         const page = document.getElementById('page-' + p);
         if(page) page.classList.remove('active');
     });
@@ -59,7 +59,7 @@ function openPage(name) {
 }
 
 function goHome() {
-    ['experience','skills','education'].forEach(p => {
+    ['experience','skills'].forEach(p => {
         const page = document.getElementById('page-' + p);
         if(page) page.classList.remove('active');
     });
