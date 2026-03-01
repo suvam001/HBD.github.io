@@ -138,6 +138,14 @@ body {
     background: var(--accent); color: #fff;
     border-bottom-right-radius: 4px;
 }
+.msg.system {
+    align-self: center;
+    background: var(--msg-bot-bg); color: var(--msg-bot-color);
+    border-radius: 18px;
+    text-align: center;
+    font-size: 0.85rem;
+    max-width: 88%;
+}
 
 /* Typing dots */
 .msg-typing {

@@ -86,7 +86,7 @@ let greeted         = false;
 setTimeout(() => {
     if (!greeted) {
         greeted = true;
-        addMsg("Hey! 👋 Ask me anything about Suvam's experience, skills, or if he's open to work.", 'bot');
+        addMsg("Hey! 👋 Ask me anything about Suvam's experience, skills, or if he's open to work.", 'system');
     }
 }, 800);
 
