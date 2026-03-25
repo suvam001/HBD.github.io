@@ -289,7 +289,8 @@ body {
 }
 
 /* ── EXPERIENCE — clean list style ── */
-.job { margin-bottom: 32px; }
+.job { margin-bottom: 32px; transition: transform 0.2s ease; border-radius: 12px; padding: 12px; margin-left: -12px; margin-right: -12px; }
+.job:hover { transform: scale(1.015); background: var(--bg-card); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
 .job-header {
     display: flex; justify-content: space-between;
     align-items: baseline; margin-bottom: 2px; gap: 8px;
@@ -326,7 +327,9 @@ body {
     display: flex; align-items: center; justify-content: space-between;
     padding: 12px 14px;
     border-bottom: 1px solid var(--border);
+    transition: transform 0.15s ease, background 0.15s ease;
 }
+.skill-row:hover { background: var(--border); transform: scale(1.02); z-index: 1; }
 .skill-row:last-child { border-bottom: none; }
 .skill-name { font-size: 0.88rem; font-weight: 500; color: var(--text-dark); }
 .skill-badge {
