@@ -90,16 +90,39 @@ setTimeout(() => {
     }
 }, 800);
 
-function addMsg(text, role) {
+function addMsg(text, role, isStreaming = false) {
     const el = document.createElement('div');
     el.className = 'msg ' + role;
-    if (role === 'bot') {
-        el.innerHTML = text.replace(/\n/g, '<br>');
+    if (role === 'bot' && isStreaming) {
+        el.classList.add('typing');
+        messagesEl.appendChild(el);
+        let i = 0;
+        const interval = setInterval(() => {
+            if (i < text.length) {
+                // Handle newlines correctly during streaming
+                const char = text[i];
+                if (char === '\n') {
+                    el.innerHTML += '<br>';
+                } else {
+                    el.innerHTML += char;
+                }
+                i++;
+                messagesEl.scrollTo({ top: messagesEl.scrollHeight, behavior: 'auto' });
+            } else {
+                clearInterval(interval);
+                el.classList.remove('typing');
+                messagesEl.scrollTo({ top: messagesEl.scrollHeight, behavior: 'smooth' });
+            }
+        }, 15); // Adjust speed here
     } else {
-        el.textContent = text;
+        if (role === 'bot') {
+            el.innerHTML = text.replace(/\n/g, '<br>');
+        } else {
+            el.textContent = text;
+        }
+        messagesEl.appendChild(el);
+        messagesEl.scrollTo({ top: messagesEl.scrollHeight, behavior: 'smooth' });
     }
-    messagesEl.appendChild(el);
-    messagesEl.scrollTo({ top: messagesEl.scrollHeight, behavior: 'smooth' });
 }
 
 function showTyping() {
@@ -145,7 +168,7 @@ async function sendMessage(text) {
         } else {
             const reply = data.content[0].text;
             chatHistory.push({ role: 'assistant', content: reply });
-            addMsg(reply, 'bot');
+            addMsg(reply, 'bot', true);
         }
     } catch {
         hideTyping();

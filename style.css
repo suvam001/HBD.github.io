@@ -129,27 +129,40 @@ body {
     overflow-y: auto;
     padding: 10px 16px;
     display: flex; flex-direction: column; gap: 4px;
-    /* Thin scrollbar visible on desktop */
+    /* Custom scrollbar */
     scrollbar-width: thin;
-    scrollbar-color: var(--border) transparent;
+    scrollbar-color: var(--accent) transparent;
 }
-.chat-messages-overlay::-webkit-scrollbar { width: 3px; }
-.chat-messages-overlay::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+.chat-messages-overlay::-webkit-scrollbar { width: 4px; }
+.chat-messages-overlay::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; opacity: 0.3; }
 .chat-messages-overlay::-webkit-scrollbar-track { background: transparent; }
 
 .msg {
     max-width: 78%; padding: 9px 13px;
     font-size: 0.92rem; line-height: 1.4;
-    animation: msgPop 0.22s ease both;
+    animation: msgPop 0.22s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
     border-radius: 18px;
+    position: relative;
 }
-@keyframes msgPop { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+@keyframes msgPop { from{opacity:0;transform:translateY(8px) scale(0.95)} to{opacity:1;transform:translateY(0) scale(1)} }
 
 .msg.bot {
     align-self: flex-start;
     background: var(--msg-bot-bg); color: var(--msg-bot-color);
     border-bottom-left-radius: 4px;
 }
+/* Typing cursor for streaming */
+.msg.bot.typing::after {
+    content: '|';
+    display: inline-block;
+    width: 2px;
+    background-color: var(--accent);
+    margin-left: 2px;
+    animation: cursorBlink 0.8s infinite;
+    vertical-align: middle;
+}
+@keyframes cursorBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
 .msg.user {
     align-self: flex-end;
     background: var(--accent); color: #fff;
