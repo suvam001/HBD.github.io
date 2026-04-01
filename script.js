@@ -1,30 +1,84 @@
 const WORKER_URL = 'https://suvambot.mondal-suvam3.workers.dev';
 
+// ── DARK MODE ──
+const themeToggle = document.getElementById('theme-toggle');
+const iconMoon    = document.getElementById('icon-moon');
+const iconSun     = document.getElementById('icon-sun');
+
+// Restore saved preference
+if (localStorage.getItem('theme') === 'dark') {
+    document.body.classList.add('dark');
+    iconMoon.style.display = 'none';
+    iconSun.style.display  = 'block';
+}
+
+themeToggle.addEventListener('click', () => {
+    const isDark = document.body.classList.toggle('dark');
+    iconMoon.style.display = isDark ? 'none'  : 'block';
+    iconSun.style.display  = isDark ? 'block' : 'none';
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+});
+
+// ── LOADER ──
+(function() {
+    let p = 0;
+    const bar = document.getElementById('loader-bar');
+    const loader = document.getElementById('loader');
+    const t = setInterval(() => {
+        p += Math.floor(Math.random() * 12) + 5;
+        if (p >= 100) {
+            p = 100; clearInterval(t);
+            setTimeout(() => {
+                if (loader) loader.style.opacity = '0';
+                setTimeout(() => { if (loader) loader.style.display = 'none'; }, 500);
+            }, 200);
+        }
+        if(bar) bar.style.width = p + '%';
+    }, 30);
+})();
+
 // ── PAGE NAVIGATION ──
 let currentPage = 'home';
 
 function setActiveNav(name) {
-    document.querySelectorAll('.cli-nav-item').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
     const btn = document.getElementById('nav-' + name);
     if (btn) btn.classList.add('active');
 }
 
 function openPage(name) {
-    // Hide all pages
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    
-    // Show target page
+    // Hide inner pages
+    ['experience','skills'].forEach(p => {
+        const page = document.getElementById('page-' + p);
+        if(page) page.classList.remove('active');
+    });
     const target = document.getElementById('page-' + name);
     if(target) target.classList.add('active');
-    
     currentPage = name;
     setActiveNav(name);
 }
+
+function goHome() {
+    ['experience','skills'].forEach(p => {
+        const page = document.getElementById('page-' + p);
+        if(page) page.classList.remove('active');
+    });
+    currentPage = 'home';
+    setActiveNav('home');
+}
+
+function closePage(name) {
+    goHome();
+}
+
+// Set home as active on load
+setActiveNav('home');
 
 // ── CHAT ──
 const messagesEl    = document.getElementById('chat-messages');
 const inputEl       = document.getElementById('chat-input');
 const sendBtn       = document.getElementById('chat-send');
+const chipsEl       = document.getElementById('chips');
 let chatHistory     = [];
 let greeted         = false;
 
@@ -32,37 +86,49 @@ let greeted         = false;
 setTimeout(() => {
     if (!greeted) {
         greeted = true;
-        addMsg("Terminal session established. Type a command or ask me about Suvam.", 'system');
+        addMsg("Hey! 👋 Ask me anything about Suvam's experience, skills, or if he's open to work.", 'system');
     }
-}, 500);
+}, 800);
 
 function addMsg(text, role, isStreaming = false) {
     const el = document.createElement('div');
     el.className = 'msg ' + role;
-    
     if (role === 'bot' && isStreaming) {
+        el.classList.add('typing');
+        messagesEl.appendChild(el);
         let i = 0;
         const interval = setInterval(() => {
             if (i < text.length) {
-                el.innerHTML += text[i] === '\n' ? '<br>' : text[i];
+                // Handle newlines correctly during streaming
+                const char = text[i];
+                if (char === '\n') {
+                    el.innerHTML += '<br>';
+                } else {
+                    el.innerHTML += char;
+                }
                 i++;
                 messagesEl.scrollTo({ top: messagesEl.scrollHeight, behavior: 'auto' });
             } else {
                 clearInterval(interval);
+                el.classList.remove('typing');
+                messagesEl.scrollTo({ top: messagesEl.scrollHeight, behavior: 'smooth' });
             }
-        }, 10);
+        }, 15); // Adjust speed here
     } else {
-        el.innerHTML = text.replace(/\n/g, '<br>');
+        if (role === 'bot') {
+            el.innerHTML = text.replace(/\n/g, '<br>');
+        } else {
+            el.textContent = text;
+        }
+        messagesEl.appendChild(el);
+        messagesEl.scrollTo({ top: messagesEl.scrollHeight, behavior: 'smooth' });
     }
-    
-    messagesEl.appendChild(el);
-    messagesEl.scrollTo({ top: messagesEl.scrollHeight, behavior: 'smooth' });
 }
 
 function showTyping() {
     const el = document.createElement('div');
-    el.className = 'msg system'; el.id = 'typing';
-    el.textContent = 'Processing...';
+    el.className = 'msg-typing'; el.id = 'typing';
+    el.innerHTML = '<span></span><span></span><span></span>';
     messagesEl.appendChild(el);
     messagesEl.scrollTo({ top: messagesEl.scrollHeight, behavior: 'smooth' });
 }
@@ -75,8 +141,14 @@ function hideTyping() {
 async function sendMessage(text) {
     if (!text.trim()) return;
 
+    if (WORKER_URL === 'YOUR_WORKER_URL') {
+        addMsg("⚙️ Cloudflare Worker URL is not configured.", 'bot');
+        return;
+    }
+
     addMsg(text, 'user');
-    inputEl.disabled = true;
+    if(chipsEl) chipsEl.style.display = 'none';
+    sendBtn.disabled = true;
     showTyping();
 
     chatHistory.push({ role: 'user', content: text });
@@ -91,7 +163,7 @@ async function sendMessage(text) {
         hideTyping();
 
         if (data.error) {
-            addMsg("Command failed. Please retry.", 'bot');
+            addMsg("Message failed to send. Please try again.", 'bot');
             chatHistory.pop(); 
         } else {
             const reply = data.content[0].text;
@@ -100,20 +172,33 @@ async function sendMessage(text) {
         }
     } catch {
         hideTyping();
-        addMsg("Network error. Link lost.", 'bot');
+        addMsg("Network error. Please check your connection.", 'bot');
         chatHistory.pop(); 
     }
 
-    inputEl.disabled = false;
-    inputEl.value = '';
+    sendBtn.disabled = false;
     inputEl.focus();
 }
 
+if(sendBtn) {
+    sendBtn.addEventListener('click', () => {
+        const v = inputEl.value.trim();
+        if (!v) return;
+        inputEl.value = '';
+        sendMessage(v);
+    });
+}
 if(inputEl) {
     inputEl.addEventListener('keydown', e => {
         if (e.key === 'Enter') {
             e.preventDefault();
-            sendMessage(inputEl.value.trim());
+            const v = inputEl.value.trim();
+            if (!v) return;
+            inputEl.value = '';
+            sendMessage(v);
         }
     });
 }
+document.querySelectorAll('.chip').forEach(b => {
+    b.addEventListener('click', () => sendMessage(b.textContent));
+});
