@@ -41,6 +41,18 @@ body {
     color: var(--text-dark);
     height: 100dvh;
     overflow: hidden;
+    position: relative;
+}
+
+/* ── DOT MATRIX OVERLAY ── */
+body::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
 }
 
 @keyframes aurora {
@@ -85,6 +97,7 @@ body {
     transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease;
     background: transparent;
     overflow: hidden;
+    z-index: 1;
 }
 .page.active { transform: translateX(0); opacity: 1; }
 #page-home { transform: translateX(0); opacity: 1; }
