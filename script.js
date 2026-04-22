@@ -6,17 +6,20 @@ const WORKER_URL = 'https://suvambot.mondal-suvam3.workers.dev';
     const bar = document.getElementById('loader-bar');
     const perc = document.getElementById('loader-perc');
     const loader = document.getElementById('loader');
+    const status = document.querySelector('.loader-status');
     
     const t = setInterval(() => {
         p += Math.floor(Math.random() * 8) + 2;
         if (p >= 100) {
             p = 100; clearInterval(t);
+            if (status) status.textContent = 'AGENT_READY';
             setTimeout(() => {
                 if (loader) {
-                    loader.style.transform = 'translateY(-100%)';
-                    setTimeout(() => { loader.style.display = 'none'; }, 800);
+                    loader.classList.add('done');
+                    // Completely remove after animation finishes (0.8s curtain + small buffer)
+                    setTimeout(() => { loader.style.display = 'none'; }, 1000);
                 }
-            }, 500);
+            }, 300);
         }
         if(bar) bar.style.width = p + '%';
         if(perc) perc.textContent = p.toString().padStart(2, '0') + '%';
