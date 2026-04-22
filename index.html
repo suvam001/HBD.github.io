@@ -3,121 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Suvam Mondal | Data Analyst</title>
+    <title>SUVAM_MONDAL // DATA_ANALYST</title>
     <!-- Open Graph -->
     <meta property="og:title" content="Suvam Mondal | Data Analyst">
-    <meta property="og:description" content="Data Analyst with 6 years experience in Healthcare, BI & AI. Open to work. Chat with my AI assistant.">
+    <meta property="og:description" content="Data Analyst specializing in Healthcare, BI & AI. System minimalism portfolio.">
     <meta property="og:image" content="https://suvam.co.in/Photo_self.jpg">
     <meta property="og:url" content="https://suvam.co.in">
     <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Suvam Mondal | Data Analyst">
-    <meta name="twitter:description" content="Data Analyst with 6 years experience in Healthcare, BI & AI. Open to work.">
-    <meta name="twitter:image" content="https://suvam.co.in/Photo_self.jpg">
-    <link href="https://fonts.googleapis.com/css2?family=Doto:wght@100..900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
-    <link rel="apple-touch-icon" href="favicon.png">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
-    <!-- Dark mode toggle -->
-    <button id="theme-toggle" aria-label="Toggle dark mode">
-        <svg id="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-        <svg id="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-    </button>
-
     <div id="loader">
-        <div class="loader-inner">
-            <div class="loader-text">LOADING</div>
-            <div class="loader-bar-wrap"><div id="loader-bar"></div></div>
-        </div>
+        <div id="loader-bar"></div>
     </div>
 
     <div id="page-home" class="page active">
-        <div class="home-top">
-            <h1 class="hero-title">Suvam Mondal</h1>
-            <div class="hero-subtitle">Data Analyst & AI Agent</div>
+        <div class="home-layout-container">
+            <div class="home-top">
+                <h1 class="hero-title">SUVAM_MONDAL</h1>
+                <div class="hero-subtitle">DATA_ANALYST // AI_AGENT</div>
+                
+                <div class="avatar-hover-container" id="avatar-container">
+                    <img src="Photo_self.jpg" class="avatar-front" alt="Suvam Mondal">
+                    <img src="face.jpeg" class="avatar-back" alt="Suvam 3D Avatar">
+                </div>
+
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/suvam-mondal/" target="_blank" rel="noopener" class="social-btn">LINKEDIN</a>
+                    <a href="https://www.instagram.com/me_suvam/" target="_blank" rel="noopener" class="social-btn">INSTAGRAM</a>
+                </div>
+            </div>
             
-            <div class="avatar-hover-container" id="avatar-container">
-                <img src="Photo_self.jpg" class="avatar-front" alt="Suvam Mondal">
-                <img src="face.jpeg" class="avatar-back" alt="Suvam 3D Avatar">
-            </div>
+            <div class="chat-container">
+                <div class="chat-messages-overlay" id="chat-messages"></div>
 
-            <div class="social-links">
-                <a href="https://www.linkedin.com/in/suvam-mondal/" target="_blank" rel="noopener" class="social-btn" aria-label="LinkedIn">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-                </a>
-                <a href="https://www.instagram.com/me_suvam/" target="_blank" rel="noopener" class="social-btn" aria-label="Instagram">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-                </a>
-            </div>
-        </div>
-        
-        <div class="chat-messages-overlay" id="chat-messages"></div>
+                <div class="home-chips" id="chips"></div>
 
-        <div class="home-chips" id="chips">
-            <button class="chip">What's your stack?</button>
-            <button class="chip">Open to work?</button>
-            <button class="chip">Experience highlights?</button>
-        </div>
-
-        <div class="home-input-wrap">
-            <div class="home-input-box">
-                <input id="chat-input" type="text" placeholder="Type here..." autocomplete="off" maxlength="600">
-                <button id="chat-send" class="home-send-btn">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="12" y1="19" x2="12" y2="5"></line>
-                        <polyline points="5 12 12 5 19 12"></polyline>
-                    </svg>
-                </button>
+                <div class="home-input-wrap">
+                    <div class="home-input-box">
+                        <input id="chat-input" type="text" placeholder="TYPE_MESSAGE_HERE..." autocomplete="off" maxlength="600">
+                        <button id="chat-send" class="home-send-btn">_SEND</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <div id="page-experience" class="page inner-page">
         <div class="inner-header">
-            <div class="inner-title">Experience</div>
+            <div class="inner-title">01_THE_TRACK_RECORD</div>
         </div>
         <div class="inner-content">
+            <!-- CURRENT ROLE -->
             <div class="job">
                 <div class="job-header">
-                    <span class="job-company">Clarivate Analytics</span>
-                    <span class="job-date">Aug '22 – Oct '24</span>
+                    <span class="job-company">GLOBUS_SYSTEMS</span>
+                    <span class="job-date">JAN '26 – PRESENT</span>
                 </div>
-                <div class="job-role">Data Analyst | USA Healthcare | Bengaluru</div>
+                <div class="job-role">SENIOR_DATA_ANALYST // REMOTE</div>
                 <ul class="job-details">
-                    <li>Engineered end-to-end process automations and built 5+ scalable Market Access databases using SQL and Python, improving processing efficiency by 88%.</li>
-                    <li>Integrated MMIT, IQVIA, LAAD, and SHA datasets by designing 5+ Python workflows, accelerating reporting efforts by 88%.</li>
-                    <li>Developed 2+ SQL stored procedures to streamline client-specific data manipulation and enhance query performance.</li>
-                    <li>Collaborated with 8+ client stakeholders to define analytical objectives.</li>
+                    <li>Managed data workflows for large fundraising campaigns, processing millions of records.</li>
+                    <li>Wrote SQL scripts and stored procedures to organize, group, and update data.</li>
+                    <li>Created visual reports and dashboards using Power BI.</li>
+                    <li>Used Python and Excel macros to speed up data analysis and manual tasks.</li>
+                    <li>Led data teams, guided new clients, and maintained strict quality control.</li>
+                    <li>Used Claude AI to fully automate data extraction and loading processes.</li>
+                    <li>Set up AI tools to automatically sort and handle support tickets.</li>
+                </ul>
+            </div>
+
+            <div class="job">
+                <div class="job-header">
+                    <span class="job-company">CLARIVATE_ANALYTICS</span>
+                    <span class="job-date">AUG '22 – OCT '24</span>
+                </div>
+                <div class="job-role">DATA_ANALYST // USA_HEALTHCARE</div>
+                <ul class="job-details">
+                    <li>Engineered end-to-end process automations and built 5+ scalable Market Access databases using SQL and Python, improving efficiency by 88%.</li>
+                    <li>Integrated MMIT, IQVIA, LAAD, and SHA datasets by designing 5+ Python workflows, accelerating reporting by 88%.</li>
+                    <li>Developed 2+ SQL stored procedures to simplify client-specific data manipulation and enhance query performance.</li>
+                    <li>Collaborated with 8+ client stakeholders to define analytical goals and deliver impactful insights.</li>
                 </ul>
             </div>
             
             <div class="job">
                 <div class="job-header">
-                    <span class="job-company">Collabera</span>
-                    <span class="job-date">Jul '20 – Jul '21</span>
+                    <span class="job-company">COLLABERA // GOLDMAN_SACHS</span>
+                    <span class="job-date">JUL '20 – JUL '21</span>
                 </div>
-                <div class="job-role">Senior IT Engineer | Goldman Sachs | Bengaluru</div>
+                <div class="job-role">SENIOR_IT_ENGINEER</div>
                 <ul class="job-details">
-                    <li>Enhanced reporting accuracy and readability using Power BI and visualization best practices, improving report clarity.</li>
-                    <li>Collaborated with users and stakeholders to analyze data sources and align reporting with business requirements.</li>
+                    <li>Enhanced reporting accuracy and readability using Power BI and visualization best practices.</li>
                     <li>Conducted detailed root cause analyses to resolve 17+ complex data issues, reducing recurring issues by 64%.</li>
                     <li>Monitored key team performance metrics and delivered insights that improved operational efficiency by 32%.</li>
+                    <li>Led the design and implementation of multiple dashboards, improving data consumption speed.</li>
                 </ul>
             </div>
             
             <div class="job">
                 <div class="job-header">
-                    <span class="job-company">Capgemini</span>
-                    <span class="job-date">Aug '17 – Dec '19</span>
+                    <span class="job-company">CAPGEMINI</span>
+                    <span class="job-date">AUG '17 – DEC '19</span>
                 </div>
-                <div class="job-role">Senior Analyst | Kolkata</div>
+                <div class="job-role">SENIOR_ANALYST // KOLKATA</div>
                 <ul class="job-details">
-                    <li>Led a 28-member Service Desk Team, managing performance, escalations, and SLA-driven service delivery.</li>
-                    <li>Executed multiple SQL-based assessments to identify service bottlenecks and streamline request workflows.</li>
-                    <li>Represented the team onsite in Gothenburg, Sweden, managing one transition activity.</li>
+                    <li>Led a 28-member Service Desk Team, managing performance, escalations, and SLA-driven delivery.</li>
+                    <li>Executed multiple SQL-based assessments to identify service bottlenecks and streamline workflows.</li>
+                    <li>Represented the team onsite in Gothenburg, Sweden, managing transition activity.</li>
+                    <li>Conducted 10+ training sessions for new team members to facilitate knowledge transfer.</li>
                 </ul>
             </div>
         </div>
@@ -125,89 +121,70 @@
 
     <div id="page-skills" class="page inner-page">
         <div class="inner-header">
-            <div class="inner-title">Skills & Expertise</div>
+            <div class="inner-title">02_TECHNICAL_STACK</div>
         </div>
         <div class="inner-content">
-
             <div class="skill-group">
-                <div class="skill-group-label">Technical</div>
+                <div class="skill-group-label">LANGUAGES_&_TOOLS</div>
                 <div class="skill-list">
-                    <div class="skill-row">
-                        <div class="skill-info">
-                            <span class="skill-name">SQL</span><span class="skill-badge">Expert</span>
-                        </div>
-                        <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 95%;"></div></div>
-                    </div>
-                    <div class="skill-row">
-                        <div class="skill-info">
-                            <span class="skill-name">Power BI</span><span class="skill-badge">Expert</span>
-                        </div>
-                        <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 90%;"></div></div>
-                    </div>
-                    <div class="skill-row">
-                        <div class="skill-info">
-                            <span class="skill-name">Python</span><span class="skill-badge">Advanced</span>
-                        </div>
-                        <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 80%;"></div></div>
-                    </div>
-                    <div class="skill-row">
-                        <div class="skill-info">
-                            <span class="skill-name">Excel</span><span class="skill-badge">Advanced</span>
-                        </div>
-                        <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 85%;"></div></div>
-                    </div>
-                    <div class="skill-row">
-                        <div class="skill-info">
-                            <span class="skill-name">Tableau</span><span class="skill-badge">Proficient</span>
-                        </div>
-                        <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 70%;"></div></div>
-                    </div>
+                    <div class="skill-row"><span class="skill-name">SQL</span><span class="skill-badge">EXPERT</span></div>
+                    <div class="skill-row"><span class="skill-name">POWER_BI</span><span class="skill-badge">EXPERT</span></div>
+                    <div class="skill-row"><span class="skill-name">PYTHON</span><span class="skill-badge">ADVANCED</span></div>
+                    <div class="skill-row"><span class="skill-name">EXCEL</span><span class="skill-badge">ADVANCED</span></div>
+                    <div class="skill-row"><span class="skill-name">TABLEAU</span><span class="skill-badge">PROFICIENT</span></div>
+                    <div class="skill-row"><span class="skill-name">CLAUDE_AI</span><span class="skill-badge">ADVANCED</span></div>
                 </div>
             </div>
-
             <div class="skill-group">
-                <div class="skill-group-label">Domain</div>
+                <div class="skill-group-label">DOMAIN_KNOWLEDGE</div>
                 <div class="skill-list">
-                    <div class="skill-row">
-                        <div class="skill-info"><span class="skill-name">Healthcare Analytics</span></div>
-                    </div>
-                    <div class="skill-row">
-                        <div class="skill-info"><span class="skill-name">Business Intelligence</span></div>
-                    </div>
-                    <div class="skill-row">
-                        <div class="skill-info"><span class="skill-name">Data Governance</span></div>
-                    </div>
-                    <div class="skill-row">
-                        <div class="skill-info"><span class="skill-name">Market Access</span></div>
-                    </div>
+                    <div class="skill-row"><span class="skill-name">HEALTHCARE_ANALYTICS</span></div>
+                    <div class="skill-row"><span class="skill-name">BUSINESS_INTELLIGENCE</span></div>
+                    <div class="skill-row"><span class="skill-name">DATA_GOVERNANCE</span></div>
+                    <div class="skill-row"><span class="skill-name">MARKET_ACCESS</span></div>
+                    <div class="skill-row"><span class="skill-name">PROJECT_MANAGEMENT</span></div>
                 </div>
             </div>
+            <div class="skill-group">
+                <div class="skill-group-label">CERTIFICATIONS_&_EDUCATION</div>
+                <div class="skill-list">
+                    <div class="skill-row"><span class="skill-name">PG_PROGRAMME_IN_DATA_SCIENCE // PRAXIS</span><span class="skill-badge">2022</span></div>
+                    <div class="skill-row"><span class="skill-name">B.TECH (ECE) // WBUT</span><span class="skill-badge">2017</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <div id="page-contact" class="page inner-page">
+        <div class="inner-header">
+            <div class="inner-title">03_COMMUNICATION_CHANNELS</div>
+        </div>
+        <div class="inner-content">
+            <div class="contact-card">
+                <p class="contact-text">OPEN_TO_DISCUSSIONS // DATA_PROJECTS // COLLABORATIONS</p>
+                <div class="contact-methods">
+                    <a href="mailto:mondal.suvam3@gmail.com" class="contact-item">
+                        <span class="contact-label">EMAIL_></span>
+                        <span class="contact-value">mondal.suvam3@gmail.com</span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/suvam-mondal/" target="_blank" class="contact-item">
+                        <span class="contact-label">LINKEDIN_></span>
+                        <span class="contact-value">in/suvam-mondal</span>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 
     <nav class="bottom-nav">
-        <button id="nav-home" class="nav-item active" onclick="openPage('home')">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
-            <span>HOME</span>
-        </button>
-        <button id="nav-experience" class="nav-item" onclick="openPage('experience')">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
-            <span>WORK</span>
-        </button>
-        <button id="nav-skills" class="nav-item" onclick="openPage('skills')">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
-            <span>SKILLS</span>
-        </button>
-        <a href="Suvam_resume.pdf" download="Suvam_Mondal_Resume.pdf" class="nav-item" style="text-decoration:none; color:inherit;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                <polyline points="7 10 12 15 17 10"></polyline>
-                <line x1="12" y1="15" x2="12" y2="3"></line>
-            </svg>
-            <span>RESUME</span>
-        </a>
+        <button id="nav-home" class="nav-item active" onclick="openPage('home')"><span>00_HOME</span></button>
+        <button id="nav-experience" class="nav-item" onclick="openPage('experience')"><span>01_WORK</span></button>
+        <button id="nav-skills" class="nav-item" onclick="openPage('skills')"><span>02_SKILLS</span></button>
+        <button id="nav-contact" class="nav-item" onclick="openPage('contact')"><span>03_CONTACT</span></button>
+        <a href="resume_k.pdf" download="Suvam_Mondal_Resume.pdf" class="nav-item" style="text-decoration:none;"><span>04_RESUME</span></a>
     </nav>
+
+    <canvas id="bg-canvas"></canvas>
 
     <script src="script.js"></script>
 </body>

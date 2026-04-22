@@ -12,7 +12,7 @@ This project is a personal portfolio website for **Suvam Mondal**, a Data Analys
 - `HBD.github.io/index.html`: The main entry point containing the site structure, bio, experience highlights, and skills.
 - `HBD.github.io/style.css`: Comprehensive styling, including dark mode support (via `:root` variables and `.dark` class), animations, and responsive design.
 - `HBD.github.io/script.js`: Handles all client-side logic, including page navigation, dark mode toggling, the loading screen, and the AI chat interface.
-- `HBD.github.io/Suvam_resume.pdf`: The current resume available for download.
+- `HBD.github.io/resume_k.pdf`: The current resume available for download.
 - `HBD.github.io/CNAME`: Custom domain configuration for GitHub Pages.
 - `HBD.github.io/Photo_self.jpg` & `HBD.github.io/face.jpeg`: Profile and avatar images.
 
