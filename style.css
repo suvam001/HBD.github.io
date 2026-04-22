@@ -20,6 +20,8 @@
     --font-sans:    'Plus Jakarta Sans', system-ui, sans-serif;
     --font-mono:    'Space Mono', monospace;
     --font-matrix:  'Doto', monospace;
+    
+    --sidebar-width: 0px;
 }
 
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -29,6 +31,7 @@ body {
     color: var(--text);
     font-family: var(--font-sans);
     height: 100dvh;
+    width: 100vw;
     overflow: hidden;
     display: flex;
     line-height: 1.6;
@@ -79,7 +82,7 @@ body {
     background: var(--bg);
     overflow: hidden;
     z-index: 1;
-    padding-left: 160px;
+    padding-left: var(--sidebar-width);
 }
 .page.active { transform: translateY(0); opacity: 1; pointer-events: auto; z-index: 2; }
 #page-home { transform: translateY(0); opacity: 1; pointer-events: auto; }
@@ -94,30 +97,30 @@ h1, h2, h3, .inner-title, .job-company {
     letter-spacing: -1px;
 }
 
-/* ── NAVIGATION (Sidebar) ── */
+/* ── NAVIGATION (Bottom Bar Default) ── */
 .bottom-nav {
-    position: fixed; left: 0; top: 0; bottom: 0; width: 160px;
+    position: fixed; bottom: 0; left: 0; right: 0; height: 72px;
     background: var(--ivory); 
-    border-right: 1px solid var(--border-warm);
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 32px;
+    border-top: 1px solid var(--border-warm);
+    display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 12px;
     z-index: 1000;
 }
 .nav-item {
     background: transparent; border: none; cursor: pointer; color: var(--stone-gray);
-    font-family: var(--font-matrix); font-size: 0.85rem; font-weight: 700;
+    font-family: var(--font-matrix); font-size: 0.7rem; font-weight: 700;
     text-transform: uppercase;
     transition: all 0.2s ease;
-    padding: 12px;
+    padding: 8px;
     letter-spacing: -0.5px;
 }
 .nav-item:hover, .nav-item.active { color: var(--accent); }
-.nav-item.active { transform: scale(1.1); }
+.nav-item.active { transform: scale(1.05); }
 
 /* ── HOME / HERO ── */
 .home-layout-container {
     max-width: 900px;
     margin: 0 auto;
-    padding: 100px 40px;
+    padding: 40px 20px 100px;
     text-align: center;
     animation: contentEntrance 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
@@ -126,38 +129,37 @@ h1, h2, h3, .inner-title, .job-company {
     to { opacity: 1; transform: scale(1) translateY(0); }
 }
 
-.hero-title { font-size: 4.5rem; margin-bottom: 24px; }
+.hero-title { font-size: 2.2rem; margin-bottom: 20px; }
 .hero-subtitle { 
     font-family: var(--font-serif); font-style: italic;
-    font-size: 1.2rem; color: var(--olive-gray); margin-bottom: 48px; 
-    max-width: 700px; margin-left: auto; margin-right: auto;
-    line-height: 1.8;
+    font-size: 1rem; color: var(--olive-gray); margin-bottom: 32px; 
+    max-width: 90%; margin-left: auto; margin-right: auto;
+    line-height: 1.6;
 }
 
 .avatar-hover-container {
-    width: 200px; height: 200px; 
-    margin: 0 auto 48px; position: relative; overflow: hidden;
-    border-radius: 40px;
+    width: 140px; height: 140px; 
+    margin: 0 auto 32px; position: relative; overflow: hidden;
+    border-radius: 24px;
     border: 1px solid var(--border-warm);
-    box-shadow: rgba(0,0,0,0.05) 0px 4px 24px;
+    box-shadow: rgba(0,0,0,0.05) 0px 4px 20px;
     transition: transform 0.4s ease;
 }
-.avatar-hover-container:hover { transform: scale(1.02); }
 .avatar-front, .avatar-back { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; transition: opacity 0.6s ease; }
 .avatar-back { opacity: 0; }
 .avatar-hover-container:hover .avatar-front { opacity: 0; }
 .avatar-hover-container:hover .avatar-back { opacity: 1; }
 
-.social-links { display: flex; justify-content: center; gap: 20px; }
+.social-links { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
 .social-btn {
-    padding: 12px 24px;
+    padding: 8px 16px;
     background: var(--ivory);
     color: var(--near-black);
     text-decoration: none;
     font-family: var(--font-matrix);
     font-weight: 700;
-    border-radius: 12px;
-    font-size: 0.8rem;
+    border-radius: 10px;
+    font-size: 0.7rem;
     box-shadow: var(--ivory) 0px 0px 0px 0px, var(--border-warm) 0px 0px 0px 1px;
     transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
 }
@@ -168,110 +170,129 @@ h1, h2, h3, .inner-title, .job-company {
 }
 
 /* ── INNER PAGES ── */
-.inner-page { max-width: 1000px; margin: 0 auto; width: 100%; }
-.inner-header { padding: 80px 40px 48px; border-bottom: 1px solid var(--border-warm); }
-.inner-title { font-size: 3.5rem; }
-.inner-content { flex: 1; overflow-y: auto; padding: 64px 40px 120px; }
+.inner-page { max-width: 100%; margin: 0 auto; width: 100%; }
+.inner-header { padding: 40px 20px 24px; border-bottom: 1px solid var(--border-warm); }
+.inner-title { font-size: 2.2rem; }
+.inner-content { flex: 1; overflow-y: auto; padding: 32px 20px 100px; }
 
 .job, .skill-group, .contact-card {
     background: #fff; 
     border: 1px solid var(--border-cream);
-    padding: 40px; margin-bottom: 40px; 
-    border-radius: 24px;
+    padding: 24px; margin-bottom: 24px; 
+    border-radius: 20px;
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.job:hover { transform: translateY(-4px); box-shadow: rgba(0,0,0,0.04) 0px 12px 40px; border-color: var(--accent); }
+.job:hover { border-color: var(--accent); }
 
-.job-company { font-size: 2rem; margin-bottom: 8px; }
-.job-date { color: var(--stone-gray); font-size: 0.9rem; font-family: var(--font-mono); font-weight: 700; }
-.job-role { font-family: var(--font-matrix); font-weight: 700; color: var(--accent); margin: 16px 0 24px; font-size: 1rem; }
-.job-details li { margin-bottom: 14px; color: var(--olive-gray); font-size: 1rem; padding-left: 24px; position: relative; list-style: none; }
+.job-company { font-size: 1.4rem; margin-bottom: 4px; }
+.job-date { color: var(--stone-gray); font-size: 0.8rem; font-family: var(--font-mono); font-weight: 700; }
+.job-role { font-family: var(--font-matrix); font-weight: 700; color: var(--accent); margin: 8px 0 16px; font-size: 0.85rem; }
+.job-details li { margin-bottom: 10px; color: var(--olive-gray); font-size: 0.9rem; padding-left: 20px; position: relative; list-style: none; line-height: 1.4; }
 .job-details li::before { content: '>'; position: absolute; left: 0; color: var(--accent); font-family: var(--font-mono); font-weight: 900; }
 
 /* ── SKILLS ── */
-.skill-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding: 12px 0; border-bottom: 1px solid var(--border-cream); }
-.skill-name { font-family: var(--font-matrix); font-weight: 700; font-size: 1.1rem; }
-.skill-badge { font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent); font-weight: 700; }
+.skill-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding: 8px 0; border-bottom: 1px solid var(--border-cream); }
+.skill-name { font-family: var(--font-matrix); font-weight: 700; font-size: 0.95rem; }
+.skill-badge { font-family: var(--font-mono); font-size: 0.65rem; color: var(--accent); font-weight: 700; }
 
 /* ── CHATBOT WIDGET ── */
 #chatbot-widget {
-    position: fixed; bottom: 32px; right: 32px; z-index: 2000;
+    position: fixed; bottom: 88px; right: 16px; z-index: 2000;
     display: flex; flex-direction: column; align-items: flex-end;
 }
 #chat-toggle {
-    width: 64px; height: 64px; border-radius: 32px;
+    width: 50px; height: 56px; border-radius: 20px;
     background: var(--accent); border: none; cursor: pointer;
     display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 8px 32px rgba(201, 100, 66, 0.25);
+    box-shadow: 0 8px 24px rgba(201, 100, 66, 0.2);
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
-#chat-toggle:hover { transform: scale(1.08) rotate(5deg); }
-#chat-toggle svg { width: 28px; height: 28px; stroke: white; }
+#chat-toggle svg { width: 24px; height: 24px; stroke: white; }
 
 #chat-window {
-    width: 420px; height: 620px;
+    width: calc(100vw - 32px); height: 75vh;
     background: #fff;
-    border-radius: 32px;
-    box-shadow: rgba(0,0,0,0.1) 0px 20px 80px;
-    margin-bottom: 20px;
+    border-radius: 24px;
+    box-shadow: rgba(0,0,0,0.1) 0px 20px 60px;
+    margin-bottom: 16px;
     display: none; flex-direction: column; overflow: hidden;
     border: 1px solid var(--border-warm);
     animation: chatReveal 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
-@keyframes chatReveal { from{opacity:0; transform:translateY(40px) scale(0.95)} to{opacity:1; transform:translateY(0) scale(1)} }
+@keyframes chatReveal { from{opacity:0; transform:translateY(20px) scale(0.98)} to{opacity:1; transform:translateY(0) scale(1)} }
 #chat-window.active { display: flex; }
 
 .chat-header {
-    padding: 20px 24px; background: var(--ivory);
+    padding: 16px 20px; background: var(--ivory);
     border-bottom: 1px solid var(--border-cream);
     display: flex; justify-content: space-between; align-items: center;
 }
-.chat-header span { font-family: var(--font-matrix); font-size: 1.1rem; font-weight: 700; }
+.chat-header span { font-family: var(--font-matrix); font-size: 1rem; font-weight: 700; }
 
-#chat-messages { flex: 1; overflow-y: auto; padding: 24px; display: flex; flex-direction: column; gap: 16px; background: #fff; scroll-behavior: smooth; }
-.msg { max-width: 85%; padding: 14px 18px; font-size: 0.95rem; line-height: 1.5; border-radius: 20px; animation: msgSlide 0.4s ease forwards; }
-@keyframes msgSlide { from{opacity:0; transform:translateY(10px)} to{opacity:1; transform:translateY(0)} }
+#chat-messages { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 12px; background: #fff; scroll-behavior: smooth; }
+.msg { max-width: 90%; padding: 12px 16px; font-size: 0.85rem; line-height: 1.4; border-radius: 16px; animation: msgSlide 0.4s ease forwards; }
 .msg.bot { align-self: flex-start; background: var(--parchment); border: 1px solid var(--border-cream); color: var(--near-black); border-bottom-left-radius: 4px; }
 .msg.user { align-self: flex-end; background: var(--terracotta); color: #fff; border-bottom-right-radius: 4px; }
 
-.chat-input-area { padding: 24px; border-top: 1px solid var(--border-cream); background: var(--ivory); }
+.chat-input-area { padding: 16px; border-top: 1px solid var(--border-cream); background: var(--ivory); }
 .chat-input-box {
     display: flex; align-items: center; background: #fff;
-    border-radius: 18px; padding: 6px 8px 6px 20px;
+    border-radius: 14px; padding: 4px 6px 4px 16px;
     box-shadow: var(--border-warm) 0px 0px 0px 1px;
-    transition: all 0.2s ease;
 }
-.chat-input-box:focus-within { box-shadow: var(--accent) 0px 0px 0px 2px; }
-.chat-input-box input { flex: 1; border: none; background: transparent; outline: none; font-size: 1rem; color: var(--near-black); padding: 12px 0; }
+.chat-input-box input { flex: 1; border: none; background: transparent; outline: none; font-size: 0.9rem; color: var(--near-black); padding: 10px 0; }
 #chat-send { 
     background: var(--terracotta); border: none; cursor: pointer; color: #fff; 
-    font-family: var(--font-matrix); font-weight: 700; padding: 12px 24px; border-radius: 14px; margin-left: 12px;
-    transition: opacity 0.2s;
+    font-family: var(--font-matrix); font-weight: 700; padding: 8px 16px; border-radius: 10px; margin-left: 8px;
+    font-size: 0.75rem;
 }
 
 .chip {
-    font-family: var(--font-matrix); font-weight: 700; font-size: 0.75rem; 
-    padding: 8px 16px; border-radius: 12px; margin-right: 8px; margin-bottom: 8px;
+    font-family: var(--font-matrix); font-weight: 700; font-size: 0.7rem; 
+    padding: 6px 12px; border-radius: 8px; margin-right: 6px; margin-bottom: 6px;
     background: #fff; color: var(--stone-gray);
     box-shadow: var(--border-cream) 0px 0px 0px 1px;
-    border: none; cursor: pointer; transition: all 0.2s;
-}
-.chip:hover { box-shadow: var(--accent) 0px 0px 0px 1px; color: var(--accent); }
-
-/* ── RESPONSIVE ── */
-@media (max-width: 768px) {
-    .bottom-nav { top: auto; right: 0; width: 100%; height: 72px; flex-direction: row; border-right: none; border-top: 1px solid var(--border-warm); gap: 12px; }
-    .nav-item { font-size: 0.7rem; padding: 8px; }
-    .page { padding-left: 0; padding-bottom: 72px; }
-    #chat-window { width: calc(100vw - 32px); right: 16px; bottom: 88px; height: 75vh; }
-    .hero-title { font-size: 3rem; }
-    .inner-title { font-size: 2.5rem; }
+    border: none; cursor: pointer;
 }
 
+/* ── DESKTOP REFINEMENTS (min-width: 1024px) ── */
 @media (min-width: 1024px) {
     :root { --sidebar-width: 160px; }
-    .inner-content { display: block; } 
-    .inner-page { max-width: 850px; }
+    
+    .bottom-nav {
+        top: 0; left: 0; width: var(--sidebar-width); height: 100vh;
+        flex-direction: column; border-top: none; border-right: 1px solid var(--border-warm);
+        gap: 32px;
+    }
+    .nav-item { font-size: 0.85rem; padding: 12px; }
+    .nav-item.active { transform: scale(1.1); }
+    
+    .home-layout-container { padding: 100px 40px; }
+    .hero-title { font-size: 4.5rem; }
+    .hero-subtitle { font-size: 1.2rem; }
+    .avatar-hover-container { width: 200px; height: 200px; border-radius: 40px; }
+    .social-btn { font-size: 0.8rem; padding: 12px 24px; }
+    
+    .inner-header { padding: 80px 40px 48px; }
+    .inner-title { font-size: 3.5rem; }
+    .inner-content { padding: 64px 40px 120px; max-width: 850px; }
+    
+    .job, .skill-group, .contact-card { padding: 40px; border-radius: 24px; }
+    .job-company { font-size: 2rem; }
+    .job-role { font-size: 1rem; }
+    
+    #chatbot-widget { bottom: 32px; right: 32px; }
+    #chat-window { width: 420px; height: 620px; }
+    #chat-toggle { width: 64px; height: 64px; border-radius: 32px; }
+}
+
+/* ── SMALL MOBILE TWEAKS ── */
+@media (max-width: 480px) {
+    .loader-matrix { font-size: 2.8rem; }
+    .hero-title { font-size: 1.8rem; }
+    .inner-title { font-size: 1.8rem; }
+    .avatar-hover-container { width: 120px; height: 120px; }
+    .nav-item span { font-size: 0.6rem; }
 }
 
 /* Background Dust */
