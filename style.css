@@ -304,3 +304,27 @@ h1, h2, h3, .inner-title, .job-company {
 
 /* Background Dust */
 #bg-canvas { position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.1; }
+
+.ai-credit {
+    position: fixed;
+    bottom: 12px;
+    right: 120px;
+    font-size: 0.55rem;
+    color: var(--stone-gray);
+    font-family: var(--font-mono);
+    opacity: 0.4;
+    z-index: 100;
+    pointer-events: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+@media (max-width: 768px) {
+    .ai-credit {
+        bottom: 82px;
+        right: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        text-align: center;
+    }
+}
