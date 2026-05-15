@@ -12,11 +12,10 @@ const WORKER_URL = 'https://suvambot.mondal-suvam3.workers.dev';
         p += Math.floor(Math.random() * 8) + 2;
         if (p >= 100) {
             p = 100; clearInterval(t);
-            if (status) status.textContent = 'AGENT_READY';
+            if (status) status.textContent = 'Agent Ready';
             setTimeout(() => {
                 if (loader) {
                     loader.classList.add('done');
-                    // Completely remove after animation finishes (0.8s curtain + small buffer)
                     setTimeout(() => { loader.style.display = 'none'; }, 1000);
                 }
             }, 300);
@@ -69,17 +68,17 @@ let greeted         = false;
 let isThinking      = false;
 
 const contextualPrompts = {
-    home: ["01_TECH_STACK", "02_OPEN_TO_WORK", "03_AGENTIC_AI"],
-    experience: ["01_GLOBUS_SYSTEMS", "02_CLARIVATE_ANALYTICS", "03_GOLDMAN_SACHS"],
-    skills: ["01_SQL_EXPERTISE", "02_POWER_BI_DASHBOARDS", "03_CLAUDE_AUTOMATION"],
-    contact: ["01_RESPONSE_TIME", "02_RELOCATION"]
+    home: ["What's your tech stack?", "Are you open to work?", "Tell me about your AI work"],
+    experience: ["Tell me about Globus Systems", "What did you do at Clarivate?", "Recent leadership highlights"],
+    skills: ["How good is your SQL?", "Show me Power BI examples", "Python automation details"],
+    contact: ["How fast do you respond?", "Are you open to relocation?"]
 };
 
 function setChatBusy(busy) {
     isThinking = busy;
     if (inputEl) {
         inputEl.disabled = busy;
-        inputEl.placeholder = busy ? "AI_THINKING..." : "Ask me anything...";
+        inputEl.placeholder = busy ? "AI is thinking..." : "Ask me anything...";
     }
     if (sendBtn) {
         sendBtn.disabled = busy;
@@ -146,7 +145,7 @@ async function sendMessage(text) {
         chatHistory.push({ role: 'assistant', content: reply });
         addMsg(reply, 'bot', true);
     } catch (err) {
-        addMsg("CONNECTION_ERROR // RETRY_LATER", 'bot');
+        addMsg("Connection error. Please try again later.", 'bot');
         setChatBusy(false);
     }
 }
@@ -161,7 +160,7 @@ renderChips('home');
 setTimeout(() => {
     if (!greeted) {
         greeted = true;
-        addMsg("HELLO_WORLD // I_AM_SUVAMS_AI_ASSISTANT // HOW_CAN_I_HELP?", 'bot');
+        addMsg("Hello! I am Suvam's AI assistant. How can I help you today?", 'bot');
     }
 }, 1200);
 
