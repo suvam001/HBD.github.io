@@ -1,5 +1,20 @@
 const WORKER_URL = 'https://suvambot.mondal-suvam3.workers.dev';
 
+// ── THEME ──
+function toggleTheme() {
+    const isDark = document.documentElement.classList.toggle('dark');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    const btn = document.getElementById('theme-toggle');
+    if (btn) btn.querySelector('span').textContent = isDark ? 'LITE' : 'DARK';
+}
+(function initTheme() {
+    if (localStorage.getItem('theme') === 'dark') {
+        document.documentElement.classList.add('dark');
+        const btn = document.getElementById('theme-toggle');
+        if (btn) btn.querySelector('span').textContent = 'LITE';
+    }
+})();
+
 // ── LOADER ──
 (function() {
     let p = 0;
@@ -71,6 +86,7 @@ const contextualPrompts = {
     home: ["What's your tech stack?", "Are you open to work?", "Tell me about your AI work"],
     experience: ["Tell me about Globus Systems", "What did you do at Clarivate?", "Recent leadership highlights"],
     skills: ["How good is your SQL?", "Show me Power BI examples", "Python automation details"],
+    projects: ["Tell me about your AI automation work", "What's your most impactful project?", "How did you use Claude AI at work?"],
     contact: ["How fast do you respond?", "Are you open to relocation?"]
 };
 
@@ -99,6 +115,24 @@ function renderChips(pageName) {
         };
         chipsEl.appendChild(btn);
     });
+}
+
+let typingEl = null;
+
+function showTyping() {
+    if (!messagesEl) return;
+    typingEl = document.createElement('div');
+    typingEl.className = 'msg bot';
+    typingEl.innerHTML = '<div class="typing-dots"><span></span><span></span><span></span></div>';
+    messagesEl.appendChild(typingEl);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+
+function hideTyping() {
+    if (typingEl && typingEl.parentNode) {
+        typingEl.parentNode.removeChild(typingEl);
+        typingEl = null;
+    }
 }
 
 function addMsg(text, role, isStreaming = false) {
@@ -131,8 +165,9 @@ async function sendMessage(text) {
     if (!text.trim() || isThinking) return;
     setChatBusy(true);
     addMsg(text, 'user');
-    inputEl.value = '';
+    if (inputEl) { inputEl.value = ''; inputEl.focus(); }
     chatHistory.push({ role: 'user', content: text });
+    showTyping();
 
     try {
         const res = await fetch(WORKER_URL, {
@@ -143,9 +178,12 @@ async function sendMessage(text) {
         const data = await res.json();
         const reply = data.content[0].text;
         chatHistory.push({ role: 'assistant', content: reply });
+        hideTyping();
         addMsg(reply, 'bot', true);
     } catch (err) {
-        addMsg("Connection error. Please try again later.", 'bot');
+        chatHistory.pop();
+        hideTyping();
+        addMsg("Couldn't reach the AI — please try again.", 'bot');
         setChatBusy(false);
     }
 }
@@ -160,7 +198,7 @@ renderChips('home');
 setTimeout(() => {
     if (!greeted) {
         greeted = true;
-        addMsg("Hello! I am Suvam's AI assistant. How can I help you today?", 'bot');
+        addMsg("Hey! 👋 Ask me anything about Suvam's experience, projects, or if he's open to work.", 'bot');
     }
 }, 1200);
 
