@@ -1,4 +1,5 @@
 const WORKER_URL = 'https://suvambot.mondal-suvam3.workers.dev';
+const STATUS_URL = ''; // Set this to your status Worker URL after deploying status-worker.js
 
 // ── THEME (dark default, light toggle) ──
 function toggleTheme() {
@@ -186,6 +187,23 @@ setTimeout(() => {
         addMsg("Hey! 👋 Ask me anything about Suvam's experience, projects, or if he's open to work.", 'bot');
     }
 }, 1200);
+
+// ── LIVE STATUS ──
+async function fetchLiveStatus() {
+    if (!STATUS_URL) return;
+    try {
+        const res = await fetch(STATUS_URL);
+        const data = await res.json();
+        const textEl = document.getElementById('live-status-text');
+        const dotEl  = document.getElementById('live-dot');
+        if (textEl && data.text) textEl.textContent = data.text;
+        if (dotEl && data.type) {
+            const colors = { available: '#4ade80', busy: '#facc15', offline: '#6e6c66' };
+            dotEl.style.background = colors[data.type] || colors.available;
+        }
+    } catch { /* silently fail — status is a nice-to-have */ }
+}
+fetchLiveStatus();
 
 // ── BACKGROUND CANVAS ──
 const canvas = document.getElementById('bg-canvas');
