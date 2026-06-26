@@ -139,7 +139,7 @@ main {
 }
 .hero-avatar-wrap { margin-bottom: 36px; }
 .avatar-hover-container {
-    width: 76px; height: 76px; border-radius: 50%;
+    width: 84px; height: 84px; border-radius: 50%;
     overflow: hidden; position: relative;
     border: 1px solid var(--border-up);
     transition: transform 0.3s var(--ease-out);
@@ -182,7 +182,7 @@ main {
 .scroll-hint {
     font-family: var(--font-mono); font-size: 0.7rem;
     color: var(--dim); letter-spacing: 0.08em;
-    animation: scrollBounce 2.4s ease-in-out infinite;
+    animation: scrollBounce 2.4s ease-in-out 3;
     display: inline-block;
 }
 @keyframes scrollBounce {
@@ -294,42 +294,16 @@ main {
     color: var(--border-up); font-size: 0.75rem; top: 1px;
 }
 
-/* ── PROJECTS ── */
-.project-list { display: flex; flex-direction: column; }
-.project-row {
-    padding: 28px 16px;
-    margin: 0 -16px;
-    border-bottom: 1px solid var(--border);
-    transition: background 0.2s ease;
-    border-radius: 4px;
-}
-.project-row:last-child { border-bottom: none; }
+/* ── TIMELINE HOVER ── */
 @media (hover: hover) and (pointer: fine) {
-    .project-row:hover { background: rgba(255, 255, 255, 0.025); }
+    .timeline-entry {
+        transition: background 0.2s ease;
+        border-radius: 6px;
+        margin: 0 -16px;
+        padding-left: 16px; padding-right: 16px;
+    }
+    .timeline-entry:hover { background: rgba(255, 255, 255, 0.025); }
 }
-.project-row-top {
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 12px; margin-bottom: 10px; flex-wrap: wrap;
-}
-.project-row-name { font-weight: 600; font-size: 0.975rem; }
-.project-status {
-    font-family: var(--font-mono); font-size: 0.65rem;
-    color: var(--dim); flex-shrink: 0;
-    display: inline-flex; align-items: center; gap: 6px;
-}
-.project-status.live { color: #4ade80; }
-.project-status.live::before {
-    content: '';
-    display: inline-block; width: 5px; height: 5px;
-    border-radius: 50%; background: #4ade80; flex-shrink: 0;
-    box-shadow: 0 0 6px rgba(74, 222, 128, 0.5);
-    animation: livePulse 2.5s ease-in-out infinite;
-}
-.project-row-desc {
-    font-size: 0.875rem; color: var(--dim);
-    line-height: 1.75; margin-bottom: 14px; max-width: 560px;
-}
-.project-row-tags { display: flex; flex-wrap: wrap; gap: 6px; }
 
 /* ── SKILLS ── */
 .skills-grid {
@@ -353,9 +327,11 @@ main {
     background: transparent;
     border: 1px solid var(--border-up);
     color: var(--dim);
-    transition: color 0.15s ease, border-color 0.15s ease;
+    transition: color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+    display: inline-block;
 }
 .tag:hover { border-color: var(--dim); color: var(--text); }
+.tag:active { transform: scale(0.95); }
 
 /* ── CONNECT ── */
 .connect-links { display: flex; flex-direction: column; gap: 14px; }
@@ -364,8 +340,19 @@ main {
     color: var(--dim);
     transition: color 0.2s ease;
     display: inline-block;
+    position: relative;
+}
+.connect-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0;
+    height: 1px; width: 100%;
+    background: currentColor;
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 0.25s var(--ease-out);
 }
 .connect-link:hover { color: var(--text); }
+.connect-link:hover::after { clip-path: inset(0 0% 0 0); }
 
 /* ── FOOTER ── */
 .site-footer {
@@ -547,7 +534,7 @@ main {
 :root.light .chat-input-box { background: var(--surface); }
 :root.light #chat-messages { background: var(--bg); }
 :root.light #loader { background: var(--surface); }
-:root.light .project-row:hover { background: rgba(0, 0, 0, 0.02); }
+:root.light .timeline-entry:hover { background: rgba(0, 0, 0, 0.02); }
 
 /* ── RESPONSIVE ── */
 @media (max-width: 580px) {
@@ -558,8 +545,7 @@ main {
     .timeline-entry { grid-template-columns: 1fr; gap: 4px; }
     .timeline-meta { display: flex; align-items: center; gap: 10px; }
     .timeline-period { display: inline; }
-    .project-row-top { flex-direction: column; gap: 4px; }
-    .project-row { padding: 24px 12px; margin: 0 -12px; }
+    .timeline-entry { margin: 0; padding-left: 0; padding-right: 0; }
     .site-header { padding: 0 18px; }
     #chatbot-widget { right: 16px; }
     #chat-window { height: 440px; }
