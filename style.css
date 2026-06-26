@@ -15,6 +15,9 @@
 
     --content-width: 720px;
     --header-height: 52px;
+
+    --ease-out:    cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 :root.light {
@@ -117,10 +120,11 @@ body::before {
     cursor: pointer; color: var(--dim);
     font-family: var(--font-mono); font-size: 0.75rem;
     padding: 4px 12px; border-radius: 6px;
-    transition: color 0.2s ease, border-color 0.2s ease;
+    transition: color 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
     line-height: 1.6;
 }
 #theme-toggle:hover { color: var(--text); border-color: var(--dim); }
+#theme-toggle:active { transform: scale(0.94); }
 
 /* ── MAIN COLUMN ── */
 main {
@@ -138,13 +142,15 @@ main {
     width: 76px; height: 76px; border-radius: 50%;
     overflow: hidden; position: relative;
     border: 1px solid var(--border-up);
-    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.3s var(--ease-out);
 }
-.avatar-hover-container:hover { transform: scale(1.06); }
+@media (hover: hover) and (pointer: fine) {
+    .avatar-hover-container:hover { transform: scale(1.06); }
+}
 .avatar-front, .avatar-back {
     width: 100%; height: 100%; object-fit: cover;
     position: absolute; top: 0; left: 0;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.25s ease;
 }
 .avatar-back { opacity: 0; }
 .avatar-hover-container:hover .avatar-front { opacity: 0; }
@@ -298,7 +304,9 @@ main {
     border-radius: 4px;
 }
 .project-row:last-child { border-bottom: none; }
-.project-row:hover { background: rgba(255, 255, 255, 0.025); }
+@media (hover: hover) and (pointer: fine) {
+    .project-row:hover { background: rgba(255, 255, 255, 0.025); }
+}
 .project-row-top {
     display: flex; align-items: center; justify-content: space-between;
     gap: 12px; margin-bottom: 10px; flex-wrap: wrap;
@@ -370,10 +378,10 @@ main {
 /* ── SCROLL REVEAL ── */
 .reveal, .reveal-item {
     opacity: 0;
-    transform: translateY(14px);
+    transform: translateY(12px);
     transition:
-        opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
-        transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+        opacity 0.45s var(--ease-out),
+        transform 0.45s var(--ease-out);
 }
 .reveal.visible, .reveal-item.visible {
     opacity: 1;
@@ -396,13 +404,15 @@ main {
     background: var(--accent); border: none; cursor: pointer;
     display: flex; align-items: center; justify-content: center;
     box-shadow: 0 4px 16px rgba(201, 100, 66, 0.35);
-    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-                box-shadow 0.25s ease;
+    transition: transform 0.25s var(--ease-out), box-shadow 0.25s ease;
 }
-#chat-toggle:hover {
-    transform: scale(1.1) rotate(4deg);
-    box-shadow: 0 8px 24px rgba(201, 100, 66, 0.5);
+@media (hover: hover) and (pointer: fine) {
+    #chat-toggle:hover {
+        transform: scale(1.1) rotate(4deg);
+        box-shadow: 0 8px 24px rgba(201, 100, 66, 0.5);
+    }
 }
+#chat-toggle:active { transform: scale(0.94); box-shadow: 0 2px 8px rgba(201, 100, 66, 0.3); }
 #chat-toggle svg { width: 20px; height: 20px; stroke: #fff; }
 
 #chat-window {
@@ -503,9 +513,10 @@ main {
     background: var(--accent); border: none; cursor: pointer;
     color: #fff; font-family: var(--font-mono); font-weight: 700;
     padding: 6px 13px; border-radius: 7px; font-size: 0.68rem;
-    transition: opacity 0.2s ease, transform 0.15s ease;
+    transition: opacity 0.2s ease, transform 0.12s ease;
 }
 #chat-send:hover { opacity: 0.88; transform: scale(1.03); }
+#chat-send:active { transform: scale(0.96); opacity: 1; }
 #chat-send:disabled { opacity: 0.4; transform: none; }
 
 .typing-dots { display: flex; gap: 4px; padding: 3px 0; align-items: center; }
