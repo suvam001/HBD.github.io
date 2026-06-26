@@ -5,23 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Suvam Mondal | Senior Data Analyst</title>
     <meta name="description" content="Senior Data Analyst specializing in agentic AI workflows, healthcare analytics, and business intelligence. Expert in Claude AI automation, SQL, Python, and Power BI.">
-    <!-- Open Graph -->
     <meta property="og:title" content="Suvam Mondal | Senior Data Analyst">
     <meta property="og:description" content="Senior Data Analyst specializing in agentic AI workflows, healthcare analytics, and BI. Expert in Claude AI automation, SQL, Python, and Power BI.">
     <meta property="og:image" content="https://suvam.co.in/Photo_self.jpg">
     <meta property="og:url" content="https://suvam.co.in">
     <meta property="og:type" content="website">
-    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Suvam Mondal | Senior Data Analyst">
     <meta name="twitter:description" content="Senior Data Analyst specializing in agentic AI workflows, healthcare analytics, and BI.">
     <meta name="twitter:image" content="https://suvam.co.in/Photo_self.jpg">
-    <link href="https://fonts.googleapis.com/css2?family=Doto:wght@400;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Doto:wght@700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
+
+    <!-- LOADER -->
     <div id="loader">
         <div class="loader-curtain loader-curtain-top"></div>
         <div class="loader-curtain loader-curtain-bottom"></div>
@@ -32,167 +32,228 @@
         </div>
     </div>
 
-    <!-- MAIN APP FLOW -->
-    <div id="page-home" class="page active">
-        <div class="home-layout-container">
-            <div class="avatar-hover-container" id="avatar-container">
-                <img src="Photo_self.jpg" class="avatar-front" alt="Suvam Mondal">
-                <img src="face.jpeg" class="avatar-back" alt="Suvam 3D Avatar">
-            </div>
-            <h1 class="hero-title">Suvam Mondal</h1>
-            <p class="hero-subtitle">As a Senior Data Analyst at Globus Systems, I specialize in the architecture of agentic AI and autonomous workflow engineering. My work focuses on transcending traditional data processing by deploying intelligent agents that navigate, extract, and synthesize complex datasets with minimal intervention. With a deep foundation in healthcare and BI, I craft adaptive automation systems that leverage advanced LLM frameworks to solve intricate operational bottlenecks, transforming raw data into a self-optimizing strategic asset.</p>
-            
-            <div class="social-links">
-                <a href="https://www.linkedin.com/in/suvam-mondal/" target="_blank" rel="noopener" class="social-btn">LinkedIn</a>
-                <a href="https://www.instagram.com/me_suvam/" target="_blank" rel="noopener" class="social-btn">Instagram</a>
-                <a href="mailto:mondal.suvam3@gmail.com" class="social-btn">Email</a>
-            </div>
+    <!-- STICKY HEADER -->
+    <header class="site-header">
+        <a class="header-name" href="#">sys · suvam.mondal</a>
+        <div class="header-right">
+            <span class="header-role">Senior Data Analyst</span>
+            <button id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme"><span>☾</span></button>
         </div>
-    </div>
+    </header>
 
-    <div id="page-experience" class="page inner-page">
-        <div class="inner-header">
-            <h2 class="inner-title">Professional Experience</h2>
-        </div>
-        <div class="inner-content">
-            <div class="job">
-                <div class="job-header">
-                    <span class="job-company">Globus Systems</span>
-                    <span class="job-date">Jan 2026 – Present</span>
-                </div>
-                <div class="job-role">Senior Data Analyst | Remote</div>
-                <ul class="job-details">
-                    <li>Managed data workflows for large fundraising campaigns, processing millions of records.</li>
-                    <li>Wrote SQL scripts and stored procedures to organize, group, and update data.</li>
-                    <li>Created visual reports and dashboards using Power BI.</li>
-                    <li>Used Claude AI to fully automate data extraction and loading processes.</li>
-                    <li>Set up AI tools to automatically sort and handle support tickets.</li>
-                </ul>
-            </div>
+    <!-- MAIN CONTENT -->
+    <main>
 
-            <div class="job">
-                <div class="job-header">
-                    <span class="job-company">Clarivate Analytics</span>
-                    <span class="job-date">Aug 2022 – Oct 2024</span>
+        <!-- HERO -->
+        <section class="hero reveal">
+            <div class="hero-avatar-wrap">
+                <div class="avatar-hover-container">
+                    <img src="Photo_self.jpg" class="avatar-front" alt="Suvam Mondal">
+                    <img src="face.jpeg" class="avatar-back" alt="Suvam 3D Avatar">
                 </div>
-                <div class="job-role">Data Analyst | USA Healthcare</div>
-                <ul class="job-details">
-                    <li>Engineered end-to-end process automations improving processing efficiency by 88%.</li>
-                    <li>Integrated MMIT, IQVIA, LAAD, and SHA datasets designing 5+ Python workflows.</li>
-                    <li>Developed SQL stored procedures to streamline client-specific data manipulation.</li>
-                    <li>Collaborated with 8+ client stakeholders to define analytical objectives.</li>
-                </ul>
             </div>
-            
-            <div class="job">
-                <div class="job-header">
-                    <span class="job-company">Collabera (Goldman Sachs)</span>
-                    <span class="job-date">Jul 2020 – Jul 2021</span>
-                </div>
-                <div class="job-role">Senior IT Engineer</div>
-                <ul class="job-details">
-                    <li>Enhanced reporting accuracy and readability using Power BI best practices.</li>
-                    <li>Conducted detailed root cause analyses to resolve complex data issues, reducing recurrence by 64%.</li>
-                    <li>Monitored performance metrics and delivered insights improving operational efficiency by 32%.</li>
-                </ul>
+            <h1 class="hero-name">Suvam Mondal</h1>
+            <p class="hero-tagline">Senior Data Analyst · Agentic AI · Healthcare · BI</p>
+            <div class="hero-social">
+                <a href="https://www.linkedin.com/in/suvam-mondal/" target="_blank" rel="noopener" class="social-link">LinkedIn ↗</a>
+                <a href="https://www.instagram.com/me_suvam/" target="_blank" rel="noopener" class="social-link">Instagram ↗</a>
+                <a href="mailto:mondal.suvam3@gmail.com" class="social-link">Email ↗</a>
+                <a href="resume_k.pdf" download="Suvam_Mondal_Resume.pdf" class="social-link">Resume ↓</a>
             </div>
+            <div class="scroll-hint">scroll ↓</div>
+        </section>
 
-            <div class="job">
-                <div class="job-header">
-                    <span class="job-company">Capgemini</span>
-                    <span class="job-date">Aug 2017 – Dec 2019</span>
-                </div>
-                <div class="job-role">Senior Analyst | Kolkata</div>
-                <ul class="job-details">
-                    <li>Led a 28-member Service Desk Team, managing performance, escalations, and SLA-driven delivery.</li>
-                    <li>Executed multiple SQL-based assessments to identify service bottlenecks and streamline workflows.</li>
-                    <li>Represented the team onsite in Gothenburg, Sweden, managing 1 transition activity and maintaining client alignment.</li>
-                    <li>Conducted 10+ training sessions for new team members and facilitated seamless knowledge transfer.</li>
-                </ul>
+        <!-- 01. About -->
+        <section class="section reveal" id="about">
+            <div class="section-header">
+                <span class="section-num">01.</span>
+                <h2 class="section-title">About</h2>
             </div>
-        </div>
-    </div>
+            <div class="section-body">
+                <p class="about-text">I architect agentic AI and autonomous workflow systems that transcend traditional data processing. At Globus Systems, I deploy intelligent agents that navigate, extract, and synthesize complex datasets with minimal intervention — transforming raw data into a self-optimizing strategic asset.</p>
+                <p class="about-text">With a deep foundation in US healthcare analytics and business intelligence, I build adaptive automation systems that leverage advanced LLM frameworks to solve intricate operational bottlenecks at scale.</p>
+                <div class="status-line">
+                    <span class="status-dot"></span>
+                    <span>Open to senior analyst &amp; AI engineering roles</span>
+                </div>
+            </div>
+        </section>
 
-    <div id="page-skills" class="page inner-page">
-        <div class="inner-header">
-            <h2 class="inner-title">Skills & Expertise</h2>
-        </div>
-        <div class="inner-content">
-            <div class="skill-group">
-                <div class="skill-group-label">Technical Stack</div>
-                <div class="skill-list">
-                    <div class="skill-row"><span class="skill-name">SQL</span><span class="skill-badge">Expert</span></div>
-                    <div class="skill-row"><span class="skill-name">Power BI</span><span class="skill-badge">Expert</span></div>
-                    <div class="skill-row"><span class="skill-name">Python</span><span class="skill-badge">Advanced</span></div>
-                    <div class="skill-row"><span class="skill-name">Claude AI</span><span class="skill-badge">Advanced</span></div>
-                    <div class="skill-row"><span class="skill-name">Excel Macros</span><span class="skill-badge">Advanced</span></div>
+        <!-- 02. Experience -->
+        <section class="section reveal" id="experience">
+            <div class="section-header">
+                <span class="section-num">02.</span>
+                <h2 class="section-title">Experience</h2>
+            </div>
+            <div class="section-body">
+                <div class="timeline">
+                    <div class="timeline-entry reveal-item">
+                        <div class="timeline-meta">
+                            <span class="timeline-period">Jan 2026 – Present</span>
+                            <span class="timeline-badge current">Current</span>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-company">Globus Systems</div>
+                            <div class="timeline-role">Senior Data Analyst · Remote</div>
+                            <ul class="timeline-bullets">
+                                <li>Managed data workflows for large fundraising campaigns processing millions of records.</li>
+                                <li>Used Claude AI to fully automate data extraction, transformation, and loading processes.</li>
+                                <li>Set up AI agents to automatically sort and handle support tickets.</li>
+                                <li>Created visual reports and dashboards using Power BI.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="timeline-entry reveal-item">
+                        <div class="timeline-meta">
+                            <span class="timeline-period">Aug 2022 – Oct 2024</span>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-company">Clarivate Analytics</div>
+                            <div class="timeline-role">Data Analyst · USA Healthcare</div>
+                            <ul class="timeline-bullets">
+                                <li>Engineered end-to-end process automations improving processing efficiency by 88%.</li>
+                                <li>Integrated MMIT, IQVIA, LAAD, and SHA datasets via 5+ Python workflows.</li>
+                                <li>Developed SQL stored procedures for client-specific data manipulation.</li>
+                                <li>Collaborated with 8+ client stakeholders to define analytical objectives.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="timeline-entry reveal-item">
+                        <div class="timeline-meta">
+                            <span class="timeline-period">Jul 2020 – Jul 2021</span>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-company">Collabera (Goldman Sachs)</div>
+                            <div class="timeline-role">Senior IT Engineer</div>
+                            <ul class="timeline-bullets">
+                                <li>Built Power BI dashboards and root-cause analysis frameworks.</li>
+                                <li>Reduced recurring data issues by 64%; improved operational efficiency by 32%.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="timeline-entry reveal-item">
+                        <div class="timeline-meta">
+                            <span class="timeline-period">Aug 2017 – Dec 2019</span>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-company">Capgemini</div>
+                            <div class="timeline-role">Senior Analyst · Kolkata</div>
+                            <ul class="timeline-bullets">
+                                <li>Led a 28-member Service Desk Team managing SLA-driven delivery.</li>
+                                <li>Managed 1 transition activity onsite in Gothenburg, Sweden.</li>
+                                <li>Conducted 10+ training sessions and facilitated knowledge transfer.</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="skill-group">
-                <div class="skill-group-label">Domain Expertise</div>
-                <div class="skill-list">
-                    <div class="skill-row"><span class="skill-name">Healthcare Analytics</span></div>
-                    <div class="skill-row"><span class="skill-name">Market Access</span></div>
-                    <div class="skill-row"><span class="skill-name">Data Governance</span></div>
-                    <div class="skill-row"><span class="skill-name">Business Intelligence</span></div>
-                </div>
-            </div>
-            <div class="skill-group">
-                <div class="skill-group-label">Education</div>
-                <div class="skill-list">
-                    <div class="skill-row"><span class="skill-name">PG Program in Data Science</span><span class="skill-badge">Praxis</span></div>
-                    <div class="skill-row"><span class="skill-name">B.Tech in ECE</span><span class="skill-badge">WBUT</span></div>
-                </div>
-            </div>
-        </div>
-    </div>
+        </section>
 
-    <div id="page-projects" class="page inner-page">
-        <div class="inner-header">
-            <h2 class="inner-title">Projects</h2>
-        </div>
-        <div class="inner-content">
-            <div class="project-card">
-                <div class="project-name">Agentic Data Pipeline</div>
-                <div class="project-context">Globus Systems · 2026</div>
-                <div class="project-impact">Fully Automated</div>
-                <p class="project-desc">Deployed Claude AI to architect a zero-touch data pipeline — automating extraction, transformation, loading, and support ticket triage across large fundraising campaigns processing millions of records with minimal human intervention.</p>
-                <div class="project-tags">
-                    <span class="project-tag">Claude AI</span>
-                    <span class="project-tag">Agentic Workflows</span>
-                    <span class="project-tag">SQL</span>
-                    <span class="project-tag">Power BI</span>
+        <!-- 03. Projects -->
+        <section class="section reveal" id="projects">
+            <div class="section-header">
+                <span class="section-num">03.</span>
+                <h2 class="section-title">Projects</h2>
+            </div>
+            <div class="section-body">
+                <div class="project-list">
+                    <div class="project-row reveal-item">
+                        <div class="project-row-top">
+                            <span class="project-row-name">Agentic Data Pipeline</span>
+                            <span class="project-status live">🟢 Fully Automated</span>
+                        </div>
+                        <p class="project-row-desc">Claude AI-powered zero-touch pipeline for extraction, transformation, loading, and ticket triage across millions of fundraising records at Globus Systems.</p>
+                        <div class="project-row-tags">
+                            <span class="tag">Claude AI</span>
+                            <span class="tag">Agentic Workflows</span>
+                            <span class="tag">SQL</span>
+                            <span class="tag">Power BI</span>
+                        </div>
+                    </div>
+                    <div class="project-row reveal-item">
+                        <div class="project-row-top">
+                            <span class="project-row-name">Healthcare Analytics Suite</span>
+                            <span class="project-status">88% Efficiency Gain</span>
+                        </div>
+                        <p class="project-row-desc">End-to-end integration of MMIT, IQVIA, LAAD, and SHA pharmaceutical datasets at Clarivate — 5+ Python workflows serving 8+ US healthcare clients.</p>
+                        <div class="project-row-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">SQL</span>
+                            <span class="tag">IQVIA</span>
+                            <span class="tag">MMIT</span>
+                            <span class="tag">Healthcare</span>
+                        </div>
+                    </div>
+                    <div class="project-row reveal-item">
+                        <div class="project-row-top">
+                            <span class="project-row-name">BI Intelligence Platform</span>
+                            <span class="project-status">32% Improvement</span>
+                        </div>
+                        <p class="project-row-desc">Power BI dashboards and root-cause analysis at Goldman Sachs — reduced recurring data issues by 64% through systematic operational monitoring.</p>
+                        <div class="project-row-tags">
+                            <span class="tag">Power BI</span>
+                            <span class="tag">SQL</span>
+                            <span class="tag">Root Cause Analysis</span>
+                            <span class="tag">Reporting</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="project-card">
-                <div class="project-name">Healthcare Analytics Suite</div>
-                <div class="project-context">Clarivate Analytics · 2022–2024</div>
-                <div class="project-impact">88% Efficiency Gain</div>
-                <p class="project-desc">Engineered end-to-end integrations across MMIT, IQVIA, LAAD, and SHA pharmaceutical datasets, designing 5+ Python automation workflows and SQL stored procedures to serve 8+ client stakeholders in US healthcare market access.</p>
-                <div class="project-tags">
-                    <span class="project-tag">Python</span>
-                    <span class="project-tag">SQL</span>
-                    <span class="project-tag">IQVIA</span>
-                    <span class="project-tag">MMIT</span>
-                    <span class="project-tag">Healthcare</span>
-                </div>
-            </div>
-            <div class="project-card">
-                <div class="project-name">BI Intelligence Platform</div>
-                <div class="project-context">Goldman Sachs / Collabera · 2020–2021</div>
-                <div class="project-impact">32% Operational Improvement</div>
-                <p class="project-desc">Built Power BI dashboards and root-cause analysis frameworks at Goldman Sachs, reducing recurring data issues by 64% through systematic performance monitoring and operational insights delivered to senior stakeholders.</p>
-                <div class="project-tags">
-                    <span class="project-tag">Power BI</span>
-                    <span class="project-tag">SQL</span>
-                    <span class="project-tag">Root Cause Analysis</span>
-                    <span class="project-tag">Reporting</span>
-                </div>
-            </div>
-        </div>
-    </div>
+        </section>
 
-    <!-- FLOATING CHATBOT WIDGET -->
+        <!-- 04. Skills & Connect -->
+        <section class="section reveal" id="skills-connect">
+            <div class="section-header">
+                <span class="section-num">04.</span>
+                <h2 class="section-title">Skills & Connect</h2>
+            </div>
+            <div class="section-body">
+                <div class="skills-grid">
+                    <div class="skills-group reveal-item">
+                        <div class="skills-group-label">Technical Stack</div>
+                        <div class="skills-tags">
+                            <span class="tag">SQL</span>
+                            <span class="tag">Power BI</span>
+                            <span class="tag">Python</span>
+                            <span class="tag">Claude AI</span>
+                            <span class="tag">Excel Macros</span>
+                            <span class="tag">LLM Frameworks</span>
+                        </div>
+                    </div>
+                    <div class="skills-group reveal-item">
+                        <div class="skills-group-label">Domain</div>
+                        <div class="skills-tags">
+                            <span class="tag">Healthcare Analytics</span>
+                            <span class="tag">Market Access</span>
+                            <span class="tag">Data Governance</span>
+                            <span class="tag">Business Intelligence</span>
+                            <span class="tag">Agentic AI</span>
+                        </div>
+                    </div>
+                    <div class="skills-group reveal-item">
+                        <div class="skills-group-label">Education</div>
+                        <div class="skills-tags">
+                            <span class="tag">PG · Data Science · Praxis</span>
+                            <span class="tag">B.Tech · ECE · WBUT</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="connect-links">
+                    <a href="https://www.linkedin.com/in/suvam-mondal/" target="_blank" rel="noopener" class="connect-link">LinkedIn ↗</a>
+                    <a href="mailto:mondal.suvam3@gmail.com" class="connect-link">mondal.suvam3@gmail.com ↗</a>
+                    <a href="https://www.instagram.com/me_suvam/" target="_blank" rel="noopener" class="connect-link">Instagram ↗</a>
+                    <a href="resume_k.pdf" download="Suvam_Mondal_Resume.pdf" class="connect-link">Download Resume ↓</a>
+                </div>
+            </div>
+        </section>
+
+        <footer class="site-footer">
+            <span>Built with Claude Code · suvam.co.in</span>
+        </footer>
+
+    </main>
+
+    <!-- CHATBOT WIDGET -->
     <div id="chatbot-widget">
         <div id="chat-window">
             <div class="chat-header">
@@ -215,20 +276,7 @@
         </button>
     </div>
 
-    <!-- NAVIGATION -->
-    <nav class="bottom-nav">
-        <button id="nav-home" class="nav-item active" onclick="openPage('home')" aria-label="Go to Home"><span>Home</span></button>
-        <button id="nav-experience" class="nav-item" onclick="openPage('experience')" aria-label="Go to Experience"><span>Experience</span></button>
-        <button id="nav-skills" class="nav-item" onclick="openPage('skills')" aria-label="Go to Skills"><span>Skills</span></button>
-        <button id="nav-projects" class="nav-item" onclick="openPage('projects')" aria-label="Go to Projects"><span>Projects</span></button>
-        <a href="resume_k.pdf" download="Suvam_Mondal_Resume.pdf" class="nav-item" style="text-decoration:none;" aria-label="Download Resume"><span>Resume</span></a>
-        <button id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode"><span>DARK</span></button>
-    </nav>
-
-    <div class="ai-credit">Built with Claude Code</div>
-
     <canvas id="bg-canvas"></canvas>
-
     <script src="script.js"></script>
 </body>
 </html>

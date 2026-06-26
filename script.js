@@ -1,118 +1,106 @@
 const WORKER_URL = 'https://suvambot.mondal-suvam3.workers.dev';
 
-// ── THEME ──
+// ── THEME (dark default, light toggle) ──
 function toggleTheme() {
-    const isDark = document.documentElement.classList.toggle('dark');
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    const isLight = document.documentElement.classList.toggle('light');
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
     const btn = document.getElementById('theme-toggle');
-    if (btn) btn.querySelector('span').textContent = isDark ? 'LITE' : 'DARK';
+    if (btn) btn.querySelector('span').textContent = isLight ? '☀' : '☾';
 }
 (function initTheme() {
-    if (localStorage.getItem('theme') === 'dark') {
-        document.documentElement.classList.add('dark');
+    if (localStorage.getItem('theme') === 'light') {
+        document.documentElement.classList.add('light');
         const btn = document.getElementById('theme-toggle');
-        if (btn) btn.querySelector('span').textContent = 'LITE';
+        if (btn) btn.querySelector('span').textContent = '☀';
     }
 })();
 
 // ── LOADER ──
-(function() {
+(function () {
     let p = 0;
-    const bar = document.getElementById('loader-bar');
-    const perc = document.getElementById('loader-perc');
+    const bar    = document.getElementById('loader-bar');
+    const perc   = document.getElementById('loader-perc');
     const loader = document.getElementById('loader');
     const status = document.querySelector('.loader-status');
-    
     const t = setInterval(() => {
-        p += Math.floor(Math.random() * 8) + 2;
+        p += Math.floor(Math.random() * 7) + 2;
         if (p >= 100) {
-            p = 100; clearInterval(t);
+            p = 100;
+            clearInterval(t);
             if (status) status.textContent = 'Agent Ready';
             setTimeout(() => {
                 if (loader) {
                     loader.classList.add('done');
-                    setTimeout(() => { loader.style.display = 'none'; }, 1000);
+                    setTimeout(() => { loader.style.display = 'none'; }, 900);
                 }
-            }, 300);
+            }, 320);
         }
-        if(bar) bar.style.width = p + '%';
-        if(perc) perc.textContent = p.toString().padStart(2, '0') + '%';
-    }, 40);
+        if (bar)  bar.style.width = p + '%';
+        if (perc) perc.textContent = p.toString().padStart(2, '0') + '%';
+    }, 38);
 })();
 
-// ── PAGE NAVIGATION ──
-let currentPage = 'home';
+// ── SCROLL REVEAL ──
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            revealObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
 
-function setActiveNav(name) {
-    document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
-    const btn = document.getElementById('nav-' + name);
-    if (btn) btn.classList.add('active');
-}
+document.querySelectorAll('.reveal, .reveal-item').forEach(el => revealObserver.observe(el));
 
-function openPage(name) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    const target = document.getElementById('page-' + name);
-    if(target) {
-        target.classList.add('active');
-        currentPage = name;
-        setActiveNav(name);
-        const content = target.querySelector('.inner-content');
-        if(content) content.scrollTop = 0;
-        renderChips(name);
-    }
-}
-
-// ── CHATBOT WIDGET LOGIC ──
+// ── CHATBOT ──
 const chatWindow = document.getElementById('chat-window');
+
 function toggleChat() {
     if (chatWindow) {
         chatWindow.classList.toggle('active');
         if (chatWindow.classList.contains('active')) {
-            document.getElementById('chat-input').focus();
+            const input = document.getElementById('chat-input');
+            if (input) input.focus();
         }
     }
 }
 
-// ── CHAT CORE ──
-const messagesEl    = document.getElementById('chat-messages');
-const inputEl       = document.getElementById('chat-input');
-const sendBtn       = document.getElementById('chat-send');
-const chipsEl       = document.getElementById('chips');
-let chatHistory     = [];
-let greeted         = false;
-let isThinking      = false;
+const messagesEl = document.getElementById('chat-messages');
+const inputEl    = document.getElementById('chat-input');
+const sendBtn    = document.getElementById('chat-send');
+const chipsEl    = document.getElementById('chips');
 
-const contextualPrompts = {
-    home: ["What's your tech stack?", "Are you open to work?", "Tell me about your AI work"],
-    experience: ["Tell me about Globus Systems", "What did you do at Clarivate?", "Recent leadership highlights"],
-    skills: ["How good is your SQL?", "Show me Power BI examples", "Python automation details"],
-    projects: ["Tell me about your AI automation work", "What's your most impactful project?", "How did you use Claude AI at work?"],
-    contact: ["How fast do you respond?", "Are you open to relocation?"]
-};
+let chatHistory = [];
+let greeted     = false;
+let isThinking  = false;
+
+const chatPrompts = [
+    "What's your tech stack?",
+    "Are you open to work?",
+    "Tell me about your AI work",
+    "How did you use Claude AI?",
+];
 
 function setChatBusy(busy) {
     isThinking = busy;
     if (inputEl) {
         inputEl.disabled = busy;
-        inputEl.placeholder = busy ? "AI is thinking..." : "Ask me anything...";
+        inputEl.placeholder = busy ? 'AI is thinking…' : 'Ask me anything…';
     }
     if (sendBtn) {
         sendBtn.disabled = busy;
-        sendBtn.style.opacity = busy ? "0.5" : "1";
+        sendBtn.style.opacity = busy ? '0.4' : '1';
     }
 }
 
-function renderChips(pageName) {
+function renderChips() {
     if (!chipsEl) return;
     chipsEl.innerHTML = '';
-    const prompts = contextualPrompts[pageName] || contextualPrompts['home'];
-    prompts.forEach(p => {
+    chatPrompts.forEach(p => {
         const btn = document.createElement('button');
         btn.className = 'chip';
         btn.textContent = p;
-        btn.onclick = () => {
-            if (!isThinking) sendMessage(p);
-        };
+        btn.onclick = () => { if (!isThinking) sendMessage(p); };
         chipsEl.appendChild(btn);
     });
 }
@@ -143,17 +131,17 @@ function addMsg(text, role, isStreaming = false) {
 
     if (role === 'bot' && isStreaming) {
         let i = 0;
-        const interval = setInterval(() => {
+        const iv = setInterval(() => {
             if (i < text.length) {
-                i = Math.min(i + 3, text.length);
+                i = Math.min(i + 4, text.length);
                 el.innerHTML = window.marked ? marked.parse(text.substring(0, i)) : text.substring(0, i);
                 messagesEl.scrollTop = messagesEl.scrollHeight;
             } else {
-                clearInterval(interval);
+                clearInterval(iv);
                 messagesEl.scrollTop = messagesEl.scrollHeight;
                 setChatBusy(false);
             }
-        }, 20);
+        }, 15);
     } else {
         el.innerHTML = window.marked && role === 'bot' ? marked.parse(text) : text;
         messagesEl.scrollTop = messagesEl.scrollHeight;
@@ -180,7 +168,7 @@ async function sendMessage(text) {
         chatHistory.push({ role: 'assistant', content: reply });
         hideTyping();
         addMsg(reply, 'bot', true);
-    } catch (err) {
+    } catch {
         chatHistory.pop();
         hideTyping();
         addMsg("Couldn't reach the AI — please try again.", 'bot');
@@ -188,13 +176,10 @@ async function sendMessage(text) {
     }
 }
 
-if(sendBtn) sendBtn.onclick = () => sendMessage(inputEl.value);
-if(inputEl) {
-    inputEl.onkeydown = e => { if(e.key === 'Enter') sendMessage(inputEl.value); };
-}
+if (sendBtn) sendBtn.onclick = () => sendMessage(inputEl.value);
+if (inputEl) inputEl.onkeydown = e => { if (e.key === 'Enter') sendMessage(inputEl.value); };
 
-// Initial state
-renderChips('home');
+renderChips();
 setTimeout(() => {
     if (!greeted) {
         greeted = true;
@@ -202,51 +187,45 @@ setTimeout(() => {
     }
 }, 1200);
 
-// ── BACKGROUND (AGENTIC DATA PACKETS) ──
+// ── BACKGROUND CANVAS ──
 const canvas = document.getElementById('bg-canvas');
-const ctx = canvas ? canvas.getContext('2d') : null;
+const ctx    = canvas ? canvas.getContext('2d') : null;
 if (canvas && ctx) {
-    let packets = [];
-    const resize = () => { 
-        canvas.width = window.innerWidth; 
-        canvas.height = window.innerHeight; 
+    const resize = () => {
+        canvas.width  = window.innerWidth;
+        canvas.height = window.innerHeight;
     };
-    window.onresize = resize;
+    window.addEventListener('resize', resize);
     resize();
 
     class Packet {
-        constructor() {
-            this.reset();
-        }
+        constructor() { this.reset(); }
         reset() {
-            this.x = Math.random() * canvas.width;
-            this.y = Math.random() * canvas.height;
-            this.size = Math.random() * 3 + 1;
-            this.speed = Math.random() * 0.4 + 0.1;
+            this.x     = Math.random() * canvas.width;
+            this.y     = Math.random() * canvas.height;
+            this.size  = Math.random() * 2 + 0.5;
+            this.speed = Math.random() * 0.3 + 0.08;
             this.alpha = Math.random() * 0.2;
-            this.pulse = Math.random() * 0.05;
+            this.pulse = Math.random() * 0.035;
         }
         update() {
             this.y -= this.speed;
             this.alpha += this.pulse;
-            if (this.alpha > 0.3 || this.alpha < 0.05) this.pulse *= -1;
-            if (this.y < -10) this.reset();
+            if (this.alpha > 0.3 || this.alpha < 0.04) this.pulse *= -1;
+            if (this.y < -8) this.reset();
         }
         draw() {
-            ctx.fillStyle = "#c96442";
+            ctx.fillStyle  = '#c96442';
             ctx.globalAlpha = this.alpha;
             ctx.fillRect(this.x, this.y, this.size, this.size);
         }
     }
 
-    for(let i=0; i<50; i++) packets.push(new Packet());
+    const packets = Array.from({ length: 55 }, () => new Packet());
 
     function animate() {
-        ctx.clearRect(0,0,canvas.width, canvas.height);
-        packets.forEach(p => {
-            p.update();
-            p.draw();
-        });
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        packets.forEach(p => { p.update(); p.draw(); });
         requestAnimationFrame(animate);
     }
     animate();
