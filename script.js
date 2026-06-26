@@ -1,5 +1,5 @@
 const WORKER_URL = 'https://suvambot.mondal-suvam3.workers.dev';
-const STATUS_URL = ''; // Set this to your status Worker URL after deploying status-worker.js
+const STATUS_URL = 'https://suvam-status.mondal-suvam3.workers.dev';
 
 // ── THEME (dark default, light toggle) ──
 function toggleTheme() {
