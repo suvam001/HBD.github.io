@@ -248,7 +248,7 @@ renderChips();
 setTimeout(() => {
     if (!greeted) {
         greeted = true;
-        addMsg("Hey! 👋 Ask me anything about Suvam's experience, projects, or if he's open to work.", 'bot');
+        addMsg("Hey! 👋 I'm Suvam — ask me anything about my experience, projects, or whether I'm open to new roles.", 'bot');
     }
 }, 1200);
 
