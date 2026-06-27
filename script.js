@@ -16,6 +16,32 @@ function toggleTheme() {
     }
 })();
 
+// ── CURSOR GLOW ──
+(function () {
+    const glow = document.createElement('div');
+    glow.className = 'cursor-glow';
+    document.body.appendChild(glow);
+    let rafId;
+    document.addEventListener('mousemove', e => {
+        cancelAnimationFrame(rafId);
+        rafId = requestAnimationFrame(() => {
+            document.documentElement.style.setProperty('--cx', e.clientX + 'px');
+            document.documentElement.style.setProperty('--cy', e.clientY + 'px');
+        });
+    });
+})();
+
+// ── SCROLL PROGRESS ──
+(function () {
+    function updateScroll() {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        const p = max > 0 ? window.scrollY / max : 0;
+        document.documentElement.style.setProperty('--scroll-p', p);
+    }
+    window.addEventListener('scroll', updateScroll, { passive: true });
+    updateScroll();
+})();
+
 // ── LOADER ──
 (function () {
     let p = 0;
@@ -32,6 +58,7 @@ function toggleTheme() {
             setTimeout(() => {
                 if (loader) {
                     loader.classList.add('done');
+                    document.body.classList.add('hero-loaded');
                     setTimeout(() => { loader.style.display = 'none'; }, 900);
                 }
             }, 320);
@@ -52,6 +79,34 @@ const revealObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
 
 document.querySelectorAll('.reveal, .reveal-item').forEach(el => revealObserver.observe(el));
+
+// ── STATS COUNT-UP ──
+(function () {
+    const statsRow = document.querySelector('.stats-row');
+    if (!statsRow) return;
+    const counters = statsRow.querySelectorAll('[data-count]');
+    let fired = false;
+    const obs = new IntersectionObserver(entries => {
+        if (!entries[0].isIntersecting || fired) return;
+        fired = true;
+        obs.disconnect();
+        counters.forEach(el => {
+            const target = parseInt(el.dataset.count, 10);
+            const suffix = el.dataset.suffix || '';
+            const duration = 1100;
+            let start = null;
+            function step(ts) {
+                if (!start) start = ts;
+                const progress = Math.min((ts - start) / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                el.textContent = Math.round(eased * target) + suffix;
+                if (progress < 1) requestAnimationFrame(step);
+            }
+            requestAnimationFrame(step);
+        });
+    }, { threshold: 0.5 });
+    obs.observe(statsRow);
+})();
 
 // ── CHATBOT ──
 const chatWindow = document.getElementById('chat-window');
