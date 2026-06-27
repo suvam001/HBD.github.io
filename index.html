@@ -53,7 +53,7 @@
                 </div>
             </div>
             <h1 class="hero-name" data-hero="2">Suvam Mondal</h1>
-            <p class="hero-tagline" data-hero="3">Senior Data Analyst · Agentic AI · Healthcare · BI</p>
+            <p class="hero-tagline" data-hero="3">Senior Data Analyst · <span id="hero-rotate">Agentic AI</span></p>
             <div class="hero-social" data-hero="4">
                 <a href="https://www.linkedin.com/in/suvam-mondal/" target="_blank" rel="noopener" class="social-link">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
@@ -253,7 +253,10 @@
         <div id="chat-window">
             <div class="chat-header">
                 <span>AI Assistant</span>
-                <button class="chat-close" onclick="toggleChat()" aria-label="Close chat">✕</button>
+                <div class="chat-header-right">
+                    <kbd class="chat-kbd">⌘K</kbd>
+                    <button class="chat-close" onclick="toggleChat()" aria-label="Close chat">✕</button>
+                </div>
             </div>
             <div id="chat-messages"></div>
             <div class="chat-input-area">
@@ -264,12 +267,15 @@
                 </div>
             </div>
         </div>
-        <button id="chat-toggle" onclick="toggleChat()" aria-label="Open Chat">
+        <button id="chat-peek" type="button" aria-label="Open chat">👋 Ask my AI anything</button>
+        <button id="chat-toggle" class="nudge" onclick="toggleChat()" aria-label="Open Chat">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
             </svg>
         </button>
     </div>
+
+    <div id="toast" role="status" aria-live="polite"></div>
 
     <canvas id="bg-canvas"></canvas>
     <script src="script.js"></script>

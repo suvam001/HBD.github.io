@@ -115,10 +115,19 @@ function toggleChat() {
     if (chatWindow) {
         chatWindow.classList.toggle('active');
         if (chatWindow.classList.contains('active')) {
+            dismissPeek();
+            const toggle = document.getElementById('chat-toggle');
+            if (toggle) toggle.classList.remove('nudge');
             const input = document.getElementById('chat-input');
             if (input) input.focus();
         }
     }
+}
+
+// Open the chat (if closed) and send a prefilled question.
+function openChatWith(text) {
+    if (chatWindow && !chatWindow.classList.contains('active')) toggleChat();
+    sendMessage(text);
 }
 
 const messagesEl = document.getElementById('chat-messages');
@@ -303,3 +312,86 @@ if (canvas && ctx) {
     }
     animate();
 }
+
+// ── CHAT PEEK BUBBLE ──
+const peekEl = document.getElementById('chat-peek');
+function dismissPeek() {
+    if (peekEl) peekEl.classList.remove('show');
+}
+if (peekEl) {
+    peekEl.addEventListener('click', () => toggleChat());
+    if (!sessionStorage.getItem('peekShown')) {
+        setTimeout(() => {
+            if (chatWindow && !chatWindow.classList.contains('active')) {
+                peekEl.classList.add('show');
+                sessionStorage.setItem('peekShown', '1');
+                setTimeout(dismissPeek, 7000);
+            }
+        }, 3500);
+    }
+}
+
+// ── KEYBOARD SHORTCUT (⌘K / Ctrl+K / "/") ──
+document.addEventListener('keydown', (e) => {
+    const tag = (e.target.tagName || '').toLowerCase();
+    const typing = tag === 'input' || tag === 'textarea' || e.target.isContentEditable;
+    const cmdK = (e.key === 'k' || e.key === 'K') && (e.metaKey || e.ctrlKey);
+    const slash = e.key === '/' && !typing && !e.metaKey && !e.ctrlKey;
+    if (!cmdK && !slash) return;
+    e.preventDefault();
+    if (chatWindow && !chatWindow.classList.contains('active')) {
+        toggleChat();
+    } else {
+        const i = document.getElementById('chat-input');
+        if (i) i.focus();
+    }
+});
+
+// ── CONTENT → BOT ──
+document.querySelectorAll('.skills-tags .tag').forEach(tag => {
+    tag.addEventListener('click', () =>
+        openChatWith('Tell me about your experience with ' + tag.textContent.trim()));
+});
+document.querySelectorAll('.timeline-company').forEach(el => {
+    el.addEventListener('click', () =>
+        openChatWith('What did you do at ' + el.textContent.trim() + '?'));
+});
+
+// ── HERO ROTATE ──
+(function () {
+    const el = document.getElementById('hero-rotate');
+    if (!el) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const roles = ['Agentic AI', 'Healthcare Analytics', 'Business Intelligence', 'LLM Automation'];
+    let i = 0;
+    setInterval(() => {
+        el.classList.add('out');
+        setTimeout(() => {
+            i = (i + 1) % roles.length;
+            el.textContent = roles[i];
+            el.classList.remove('out');
+        }, 320);
+    }, 2600);
+})();
+
+// ── TOAST + COPY EMAIL ──
+let toastTimer = null;
+function showToast(msg) {
+    const t = document.getElementById('toast');
+    if (!t) return;
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 1800);
+}
+document.querySelectorAll('.connect-link[href^="mailto:"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+        if (!navigator.clipboard) return;
+        const email = link.getAttribute('href').replace('mailto:', '');
+        e.preventDefault();
+        navigator.clipboard.writeText(email).then(
+            () => showToast('Email copied ✓'),
+            () => { window.location.href = link.getAttribute('href'); }
+        );
+    });
+});

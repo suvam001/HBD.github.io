@@ -189,6 +189,12 @@ main {
     font-size: 0.9rem;
     color: var(--dim); margin-bottom: 40px; line-height: 1.7;
 }
+#hero-rotate {
+    color: var(--accent);
+    transition: opacity 0.3s var(--ease-out);
+    display: inline-block;
+}
+#hero-rotate.out { opacity: 0; }
 .hero-social {
     display: flex; flex-wrap: wrap; gap: 8px;
     margin-bottom: 64px;
@@ -290,8 +296,37 @@ main {
     display: grid; grid-template-columns: 148px 1fr;
     gap: 28px; padding: 30px 0;
     border-bottom: 1px solid var(--border);
+    position: relative;
 }
 .timeline-entry:last-child { border-bottom: none; }
+
+/* spine + dots (desktop only — mobile stacks to one column) */
+@media (min-width: 581px) {
+    .timeline-entry::after {
+        content: ''; position: absolute;
+        left: 160px; top: 0; bottom: 0; width: 1px;
+        background: var(--border);
+    }
+    .timeline-entry:first-child::after { top: 8px; }
+    .timeline-entry:last-child::after { bottom: auto; height: 38px; }
+    .timeline-entry::before {
+        content: ''; position: absolute;
+        left: 157px; top: 33px;
+        width: 7px; height: 7px; border-radius: 50%;
+        background: var(--dim);
+        box-shadow: 0 0 0 3px var(--bg);
+        z-index: 1;
+    }
+    .timeline-entry:first-child::before {
+        background: var(--accent);
+        box-shadow: 0 0 0 3px var(--bg), 0 0 8px rgba(201, 100, 66, 0.6);
+        animation: dotPulse 2.5s ease-in-out infinite;
+    }
+}
+@keyframes dotPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.45; }
+}
 .timeline-meta { padding-top: 1px; }
 .timeline-period {
     font-family: var(--font-mono); font-size: 0.68rem;
@@ -307,7 +342,12 @@ main {
     color: var(--accent);
     border: 1px solid rgba(201, 100, 66, 0.25);
 }
-.timeline-company { font-weight: 600; font-size: 1rem; margin-bottom: 3px; }
+.timeline-company {
+    font-weight: 600; font-size: 1rem; margin-bottom: 3px;
+    cursor: pointer; display: inline-block;
+    transition: color 0.18s ease;
+}
+.timeline-company:hover { color: var(--accent); }
 .timeline-role {
     font-family: var(--font-mono); font-size: 0.7rem;
     color: var(--accent); margin-bottom: 16px; opacity: 0.85;
@@ -358,7 +398,7 @@ main {
     border: 1px solid var(--border-up);
     color: var(--dim);
     transition: color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
-    display: inline-block;
+    display: inline-block; cursor: pointer;
 }
 .tag:hover { border-color: var(--dim); color: var(--text); }
 .tag:active { transform: scale(0.95); }
@@ -448,6 +488,35 @@ body.hero-loaded .hero [data-hero="5"] { opacity: 1; transform: none; transition
 }
 #chat-toggle:active { transform: scale(0.94); box-shadow: 0 2px 8px rgba(201, 100, 66, 0.3); }
 #chat-toggle svg { width: 20px; height: 20px; stroke: #fff; }
+#chat-toggle.nudge { animation: chatNudge 2.6s ease-in-out infinite; }
+@keyframes chatNudge {
+    0%, 100% { box-shadow: 0 4px 16px rgba(201, 100, 66, 0.35), 0 0 0 0 rgba(201, 100, 66, 0.45); }
+    50%      { box-shadow: 0 4px 16px rgba(201, 100, 66, 0.35), 0 0 0 9px rgba(201, 100, 66, 0); }
+}
+
+/* ── CHAT PEEK BUBBLE ── */
+#chat-peek {
+    font-family: var(--font-sans); font-size: 0.78rem;
+    color: var(--text); background: var(--surface);
+    border: 1px solid var(--border-up); border-radius: 12px;
+    padding: 9px 14px; margin-bottom: 12px; cursor: pointer;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    max-width: 220px; text-align: left; line-height: 1.4;
+    position: relative;
+    opacity: 0; transform: translateY(8px) scale(0.96);
+    pointer-events: none;
+    transition: opacity 0.35s var(--ease-out), transform 0.35s var(--ease-out);
+}
+#chat-peek::after {
+    content: ''; position: absolute;
+    bottom: -5px; right: 18px;
+    width: 10px; height: 10px;
+    background: var(--surface);
+    border-right: 1px solid var(--border-up);
+    border-bottom: 1px solid var(--border-up);
+    transform: rotate(45deg);
+}
+#chat-peek.show { opacity: 1; transform: none; pointer-events: auto; }
 
 #chat-window {
     width: min(440px, calc(100vw - 40px));
@@ -474,6 +543,13 @@ body.hero-loaded .hero [data-hero="5"] { opacity: 1; transform: none; transition
 }
 .chat-header span {
     font-family: var(--font-mono); font-size: 0.75rem; color: var(--dim);
+}
+.chat-header-right { display: flex; align-items: center; gap: 10px; }
+.chat-kbd {
+    font-family: var(--font-mono); font-size: 0.58rem;
+    color: var(--dim); letter-spacing: 0.05em;
+    padding: 2px 6px; border-radius: 5px;
+    border: 1px solid var(--border-up);
 }
 .chat-close {
     background: transparent; border: none; cursor: pointer;
@@ -565,6 +641,24 @@ body.hero-loaded .hero [data-hero="5"] { opacity: 1; transform: none; transition
     0%, 80%, 100% { transform: scale(0.65); opacity: 0.4; }
     40% { transform: scale(1); opacity: 1; }
 }
+
+/* ── TOAST ── */
+#toast {
+    position: fixed;
+    bottom: 28px; left: 50%;
+    transform: translateX(-50%) translateY(12px);
+    background: var(--surface);
+    border: 1px solid var(--border-up);
+    border-radius: 9px;
+    padding: 10px 18px;
+    font-family: var(--font-mono); font-size: 0.72rem;
+    color: var(--text);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    z-index: 10002;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s var(--ease-out);
+}
+#toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
 /* ── BACKGROUND CANVAS ── */
 #bg-canvas {
