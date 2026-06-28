@@ -467,14 +467,10 @@ function toggleSound() {
 
 document.querySelectorAll('.copy-email').forEach(btn => {
     btn.addEventListener('click', () => {
-        const email = btn.dataset.email;
+        const val = btn.dataset.copy || btn.dataset.email || '';
+        const msg = btn.dataset.toast || 'Copied ✓';
         if (navigator.clipboard) {
-            navigator.clipboard.writeText(email).then(
-                () => showToast('Email copied ✓'),
-                () => { window.location.href = 'mailto:' + email; }
-            );
-        } else {
-            window.location.href = 'mailto:' + email;
+            navigator.clipboard.writeText(val).then(() => showToast(msg), () => {});
         }
     });
 });
