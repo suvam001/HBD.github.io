@@ -804,6 +804,26 @@ body.hero-loaded .hero [data-hero="5"] { opacity: 1; transform: none; transition
 body.aud-ai { --accent: #3ba88f; }
 body.aud-explore { --accent: #d9933f; }
 
+/* Personal block is explorer-only; work sections step back in explorer mode */
+#personal { display: none; }
+body.aud-explore #personal { display: block; }
+body.aud-explore #experience,
+body.aud-explore #skills,
+body.aud-explore #fit-check,
+body.aud-explore .stats-row { display: none; }
+
+.ig-cta {
+    display: inline-flex; align-items: center; gap: 14px;
+    margin-top: 8px; padding: 16px 20px;
+    border: 1px solid var(--border-up); border-radius: 14px;
+    background: var(--surface); color: var(--text);
+    transition: border-color 0.2s ease, transform 0.18s var(--ease-out);
+}
+.ig-cta:hover { border-color: var(--accent); transform: translateY(-2px); }
+.ig-cta svg { width: 26px; height: 26px; color: var(--accent); flex-shrink: 0; }
+.ig-cta span { font-size: 0.9rem; line-height: 1.4; }
+.ig-cta strong { font-family: var(--font-mono); font-size: 0.95rem; }
+
 .aud-overlay {
     position: fixed; inset: 0; z-index: 9000;
     display: flex; align-items: center; justify-content: center;

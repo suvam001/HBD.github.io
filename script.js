@@ -562,7 +562,7 @@ const AUD_INTRO = {
 const AUD_ORDER = {
     hire:    ['experience', 'skills', 'about'],
     ai:      ['experience', 'about', 'skills'],
-    explore: ['about', 'skills', 'experience'],
+    explore: ['personal', 'about'],
 };
 const AUD_LABEL = { hire: 'Recruiter', ai: 'Builder', explore: 'Explorer' };
 
