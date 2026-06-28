@@ -31,6 +31,18 @@
         </div>
     </div>
 
+    <!-- AUDIENCE PERSONALIZER -->
+    <div id="aud-overlay" class="aud-overlay" hidden>
+        <div class="aud-ask">
+            <div class="aud-eye">✦ Before you scroll</div>
+            <h2>What brings you here?</h2>
+            <button class="aud-opt" data-aud="hire">I'm hiring for a data role<small>Cut to impact, experience &amp; fit</small></button>
+            <button class="aud-opt" data-aud="ai">I'm curious about the AI work<small>Surface the automation &amp; agentic AI</small></button>
+            <button class="aud-opt" data-aud="explore">Just exploring<small>Show me the human, not the résumé</small></button>
+            <button class="aud-skip" data-aud="skip">skip →</button>
+        </div>
+    </div>
+
     <!-- STICKY HEADER -->
     <header class="site-header">
         <a class="header-name" href="#">Suvam Mondal</a>
@@ -54,6 +66,7 @@
             </div>
             <h1 class="hero-name" data-hero="2">Suvam Mondal</h1>
             <p class="hero-tagline" data-hero="3">Senior Data Analyst · <span id="hero-rotate">Agentic AI</span></p>
+            <p class="hero-intro" id="aud-intro" hidden></p>
             <div class="hero-social" data-hero="4">
                 <a href="https://www.linkedin.com/in/suvam-mondal/" target="_blank" rel="noopener" class="social-icon" aria-label="LinkedIn">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
@@ -69,26 +82,6 @@
                 </a>
             </div>
             <div class="scroll-hint" data-hero="5">scroll ↓</div>
-        </section>
-
-        <!-- RECRUITER FIT ENGINE -->
-        <section class="fit reveal" id="fit-check">
-            <div class="fit-card">
-                <div class="fit-eyebrow">✦ Recruiter fit check</div>
-                <h2 class="fit-title">Hiring? See how I fit your role.</h2>
-                <p class="fit-sub">Paste a job description — my AI reads it and scores the match in seconds.</p>
-                <textarea id="fit-jd" placeholder="Paste the role you're hiring for…" maxlength="4000" rows="4"></textarea>
-                <button id="fit-go" type="button" onclick="fitCheck()">Check my fit →</button>
-                <div id="fit-result" class="fit-result" hidden>
-                    <div class="fit-score">
-                        <span id="fit-pct">0%</span>
-                        <div class="fit-bar"><i></i></div>
-                    </div>
-                    <ul id="fit-matched" class="fit-matched"></ul>
-                    <div id="fit-pitch" class="fit-pitch"></div>
-                    <a class="fit-cta" href="mailto:mondal.suvam3@gmail.com">Let's talk →</a>
-                </div>
-            </div>
         </section>
 
         <!-- 01. About -->
@@ -242,28 +235,54 @@
             </div>
         </section>
 
-        <!-- 04. Connect -->
+        <!-- 04. Connect + Recruiter Fit -->
         <section class="section reveal" id="connect">
             <div class="section-header">
                 <span class="section-num">04.</span>
                 <h2 class="section-title connect-title">Let's build something.</h2>
             </div>
-            <div class="section-body">
-                <p class="about-text connect-lead">Building something, hiring, or just want to trade ideas? I'm easy to reach.</p>
-                <button class="copy-email" type="button" data-email="mondal.suvam3@gmail.com" aria-label="Copy email address">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                    mondal.suvam3@gmail.com
-                </button>
-                <div class="connect-socials">
-                    <a href="https://www.linkedin.com/in/suvam-mondal/" target="_blank" rel="noopener" class="social-icon" aria-label="LinkedIn">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-                    </a>
-                    <a href="https://www.instagram.com/me_suvam/" target="_blank" rel="noopener" class="social-icon" aria-label="Instagram">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-                    </a>
-                    <a href="mailto:mondal.suvam3@gmail.com" class="social-icon" aria-label="Email">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                    </a>
+            <div class="connect-grid">
+                <div class="connect-left">
+                    <p class="about-text connect-lead">Building something, hiring, or just want to trade ideas? I'm easy to reach.</p>
+                    <button class="copy-email" type="button" data-email="mondal.suvam3@gmail.com" aria-label="Copy email address">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                        mondal.suvam3@gmail.com
+                    </button>
+                    <div class="connect-socials">
+                        <a href="https://www.linkedin.com/in/suvam-mondal/" target="_blank" rel="noopener" class="social-icon" aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                        </a>
+                        <a href="https://www.instagram.com/me_suvam/" target="_blank" rel="noopener" class="social-icon" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                        </a>
+                        <a href="mailto:mondal.suvam3@gmail.com" class="social-icon" aria-label="Email">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="fit-card" id="fit-check">
+                    <div class="fit-eyebrow">✦ Recruiter fit check</div>
+                    <h2 class="fit-title">See how I actually fit your role.</h2>
+                    <p class="fit-sub">Paste a job description — my AI gives an honest read: where I'm strong, and where I'd be stretching.</p>
+                    <textarea id="fit-jd" placeholder="Paste the role you're hiring for…" maxlength="4000" rows="4"></textarea>
+                    <button id="fit-go" type="button" onclick="fitCheck()">Check my fit →</button>
+                    <div id="fit-result" class="fit-result" hidden>
+                        <div class="fit-score">
+                            <span id="fit-pct">0%</span>
+                            <div class="fit-bar"><i></i></div>
+                        </div>
+                        <div class="fit-block" id="fit-matched-block" hidden>
+                            <div class="fit-label">Where I fit</div>
+                            <ul id="fit-matched" class="fit-matched"></ul>
+                        </div>
+                        <div class="fit-block" id="fit-gaps-block" hidden>
+                            <div class="fit-label">Where I'd be stretching</div>
+                            <ul id="fit-gaps" class="fit-gaps"></ul>
+                        </div>
+                        <div id="fit-pitch" class="fit-pitch"></div>
+                        <a class="fit-cta" href="mailto:mondal.suvam3@gmail.com">Let's talk →</a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -302,6 +321,8 @@
     </div>
 
     <div id="toast" role="status" aria-live="polite"></div>
+
+    <button id="aud-trigger" class="aud-trigger" onclick="openAudience()" aria-label="Personalize this page">✦ Personalize</button>
 
     <canvas id="bg-canvas"></canvas>
     <script src="script.js"></script>

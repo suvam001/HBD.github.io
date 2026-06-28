@@ -511,15 +511,22 @@ function renderFit(data) {
     const pctEl   = document.getElementById('fit-pct');
     const bar     = document.querySelector('.fit-bar > i');
     const matched = document.getElementById('fit-matched');
+    const gaps    = document.getElementById('fit-gaps');
     const pitch   = document.getElementById('fit-pitch');
-    const score   = Math.max(0, Math.min(100, parseInt(data.score, 10) || 90));
+    const score   = Math.max(0, Math.min(100, parseInt(data.score, 10) || 70));
 
-    matched.innerHTML = '';
-    (data.matched || []).forEach(m => {
-        const li = document.createElement('li');
-        li.textContent = m;
-        matched.appendChild(li);
-    });
+    const fill = (ul, items) => {
+        ul.innerHTML = '';
+        (items || []).forEach(t => {
+            const li = document.createElement('li');
+            li.textContent = t;
+            ul.appendChild(li);
+        });
+        return (items || []).length > 0;
+    };
+    document.getElementById('fit-matched-block').hidden = !fill(matched, data.matched);
+    document.getElementById('fit-gaps-block').hidden    = !fill(gaps, data.gaps);
+
     pitch.innerHTML = window.marked ? marked.parse(data.pitch || '') : (data.pitch || '');
     result.hidden = false;
 
@@ -545,3 +552,68 @@ const fitTa = document.getElementById('fit-jd');
 if (fitTa) fitTa.addEventListener('keydown', e => {
     if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') fitCheck();
 });
+
+// ── AUDIENCE PERSONALIZER ──
+const AUD_INTRO = {
+    hire:    "👋 Hiring for a data role? I've put the impact and experience up top.",
+    ai:      "👋 Here for the AI & automation? Reordered to surface that first.",
+    explore: "👋 Just exploring? No pitch — here's the human first.",
+};
+const AUD_ORDER = {
+    hire:    ['experience', 'skills', 'about'],
+    ai:      ['experience', 'about', 'skills'],
+    explore: ['about', 'skills', 'experience'],
+};
+const AUD_LABEL = { hire: 'Recruiter', ai: 'Builder', explore: 'Explorer' };
+
+function setAudience(aud) {
+    if (aud === 'skip' || !AUD_ORDER[aud]) { closeAudience(); return; }
+    document.body.classList.remove('aud-hire', 'aud-ai', 'aud-explore');
+    document.body.classList.add('aud-' + aud);
+
+    const intro = document.getElementById('aud-intro');
+    if (intro) { intro.textContent = AUD_INTRO[aud] || ''; intro.hidden = false; }
+
+    const main = document.querySelector('main');
+    const connect = document.getElementById('connect');
+    AUD_ORDER[aud].forEach((id, i) => {
+        const sec = document.getElementById(id);
+        if (sec && main && connect) {
+            main.insertBefore(sec, connect);
+            const num = sec.querySelector('.section-num');
+            if (num) num.textContent = String(i + 1).padStart(2, '0') + '.';
+        }
+    });
+    const cnum = connect && connect.querySelector('.section-num');
+    if (cnum) cnum.textContent = String(AUD_ORDER[aud].length + 1).padStart(2, '0') + '.';
+
+    const trigger = document.getElementById('aud-trigger');
+    if (trigger) trigger.textContent = '✦ Viewing as: ' + AUD_LABEL[aud] + ' — change';
+
+    localStorage.setItem('aud', aud);
+    closeAudience();
+}
+
+function openAudience() {
+    const ov = document.getElementById('aud-overlay');
+    if (ov) { ov.hidden = false; ov.classList.remove('closing'); }
+}
+function closeAudience() {
+    const ov = document.getElementById('aud-overlay');
+    if (!ov || ov.hidden) return;
+    ov.classList.add('closing');
+    setTimeout(() => { ov.hidden = true; }, 350);
+}
+
+document.querySelectorAll('.aud-opt, .aud-skip').forEach(b =>
+    b.addEventListener('click', () => setAudience(b.dataset.aud)));
+
+(function initAudience() {
+    const stored = localStorage.getItem('aud');
+    if (stored && AUD_ORDER[stored]) {
+        setAudience(stored); // re-apply prior choice silently (overlay stays hidden)
+    } else if (!sessionStorage.getItem('audAsked')) {
+        sessionStorage.setItem('audAsked', '1');
+        setTimeout(openAudience, 1800); // after the loader clears
+    }
+})();
