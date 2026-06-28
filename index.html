@@ -14,7 +14,6 @@
     <meta name="twitter:title" content="Suvam Mondal | Senior Data Analyst">
     <meta name="twitter:description" content="Senior Data Analyst specializing in agentic AI workflows, healthcare analytics, and BI.">
     <meta name="twitter:image" content="https://suvam.co.in/Photo_self.jpg">
-    <link href="https://fonts.googleapis.com/css2?family=Doto:wght@700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -37,6 +36,7 @@
         <a class="header-name" href="#">Suvam Mondal</a>
         <div class="header-right">
             <span class="header-role">Senior Data Analyst</span>
+            <button id="sound-toggle" onclick="toggleSound()" aria-label="Toggle sound"><span>♪</span></button>
             <button id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme"><span>☾</span></button>
         </div>
     </header>
@@ -55,24 +55,40 @@
             <h1 class="hero-name" data-hero="2">Suvam Mondal</h1>
             <p class="hero-tagline" data-hero="3">Senior Data Analyst · <span id="hero-rotate">Agentic AI</span></p>
             <div class="hero-social" data-hero="4">
-                <a href="https://www.linkedin.com/in/suvam-mondal/" target="_blank" rel="noopener" class="social-link">
+                <a href="https://www.linkedin.com/in/suvam-mondal/" target="_blank" rel="noopener" class="social-icon" aria-label="LinkedIn">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-                    LinkedIn
                 </a>
-                <a href="https://www.instagram.com/me_suvam/" target="_blank" rel="noopener" class="social-link">
+                <a href="https://www.instagram.com/me_suvam/" target="_blank" rel="noopener" class="social-icon" aria-label="Instagram">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-                    Instagram
                 </a>
-                <a href="mailto:mondal.suvam3@gmail.com" class="social-link">
+                <a href="mailto:mondal.suvam3@gmail.com" class="social-icon" aria-label="Email">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                    Email
                 </a>
-                <a href="resume_k.pdf" download="Suvam_Mondal_Resume.pdf" class="social-link">
+                <a href="Resume_K_Suvam.pdf" download="Suvam_Mondal_Resume.pdf" class="social-icon" aria-label="Download résumé">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                    Resume
                 </a>
             </div>
             <div class="scroll-hint" data-hero="5">scroll ↓</div>
+        </section>
+
+        <!-- RECRUITER FIT ENGINE -->
+        <section class="fit reveal" id="fit-check">
+            <div class="fit-card">
+                <div class="fit-eyebrow">✦ Recruiter fit check</div>
+                <h2 class="fit-title">Hiring? See how I fit your role.</h2>
+                <p class="fit-sub">Paste a job description — my AI reads it and scores the match in seconds.</p>
+                <textarea id="fit-jd" placeholder="Paste the role you're hiring for…" maxlength="4000" rows="4"></textarea>
+                <button id="fit-go" type="button" onclick="fitCheck()">Check my fit →</button>
+                <div id="fit-result" class="fit-result" hidden>
+                    <div class="fit-score">
+                        <span id="fit-pct">0%</span>
+                        <div class="fit-bar"><i></i></div>
+                    </div>
+                    <ul id="fit-matched" class="fit-matched"></ul>
+                    <div id="fit-pitch" class="fit-pitch"></div>
+                    <a class="fit-cta" href="mailto:mondal.suvam3@gmail.com">Let's talk →</a>
+                </div>
+            </div>
         </section>
 
         <!-- 01. About -->
@@ -82,8 +98,8 @@
                 <h2 class="section-title">About</h2>
             </div>
             <div class="section-body">
-                <p class="about-text">I architect agentic AI and autonomous workflow systems that transcend traditional data processing. At Globus Systems, I deploy intelligent agents that navigate, extract, and synthesize complex datasets with minimal intervention — transforming raw data into a self-optimizing strategic asset.</p>
-                <p class="about-text">With a deep foundation in US healthcare analytics and business intelligence, I build adaptive automation systems that leverage advanced LLM frameworks to solve intricate operational bottlenecks at scale.</p>
+                <p class="about-text">I turn messy data into decisions — and repetitive work into things machines quietly do while I sleep. If a task is boring enough to do twice, I take it personally and automate it out of existence.</p>
+                <p class="about-text">Nearly six years of wrangling spreadsheets into submission, building pipelines that don't break on Mondays, and turning "can you pull this real quick?" into dashboards people actually use. Fluent in SQL, Python, AI, and a deep, healthy obsession with deleting manual effort.</p>
                 <div class="stats-row">
                     <div class="stat">
                         <span class="stat-val" data-count="88" data-suffix="%">88%</span>
@@ -122,10 +138,10 @@
                             <div class="timeline-company">Globus Systems</div>
                             <div class="timeline-role">Senior Data Analyst · Remote</div>
                             <ul class="timeline-bullets">
-                                <li>Managed data workflows for large fundraising campaigns processing millions of records.</li>
-                                <li>Used Claude AI to fully automate data extraction, transformation, and loading processes.</li>
-                                <li>Set up AI agents to automatically sort and handle support tickets.</li>
-                                <li>Created visual reports and dashboards using Power BI.</li>
+                                <li>Replaced a legacy AS400 workflow with an automated pipeline, eliminating 40 hours of manual processing per week.</li>
+                                <li>Built KNIME ETL pipelines standardizing data flow for fundraising campaigns processing 20M+ records.</li>
+                                <li>Automated Jira, email, and support-ticket workflows with Claude AI — auto-routing 100% of requests, saving 25 hours per week.</li>
+                                <li>Wrote SQL scripts and stored procedures to consolidate, segment, and update campaign data.</li>
                             </ul>
                         </div>
                     </div>
@@ -175,11 +191,11 @@
             </div>
         </section>
 
-        <!-- 03. Skills & Connect -->
-        <section class="section reveal" id="skills-connect">
+        <!-- 03. Skills -->
+        <section class="section reveal" id="skills">
             <div class="section-header">
                 <span class="section-num">03.</span>
-                <h2 class="section-title">Skills & Connect</h2>
+                <h2 class="section-title">Skills</h2>
             </div>
             <div class="section-body">
                 <div class="skills-grid">
@@ -190,10 +206,12 @@
                         </div>
                         <div class="skills-tags">
                             <span class="tag">SQL</span>
-                            <span class="tag">Power BI</span>
                             <span class="tag">Python</span>
+                            <span class="tag">Power BI</span>
+                            <span class="tag">Tableau</span>
+                            <span class="tag">KNIME</span>
+                            <span class="tag">Excel</span>
                             <span class="tag">Claude AI</span>
-                            <span class="tag">Excel Macros</span>
                             <span class="tag">LLM Frameworks</span>
                         </div>
                     </div>
@@ -221,29 +239,37 @@
                         </div>
                     </div>
                 </div>
-                <div class="connect-links">
-                    <a href="https://www.linkedin.com/in/suvam-mondal/" target="_blank" rel="noopener" class="connect-link">
-                        <svg class="link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-                        LinkedIn ↗
+            </div>
+        </section>
+
+        <!-- 04. Connect -->
+        <section class="section reveal" id="connect">
+            <div class="section-header">
+                <span class="section-num">04.</span>
+                <h2 class="section-title connect-title">Let's build something.</h2>
+            </div>
+            <div class="section-body">
+                <p class="about-text connect-lead">Building something, hiring, or just want to trade ideas? I'm easy to reach.</p>
+                <button class="copy-email" type="button" data-email="mondal.suvam3@gmail.com" aria-label="Copy email address">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                    mondal.suvam3@gmail.com
+                </button>
+                <div class="connect-socials">
+                    <a href="https://www.linkedin.com/in/suvam-mondal/" target="_blank" rel="noopener" class="social-icon" aria-label="LinkedIn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
                     </a>
-                    <a href="mailto:mondal.suvam3@gmail.com" class="connect-link">
-                        <svg class="link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                        mondal.suvam3@gmail.com ↗
+                    <a href="https://www.instagram.com/me_suvam/" target="_blank" rel="noopener" class="social-icon" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
                     </a>
-                    <a href="https://www.instagram.com/me_suvam/" target="_blank" rel="noopener" class="connect-link">
-                        <svg class="link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-                        Instagram ↗
-                    </a>
-                    <a href="resume_k.pdf" download="Suvam_Mondal_Resume.pdf" class="connect-link">
-                        <svg class="link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                        Download Resume ↓
+                    <a href="mailto:mondal.suvam3@gmail.com" class="social-icon" aria-label="Email">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
                     </a>
                 </div>
             </div>
         </section>
 
         <footer class="site-footer">
-            <span>Built with Claude Code · suvam.co.in</span>
+            <span>© Suvam Mondal · built from scratch</span>
         </footer>
 
     </main>

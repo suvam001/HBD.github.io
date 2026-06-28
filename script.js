@@ -68,6 +68,17 @@ function toggleTheme() {
     }, 38);
 })();
 
+// ── HEADER NAME (reveal after hero name scrolls past) ──
+(function () {
+    const heroName = document.querySelector('.hero-name');
+    const headerName = document.querySelector('.header-name');
+    if (!heroName || !headerName) return;
+    const obs = new IntersectionObserver(([entry]) => {
+        headerName.classList.toggle('show', !entry.isIntersecting);
+    }, { rootMargin: '-58px 0px 0px 0px', threshold: 0 });
+    obs.observe(heroName);
+})();
+
 // ── SCROLL REVEAL ──
 const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -362,7 +373,12 @@ document.querySelectorAll('.timeline-company').forEach(el => {
     const el = document.getElementById('hero-rotate');
     if (!el) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const roles = ['Agentic AI', 'Healthcare Analytics', 'Business Intelligence', 'LLM Automation'];
+    const roles = [
+        'Agentic AI', 'Team Leadership', 'Intelligent Automation', 'Stakeholder Management',
+        'Data Strategy', 'Mentorship', 'Decision Intelligence', 'Cross-functional Collaboration',
+        'Predictive Analytics', 'Client Relations', 'Diagnostic Analytics', 'Automation Expert',
+        'Data Orchestration', 'Process Optimization', 'Data Governance',
+    ];
     let i = 0;
     setInterval(() => {
         el.classList.add('out');
@@ -384,7 +400,7 @@ function showToast(msg) {
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => t.classList.remove('show'), 1800);
 }
-document.querySelectorAll('.connect-link[href^="mailto:"]').forEach(link => {
+document.querySelectorAll('a[href^="mailto:"]').forEach(link => {
     link.addEventListener('click', (e) => {
         if (!navigator.clipboard) return;
         const email = link.getAttribute('href').replace('mailto:', '');
@@ -394,4 +410,138 @@ document.querySelectorAll('.connect-link[href^="mailto:"]').forEach(link => {
             () => { window.location.href = link.getAttribute('href'); }
         );
     });
+});
+// ── AMBIENT MUSIC ──
+// Loops a royalty-free track quietly the whole time the page is open.
+const AMBIENT_VOLUME = 0.15; // light background level (0..1)
+let bgAudio = null;
+let ambientStarted = false;
+let soundOn = localStorage.getItem('sound') !== 'off'; // default on
+
+(function initSoundToggle() {
+    const btn = document.getElementById('sound-toggle');
+    if (btn && !soundOn) btn.classList.add('muted');
+})();
+
+// Smoothly ramp an audio element's volume; pauses when it reaches 0.
+function fadeAudio(el, target, ms) {
+    if (!el) return;
+    const steps = 24, start = el.volume, delta = target - start;
+    let i = 0;
+    const iv = setInterval(() => {
+        i++;
+        el.volume = Math.max(0, Math.min(1, start + delta * (i / steps)));
+        if (i >= steps) { clearInterval(iv); if (target === 0) el.pause(); }
+    }, ms / steps);
+}
+
+function startAmbient() {
+    if (ambientStarted || !soundOn) return;
+    ambientStarted = true;
+    bgAudio = new Audio('ambient.mp3');
+    bgAudio.loop = true;
+    bgAudio.preload = 'auto';
+    bgAudio.volume = 0;
+    bgAudio.play().then(() => fadeAudio(bgAudio, AMBIENT_VOLUME, 2500))
+                  .catch(() => { ambientStarted = false; });
+}
+
+// Browsers block audio until a user gesture — start on first interaction.
+window.addEventListener('pointerdown', startAmbient, { once: false, passive: true });
+['keydown', 'scroll', 'touchstart'].forEach(ev =>
+    window.addEventListener(ev, startAmbient, { once: false, passive: true }));
+
+function toggleSound() {
+    soundOn = !soundOn;
+    localStorage.setItem('sound', soundOn ? 'on' : 'off');
+    const btn = document.getElementById('sound-toggle');
+    if (btn) btn.classList.toggle('muted', !soundOn);
+
+    if (soundOn) {
+        if (!ambientStarted) { startAmbient(); return; }
+        if (bgAudio) { bgAudio.play().catch(() => {}); fadeAudio(bgAudio, AMBIENT_VOLUME, 800); }
+    } else if (bgAudio) {
+        fadeAudio(bgAudio, 0, 600); // fades out, then pauses
+    }
+}
+
+document.querySelectorAll('.copy-email').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const email = btn.dataset.email;
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(email).then(
+                () => showToast('Email copied ✓'),
+                () => { window.location.href = 'mailto:' + email; }
+            );
+        } else {
+            window.location.href = 'mailto:' + email;
+        }
+    });
+});
+
+// ── RECRUITER FIT ENGINE ──
+async function fitCheck() {
+    const ta  = document.getElementById('fit-jd');
+    const btn = document.getElementById('fit-go');
+    const jd  = (ta && ta.value || '').trim();
+    if (!jd) { if (ta) ta.focus(); return; }
+
+    const orig = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'Reading…';
+    try {
+        const res = await fetch(WORKER_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ mode: 'fit', jd: jd.slice(0, 4000) }),
+        });
+        const data = await res.json();
+        if (!res.ok || data.error) throw new Error(data.error || 'failed');
+        renderFit(data);
+    } catch (_) {
+        showToast('Could not analyze that — try again.');
+    } finally {
+        btn.disabled = false;
+        btn.textContent = orig;
+    }
+}
+
+function renderFit(data) {
+    const result  = document.getElementById('fit-result');
+    const pctEl   = document.getElementById('fit-pct');
+    const bar     = document.querySelector('.fit-bar > i');
+    const matched = document.getElementById('fit-matched');
+    const pitch   = document.getElementById('fit-pitch');
+    const score   = Math.max(0, Math.min(100, parseInt(data.score, 10) || 90));
+
+    matched.innerHTML = '';
+    (data.matched || []).forEach(m => {
+        const li = document.createElement('li');
+        li.textContent = m;
+        matched.appendChild(li);
+    });
+    pitch.innerHTML = window.marked ? marked.parse(data.pitch || '') : (data.pitch || '');
+    result.hidden = false;
+
+    requestAnimationFrame(() => { if (bar) bar.style.width = score + '%'; });
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        pctEl.textContent = score + '%';
+    } else {
+        const dur = 1100;
+        let start = null;
+        requestAnimationFrame(function loop(ts) {
+            if (!start) start = ts;
+            const p = Math.min((ts - start) / dur, 1);
+            const eased = 1 - Math.pow(1 - p, 3);
+            pctEl.textContent = Math.round(eased * score) + '%';
+            if (p < 1) requestAnimationFrame(loop);
+        });
+    }
+    result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+const fitTa = document.getElementById('fit-jd');
+if (fitTa) fitTa.addEventListener('keydown', e => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') fitCheck();
 });
