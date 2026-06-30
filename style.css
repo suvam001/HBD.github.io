@@ -540,6 +540,14 @@ main {
     border-top: 1px solid var(--border);
     font-family: var(--font-mono); font-size: 0.62rem;
     color: var(--dim); opacity: 0.4; text-align: center;
+    display: flex; flex-wrap: wrap; align-items: center;
+    justify-content: center; gap: 6px 0;
+}
+.visitor-count { white-space: nowrap; }
+.visitor-count::before { content: '·'; margin: 0 14px; }
+#visitor-count-num {
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
 }
 
 /* ── HERO LOAD STAGGER ── */

@@ -280,6 +280,28 @@ async function fetchLiveStatus() {
 }
 fetchLiveStatus();
 
+// ── VISITOR COUNTER ──
+// Each browser counts as one "new visitor": increment once (POST), then
+// read-only (GET) on every later visit. Baseline lives in the worker (198).
+async function fetchVisitorCount() {
+    if (!STATUS_URL) return;
+    const wrap = document.getElementById('visitor-count');
+    const numEl = document.getElementById('visitor-count-num');
+    if (!wrap || !numEl) return;
+    const isNew = !localStorage.getItem('sv_visited');
+    try {
+        const res = await fetch(STATUS_URL + '/count', {
+            method: isNew ? 'POST' : 'GET',
+        });
+        const data = await res.json();
+        if (typeof data.count !== 'number') return;
+        if (isNew) localStorage.setItem('sv_visited', '1');
+        numEl.textContent = data.count.toLocaleString();
+        wrap.hidden = false;
+    } catch { /* silently fail — counter is a nice-to-have */ }
+}
+fetchVisitorCount();
+
 // ── BACKGROUND CANVAS ──
 const canvas = document.getElementById('bg-canvas');
 const ctx    = canvas ? canvas.getContext('2d') : null;
